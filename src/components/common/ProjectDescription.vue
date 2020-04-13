@@ -1,42 +1,17 @@
 <template>
   <div>
     <v-flex xs12 text-xs-center mt-5 mb-5>
-      {{ $t('landing.BUY_ME_A_COFFEE_DESCRIPTION') }}
       <br />
       <br />
-      <a
-        class="bmc-button"
-        target="_blank"
-        href="https://www.buymeacoffee.com/muGHf41NT"
-      >
-        <img
-          src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg"
-          :alt="$t('landing.BUY_ME_A_COFFEE')"
-        />
-        <span style="margin-left: 5px;">{{
-          $t('landing.BUY_ME_A_COFFEE')
-        }}</span>
-      </a>
     </v-flex>
 
     <v-flex xs12 text-xs-center mb-5>
-      {{ $t('landing.DESCRIPTION_VUE') }}
       <br />
       <br />
-      {{ $t('landing.FRONTEND_DOCUMENTATION') }}:
-      <a href="https://github.com/davellanedam/vue-skeleton-mvp"
-        >https://github.com/davellanedam/vue-skeleton-mvp</a
-      >
     </v-flex>
     <v-flex xs12>
-      {{ $t('landing.DESCRIPTION_API') }}
       <br />
       <br />
-      {{ $t('landing.API_DOCUMENTATION') }}:
-      <a
-        href="https://github.com/davellanedam/node-express-mongodb-jwt-rest-api-skeleton"
-        >https://github.com/davellanedam/node-express-mongodb-jwt-rest-api-skeleton</a
-      >
     </v-flex>
   </div>
 </template>

@@ -35,13 +35,6 @@
           <v-icon>{{ item.icon }}</v-icon>
           &nbsp;{{ item.title }}
         </v-btn>
-        <v-list-item class="hidden-sm-and-down">
-          <v-icon>mdi-weather-sunny</v-icon>
-          <v-list-item-action>
-            <v-switch v-model="isDark" inset></v-switch>
-          </v-list-item-action>
-          <v-icon class="pl-2">mdi-weather-night</v-icon>
-        </v-list-item>
         <v-menu v-if="admin" offset-y>
           <template v-slot:activator="{ on }">
             <v-btn v-on="on" text class="btnAdmin hidden-sm-and-down">
@@ -74,7 +67,6 @@
           <v-icon left>mdi-exit-to-app</v-icon>
           {{ $t('menuItems.LOGOUT') }}
         </v-btn>
-        <LocaleChanger />
       </v-toolbar-items>
     </v-app-bar>
     <v-navigation-drawer v-model="sidebar" absolute disable-resize-watcher>
@@ -126,15 +118,6 @@
             {{ $t('menuItems.LOGOUT') }}
           </v-list-item-content>
         </v-list-item>
-
-        <v-list-item>
-          <v-list-item-action></v-list-item-action>
-          <v-icon>mdi-weather-sunny</v-icon>
-          <v-list-item-action class="ml-2">
-            <v-switch id="themeSwitcher" v-model="isDark" inset></v-switch>
-          </v-list-item-action>
-          <v-icon>mdi-weather-night</v-icon>
-        </v-list-item>
       </v-list>
     </v-navigation-drawer>
   </div>
@@ -142,7 +125,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import LocaleChanger from '@/components/core/LocaleChanger'
 import ResizeText from 'vue-resize-text'
 
 export default {
@@ -186,15 +168,11 @@ export default {
       ]
     }
   },
-  components: {
-    LocaleChanger
-  },
   directives: {
     ResizeText
   },
   data() {
     return {
-      isDark: false,
       sidebar: false
     }
   },
@@ -273,16 +251,6 @@ export default {
     userLogout() {
       this.$store.dispatch('userLogout')
     }
-  },
-  watch: {
-    isDark() {
-      this.$vuetify.theme.dark = this.isDark
-      localStorage.setItem('dark', this.isDark)
-    }
-  },
-  created() {
-    const dark = localStorage.getItem('dark')
-    this.isDark = dark ? JSON.parse(dark) : false
   }
 }
 </script>
