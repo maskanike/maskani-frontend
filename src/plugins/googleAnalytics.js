@@ -4,7 +4,7 @@ import VueAnalytics from 'vue-analytics'
 
 if (process.env.NODE_ENV === 'production') {
   Vue.use(VueAnalytics, {
-    id: 'UA-138050457-1',
+    id: '', //  TODO add google anaylics key
     router
   })
 }
