@@ -2,9 +2,9 @@ import axios from 'axios'
 
 export default {
   userLogin(payload) {
-    return axios.post('/login', payload)
+    return axios.post('/auth/login', payload)
   },
   refreshToken() {
-    return axios.get('/token')
+    return axios.get('/auth/token') // TODO implement token refersh on backend
   }
 }
