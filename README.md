@@ -68,11 +68,3 @@ yarn test:unit
 ### Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
-
-## Bugs or improvements
-
-Feel free to report any bugs or improvements. Pull requests are always welcome.
-
-## License
-
-This project is open-sourced software licensed under the MIT License. See the LICENSE file for more information.
