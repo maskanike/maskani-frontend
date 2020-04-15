@@ -148,6 +148,7 @@
     "TITLE": "Registro",
     "NAME": "Nombre",
     "EMAIL": "E-mail",
+    "MSISDN": "Número De Teléfono",
     "PASSWORD": "Contraseña",
     "CONFIRM_PASSWORD": "Confirmar Contraseña",
     "SIGN_ME_UP": "Registrarme"

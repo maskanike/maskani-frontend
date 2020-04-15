@@ -148,6 +148,7 @@
     "TITLE": "Signup",
     "NAME": "Name",
     "EMAIL": "E-mail",
+    "MSISDN": "Phone Number",
     "PASSWORD": "Password",
     "CONFIRM_PASSWORD": "Confirm Password",
     "SIGN_ME_UP": "Sign me up"

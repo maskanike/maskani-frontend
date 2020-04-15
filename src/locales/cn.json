@@ -148,6 +148,7 @@
     "TITLE": "注册",
     "NAME": "姓名",
     "EMAIL": "邮件",
+    "MSISDN": "电话号码",
     "PASSWORD": "密码",
     "CONFIRM_PASSWORD": "确认密码",
     "SIGN_ME_UP": "注册"
