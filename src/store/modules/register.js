@@ -1,6 +1,6 @@
 import * as types from '@/store/mutation-types'
 import router from '@/router'
-import api from '@/services/api/signup'
+import api from '@/services/api/register'
 import { buildSuccess, handleError } from '@/utils/utils.js'
 
 const actions = {

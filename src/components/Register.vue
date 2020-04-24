@@ -116,9 +116,9 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['userSignUp']),
+    ...mapActions(['userRegister']),
     async submit() {
-      await this.userSignUp({
+      await this.userRegister({
         name: this.name,
         email: this.email,
         msisdn: this.msisdn,
