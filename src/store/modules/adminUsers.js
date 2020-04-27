@@ -14,8 +14,8 @@ const actions = {
         .getUsers(payload)
         .then((response) => {
           if (response.status === 200) {
-            commit(types.USERS, response.data.docs)
-            commit(types.TOTAL_USERS, response.data.totalDocs)
+            commit(types.USERS, response.data)
+            commit(types.TOTAL_USERS, response.data)
             resolve()
           }
         })

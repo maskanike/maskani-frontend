@@ -184,10 +184,10 @@ export default {
     adminItems() {
       return [
         {
-          title: this.$t('adminItems.CITIES'),
-          link: 'admin-cities',
-          icon: 'mdi-city',
-          class: 'btnAdminCities'
+          title: this.$t('adminItems.FLATS'),
+          link: 'admin-flats',
+          icon: 'mdi-home',
+          class: 'btnAdminFlats'
         },
         {
           title: this.$t('adminItems.USERS'),
@@ -240,7 +240,7 @@ export default {
         },
         {
           title: this.$t('menuItems.SIGNUP'),
-          link: 'signup',
+          link: 'register',
           icon: 'mdi-plus-circle-outline',
           class: 'btnLogin'
         }

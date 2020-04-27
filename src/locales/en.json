@@ -58,7 +58,7 @@
   },
   "adminItems": {
     "ADMIN": "Admin",
-    "CITIES": "Cities",
+    "FLATS": "Flats",
     "USERS": "Users"
   },
   "roles": {
@@ -167,7 +167,7 @@
     "NAME": "Name",
     "EMAIL": "E-mail",
     "PHONE": "Phone",
-    "CITY": "City",
+    "FLAT": "Flat",
     "NO_RESULTS_FOUND": "No results found",
     "COUNTRY": "Country",
     "SAVE": "Save",

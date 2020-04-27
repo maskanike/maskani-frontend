@@ -157,66 +157,6 @@
                     ></v-text-field>
                   </ValidationProvider>
                 </v-flex>
-                <v-flex xs12 md4>
-                  <ValidationProvider rules="required" v-slot="{ errors }">
-                    <v-autocomplete
-                      id="city"
-                      name="city"
-                      :label="$t('myProfile.CITY')"
-                      :search-input.sync="searchInput"
-                      v-model="city"
-                      :items="allCities"
-                      clearable
-                      clear-icon="mdi-close"
-                      :no-data-text="$t('myProfile.NO_RESULTS_FOUND')"
-                      :error="errors.length > 0"
-                      :error-messages="errors[0]"
-                      autocomplete="off"
-                    />
-                  </ValidationProvider>
-                </v-flex>
-                <v-flex xs12 md4>
-                  <ValidationProvider rules="required" v-slot="{ errors }">
-                    <v-text-field
-                      id="country"
-                      name="country"
-                      type="text"
-                      :label="$t('myProfile.COUNTRY')"
-                      v-model="country"
-                      :error="errors.length > 0"
-                      :error-messages="errors[0]"
-                      autocomplete="off"
-                    ></v-text-field>
-                  </ValidationProvider>
-                </v-flex>
-                <v-flex xs12 md6>
-                  <ValidationProvider rules="url" v-slot="{ errors }">
-                    <v-text-field
-                      id="urlTwitter"
-                      name="urlTwitter"
-                      type="url"
-                      label="Twitter"
-                      v-model="urlTwitter"
-                      :error="errors.length > 0"
-                      :error-messages="errors[0]"
-                      autocomplete="off"
-                    ></v-text-field>
-                  </ValidationProvider>
-                </v-flex>
-                <v-flex xs12 md6>
-                  <ValidationProvider rules="url" v-slot="{ errors }">
-                    <v-text-field
-                      id="urlGitHub"
-                      name="urlGitHub"
-                      type="url"
-                      label="GitHub"
-                      v-model="urlGitHub"
-                      :error="errors.length > 0"
-                      :error-messages="errors[0]"
-                      autocomplete="off"
-                    ></v-text-field>
-                  </ValidationProvider>
-                </v-flex>
                 <v-flex text-xs-center mt-5>
                   <SubmitButton
                     :buttonText="$t('myProfile.SAVE')"
@@ -281,57 +221,6 @@ export default {
         }
         this.addProfileData(data)
       }
-    },
-    allCities() {
-      return this.$store.state.cities.allCities
-    },
-    city: {
-      get() {
-        return this.$store.state.profile.profile.city
-      },
-      set(value) {
-        const data = {
-          key: 'city',
-          value
-        }
-        this.addProfileData(data)
-      }
-    },
-    country: {
-      get() {
-        return this.$store.state.profile.profile.country
-      },
-      set(value) {
-        const data = {
-          key: 'country',
-          value
-        }
-        this.addProfileData(data)
-      }
-    },
-    urlTwitter: {
-      get() {
-        return this.$store.state.profile.profile.urlTwitter
-      },
-      set(value) {
-        const data = {
-          key: 'urlTwitter',
-          value
-        }
-        this.addProfileData(data)
-      }
-    },
-    urlGitHub: {
-      get() {
-        return this.$store.state.profile.profile.urlGitHub
-      },
-      set(value) {
-        const data = {
-          key: 'urlGitHub',
-          value
-        }
-        this.addProfileData(data)
-      }
     }
   },
   methods: {
@@ -345,11 +234,7 @@ export default {
     async submit() {
       await this.saveProfile({
         name: this.name,
-        phone: this.phone,
-        city: this.city,
-        country: this.country,
-        urlTwitter: this.urlTwitter,
-        urlGitHub: this.urlGitHub
+        phone: this.phone
       })
     },
     close() {
@@ -380,7 +265,6 @@ export default {
   },
   async mounted() {
     await this.getProfile()
-    await this.getAllCities()
   }
 }
 </script>
