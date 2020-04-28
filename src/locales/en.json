@@ -27,7 +27,7 @@
     "EMAIL_ALREADY_EXISTS": "E-mail already exists",
     "ID_MALFORMED": "ID malformed",
     "ERROR_WITH_FILTER": "Error with filter",
-    "CITY_ALREADY_EXISTS": "City already exists"
+    "FLAT_ALREADY_EXISTS": "Flat already exists"
   },
   "common": {
     "DELETE": "Delete",
@@ -80,8 +80,8 @@
     "OF": "of",
     "SEARCH": "Search"
   },
-  "cities": {
-    "TITLE": "Cities",
+  "flats": {
+    "TITLE": "Flats",
     "headers": {
       "NAME": "Name"
     }
@@ -93,7 +93,7 @@
       "EMAIL": "E-mail",
       "ROLE": "Role",
       "VERIFIED": "Verified",
-      "CITY": "City",
+      "FLAT": "Flat",
       "COUNTRY": "Country",
       "PHONE": "Phone"
     },

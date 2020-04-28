@@ -15,7 +15,7 @@ const actions = {
         .then((response) => {
           if (response.status === 200) {
             commit(types.USERS, response.data)
-            commit(types.TOTAL_USERS, response.data)
+            commit(types.TOTAL_USERS, response.data.length)
             resolve()
           }
         })
@@ -30,12 +30,10 @@ const actions = {
         name: payload.name,
         email: payload.email,
         role: payload.role,
-        phone: payload.phone,
-        city: payload.city,
-        country: payload.country
+        phone: payload.phone
       }
       api
-        .editUser(payload._id, data)
+        .editUser(payload.id, data)
         .then((response) => {
           if (response.status === 200) {
             buildSuccess(

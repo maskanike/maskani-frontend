@@ -227,7 +227,7 @@ export default {
     ...mapActions([
       'changeMyPassword',
       'getProfile',
-      'getAllCities',
+      'getAllFlats',
       'addProfileData',
       'saveProfile'
     ]),

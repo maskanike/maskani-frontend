@@ -61,7 +61,7 @@
                   <v-card-text>
                     <v-container grid-list-md>
                       <v-layout wrap>
-                        <template v-if="editedItem._id">
+                        <template v-if="editedItem.id">
                           <v-flex xs12 md4>
                             <label for="createdAt">{{
                               $t('common.CREATED')
@@ -121,7 +121,7 @@
                             ></v-text-field>
                           </ValidationProvider>
                         </v-flex>
-                        <template v-if="!editedItem._id">
+                        <template v-if="!editedItem.id">
                           <v-flex xs12 md6>
                             <ValidationProvider
                               rules="required|min:5"
@@ -233,7 +233,7 @@
         <td v-html="trueFalse(props.item.verified)"></td>
         <td>{{ props.item.phone }}</td>
       </template>
-      <template v-slot:item._id="{ item }">
+      <template v-slot:item.id="{ item }">
         <td class="fill-height px-0">
           <v-layout class="justify-center">
             <v-tooltip top>
@@ -318,7 +318,7 @@ export default {
       ]
     },
     formTitle() {
-      return this.editedItem._id
+      return this.editedItem.id
         ? this.$t('dataTable.EDIT_ITEM')
         : this.$t('dataTable.NEW_ITEM')
     },
@@ -326,7 +326,7 @@ export default {
       return [
         {
           text: this.$i18n.t('dataTable.ACTIONS'),
-          value: '_id',
+          value: 'id',
           sortable: false,
           width: 100
         },
@@ -456,7 +456,7 @@ export default {
         )
         if (response) {
           this.dataTableLoading = true
-          await this.deleteUser(item._id)
+          await this.deleteUser(item.id)
           await this.getUsers(
             buildPayloadPagination(this.pagination, this.buildSearch())
           )
@@ -477,7 +477,7 @@ export default {
       try {
         this.dataTableLoading = true
         // Updating item
-        if (this.editedItem._id) {
+        if (this.editedItem.id) {
           await this.editUser(this.editedItem)
           await this.getUsers(
             buildPayloadPagination(this.pagination, this.buildSearch())

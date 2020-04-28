@@ -19,7 +19,7 @@ _<template>
         <v-layout wrap>
           <v-flex xs12 sm12 md4 mt-3 pl-4>
             <div class="text-left">
-              <v-toolbar-title>{{ $t('cities.TITLE') }}</v-toolbar-title>
+              <v-toolbar-title>{{ $t('flats.TITLE') }}</v-toolbar-title>
             </div>
           </v-flex>
           <v-flex xs12 sm6 md4 px-3>
@@ -62,7 +62,7 @@ _<template>
                   <v-card-text>
                     <v-container grid-list-md>
                       <v-layout wrap>
-                        <template v-if="editedItem._id">
+                        <template v-if="editedItem.id">
                           <v-flex xs12 md6>
                             <label for="createdAt">{{
                               $t('common.CREATED')
@@ -90,7 +90,7 @@ _<template>
                               id="name"
                               name="name"
                               v-model="editedItem.name"
-                              :label="$t('cities.headers.NAME')"
+                              :label="$t('flats.headers.NAME')"
                               :error="errors.length > 0"
                               :error-messages="errors[0]"
                               autocomplete="off"
@@ -125,7 +125,7 @@ _<template>
           </v-flex>
         </v-layout>
       </template>
-      <template v-slot:item._id="{ item }">
+      <template v-slot:item.id="{ item }">
         <v-layout class="justify-center">
           <v-tooltip top>
             <template v-slot:activator="{ on }">
@@ -172,7 +172,7 @@ export default {
   metaInfo() {
     return {
       title: this.$store.getters.appTitle,
-      titleTemplate: `${this.$t('cities.TITLE')} - %s`
+      titleTemplate: `${this.$t('flats.TITLE')} - %s`
     }
   },
   data() {
@@ -189,7 +189,7 @@ export default {
   },
   computed: {
     formTitle() {
-      return this.editedItem._id
+      return this.editedItem.id
         ? this.$t('dataTable.EDIT_ITEM')
         : this.$t('dataTable.NEW_ITEM')
     },
@@ -197,12 +197,12 @@ export default {
       return [
         {
           text: this.$i18n.t('dataTable.ACTIONS'),
-          value: '_id',
+          value: 'id',
           sortable: false,
           width: 100
         },
         {
-          text: this.$i18n.t('cities.headers.NAME'),
+          text: this.$i18n.t('flats.headers.NAME'),
           align: 'left',
           sortable: true,
           value: 'name'
@@ -222,10 +222,10 @@ export default {
       ]
     },
     items() {
-      return this.$store.state.adminCities.cities
+      return this.$store.state.adminFlats.flats
     },
     totalItems() {
-      return this.$store.state.adminCities.totalCities
+      return this.$store.state.adminFlats.totalFlats
     }
   },
   watch: {
@@ -236,7 +236,7 @@ export default {
       async handler() {
         try {
           this.dataTableLoading = true
-          await this.getCities(
+          await this.getFlats(
             buildPayloadPagination(this.pagination, this.buildSearch())
           )
           this.dataTableLoading = false
@@ -255,7 +255,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getCities', 'editCity', 'saveCity', 'deleteCity']),
+    ...mapActions(['getFlats', 'editFlat', 'saveFlat', 'deleteFlat']),
     getFormat(date) {
       window.__localeId__ = this.$store.getters.locale
       return getFormat(date, 'iii, MMMM d yyyy, h:mm a')
@@ -263,7 +263,7 @@ export default {
     async doSearch() {
       try {
         this.dataTableLoading = true
-        await this.getCities(
+        await this.getFlats(
           buildPayloadPagination(this.pagination, this.buildSearch())
         )
         this.dataTableLoading = false
@@ -295,8 +295,8 @@ export default {
         )
         if (response) {
           this.dataTableLoading = true
-          await this.deleteCity(item._id)
-          await this.getCities(
+          await this.deleteFlat(item.id)
+          await this.getFlats(
             buildPayloadPagination(this.pagination, this.buildSearch())
           )
           this.dataTableLoading = false
@@ -316,22 +316,6 @@ export default {
       const isValid = await this.$refs.observer.validate()
       if (isValid) {
         try {
-          this.dataTableLoading = true
-          // Updating item
-          if (this.editedItem._id) {
-            await this.editCity(this.editedItem)
-            await this.getCities(
-              buildPayloadPagination(this.pagination, this.buildSearch())
-            )
-            this.dataTableLoading = false
-          } else {
-            // Creating new item
-            await this.saveCity({ name: this.editedItem.name })
-            await this.getCities(
-              buildPayloadPagination(this.pagination, this.buildSearch())
-            )
-            this.dataTableLoading = false
-          }
           this.close()
           // eslint-disable-next-line no-unused-vars
         } catch (error) {

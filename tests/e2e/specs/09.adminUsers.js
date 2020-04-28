@@ -19,7 +19,7 @@ describe('Admin Users', () => {
     // Checks input type is text
     cy.get('input[name=name]').invoke('attr', 'type').should('contain', 'text')
     cy.get('#role').invoke('attr', 'type').should('contain', 'text')
-    cy.get('#city').invoke('attr', 'type').should('contain', 'text')
+    cy.get('#flat').invoke('attr', 'type').should('contain', 'text')
     cy.get('input[name=country]')
       .invoke('attr', 'type')
       .should('contain', 'text')
@@ -65,14 +65,14 @@ describe('Admin Users', () => {
       'div.inputRole > div > div > div > div > div > i.mdi-menu-down'
     ).click({ force: true })
     cy.get('div.v-list-item__title').contains('User').click()
-    // city
+    // flat
     cy.get(
-      'div.inputCity > div > div > div > div > div > i.mdi-menu-down'
+      'div.inputFlat > div > div > div > div > div > i.mdi-menu-down'
     ).click({ force: true })
     cy.get('div.v-list-item__title').contains('Cali').click()
-    cy.get('#city').clear({ force: true })
+    cy.get('#flat').clear({ force: true })
     cy.get(
-      'div.inputCity > div > div > div > div > div > i.mdi-menu-down'
+      'div.inputFlat > div > div > div > div > div > i.mdi-menu-down'
     ).click({ force: true })
     cy.get('div.v-list-item__title')
       .contains('Bucaramanga')
@@ -108,10 +108,10 @@ describe('Admin Users', () => {
     cy.get('div.v-list-item__title')
       .contains('Administrator')
       .click({ force: true })
-    // city
-    cy.get('#city').clear({ force: true })
+    // flat
+    cy.get('#flat').clear({ force: true })
     cy.get(
-      'div.inputCity > div > div > div > div > div > i.mdi-menu-down'
+      'div.inputFlat > div > div > div > div > div > i.mdi-menu-down'
     ).click({ force: true })
     cy.get('div.v-list-item__title').contains('Cali').click({ force: true })
     // country

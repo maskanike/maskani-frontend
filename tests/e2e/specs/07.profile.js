@@ -23,7 +23,7 @@ describe('Profile', () => {
       .should('contain', 'disabled')
     // Checks input type is text
     cy.get('input[name=name]').invoke('attr', 'type').should('contain', 'text')
-    cy.get('input[name=city]').invoke('attr', 'type').should('contain', 'text')
+    cy.get('input[name=flat]').invoke('attr', 'type').should('contain', 'text')
     cy.get('input[name=country]')
       .invoke('attr', 'type')
       .should('contain', 'text')
@@ -54,10 +54,10 @@ describe('Profile', () => {
     cy.get('input[name=name]').clear().type(name)
     // phone
     cy.get('input[name=phone]').clear().type(phone)
-    // city
+    // flat
     cy.get('i.mdi-menu-down').should('have.class', 'mdi-menu-down').click()
     cy.get('div.v-list-item__title').contains('Cali').click()
-    cy.get('#city').clear({ force: true })
+    cy.get('#flat').clear({ force: true })
     cy.get('i.mdi-menu-down').should('have.class', 'mdi-menu-down').click()
     cy.get('div.v-list-item__title').contains('Bucaramanga').click()
     // country
@@ -74,7 +74,7 @@ describe('Profile', () => {
     // Confirm values
     cy.get('input[name=name]').should('have.value', name)
     cy.get('input[name=phone]').should('have.value', phone)
-    cy.get('input[name=city]').should('have.value', 'Bucaramanga')
+    cy.get('input[name=flat]').should('have.value', 'Bucaramanga')
     cy.get('input[name=country]').should('have.value', country)
     cy.get('input[name=urlTwitter]').should('have.value', urlTwitter)
     cy.get('input[name=urlGitHub]').should('have.value', urlGitHub)
