@@ -316,6 +316,22 @@ export default {
       const isValid = await this.$refs.observer.validate()
       if (isValid) {
         try {
+          this.dataTableLoading = true
+          // Updating item
+          if (this.editedItem.id) {
+            await this.editFlat(this.editedItem)
+            await this.getFlats(
+              buildPayloadPagination(this.pagination, this.buildSearch())
+            )
+            this.dataTableLoading = false
+          } else {
+            // Creating new item
+            await this.saveFlat({ name: this.editedItem.name })
+            await this.getFlats(
+              buildPayloadPagination(this.pagination, this.buildSearch())
+            )
+            this.dataTableLoading = false
+          }
           this.close()
           // eslint-disable-next-line no-unused-vars
         } catch (error) {
