@@ -3,7 +3,7 @@
     <Toolbar />
     <v-content class="text-center">
       <loading />
-      <v-container fluid>
+      <v-container fluid ma-0 pa-0 fill-height>
         <transition name="fade" mode="out-in">
           <router-view />
         </transition>

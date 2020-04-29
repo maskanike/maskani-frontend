@@ -1,25 +1,35 @@
 <template v-slot:activator="{ on }">
   <div>
-    <v-app-bar flat>
+    <v-app-bar
+      id="home-app-bar"
+      app
+      color="white"
+      elevation="1"
+      height="80"
+      padding="2px"
+      margin-bottom="3px"
+    >
       <span class="hidden-md-and-up">
         <v-app-bar-nav-icon @click="sidebar = !sidebar"></v-app-bar-nav-icon>
       </span>
-      <div class="headline text-uppercase ml-0">
+      <div class="headline ml-0">
         <div v-resize-text>
           <router-link
             :to="{ name: 'home' }"
             tag="span"
             style="cursor: pointer;"
             v-if="isTokenSet"
-            >{{ appTitle }}</router-link
           >
+            <v-img :src="`${publicPath}img/logoA.svg`" width="250px"></v-img>
+          </router-link>
           <router-link
             :to="{ name: 'landing' }"
             tag="span"
             style="cursor: pointer;"
             v-else
-            >{{ appTitle }}</router-link
           >
+            <v-img :src="`${publicPath}img/logoA.svg`" width="250px"></v-img>
+          </router-link>
         </div>
       </div>
       <v-spacer></v-spacer>
@@ -270,3 +280,14 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+#home-app-bar
+  .v-tabs-slider
+    max-width: 24px
+    margin: 3 auto
+
+  .v-tab
+    &::before
+      display: none
+</style>
