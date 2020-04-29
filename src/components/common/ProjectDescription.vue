@@ -32,67 +32,45 @@
                   method="POST"
                   action="/auth/signup"
                 >
-                  <div class="form-group">
-                    <label for="fullName" placeholder="Full Name"
-                      >Full Name</label
-                    >
-                    <input
-                      class="form-control"
-                      type="text"
-                      id="signupName"
-                      placeholder
-                      required="required"
-                      autofocus="autofocus"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label for="emailAddress" placeholder="Email Address"
-                      >Email Address</label
-                    >
-                    <input
-                      class="form-control"
-                      type="email"
-                      id="signupEmail"
-                      placeholder
-                      required="required"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label for="phoneNumber" placeholder="Phone Number"
-                      >Phone Number</label
-                    >
-                    <input
-                      class="form-control"
-                      type="number"
-                      id="signupPhone"
-                      placeholder
-                      required="required"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label for="Password" placeholder="Password"
-                      >Password</label
-                    >
-                    <input
-                      class="form-control"
-                      type="password"
-                      id="signupPass1"
-                      placeholder
-                      required="required"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label for="Password" placeholder="Confirm Password"
-                      >Confirm Password</label
-                    >
-                    <input
-                      class="form-control"
-                      type="password"
-                      id="signupPass2"
-                      placeholder
-                      required="required"
-                    />
-                  </div>
+                  <v-card-text>
+                    <v-form>
+                      <v-text-field
+                        id="signupName"
+                        label="Full Name"
+                        name="signupName"
+                        prepend-icon="person"
+                        type="text"
+                      />
+                      <v-text-field
+                        id="signupEmail"
+                        label="Email Address"
+                        name="signupEmail"
+                        prepend-icon="email"
+                        type="text"
+                      />
+                      <v-text-field
+                        id="signupPhone"
+                        label="Phone Number"
+                        name="signupPhone"
+                        prepend-icon="phone"
+                        type="text"
+                      />
+                      <v-text-field
+                        id="signupPass1"
+                        label="Password"
+                        name="signupPass1"
+                        prepend-icon="lock"
+                        type="password"
+                      />
+                      <v-text-field
+                        id="signupPass2"
+                        label="Confirm Password"
+                        name="signupPass2"
+                        prepend-icon="lock"
+                        type="password"
+                      />
+                    </v-form>
+                  </v-card-text>
                   <div class="form-group">
                     <div class="checkbox">
                       <label>
