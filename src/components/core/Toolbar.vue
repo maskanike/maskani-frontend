@@ -69,7 +69,18 @@
         </v-btn>
       </v-toolbar-items>
     </v-app-bar>
+    <!-- <nav
+      class="navbar align-items-center fixed-top p-2 px-md-5 mb-3 bg-white border-bottom shadow-sm"
+    > -->
     <v-navigation-drawer v-model="sidebar" absolute disable-resize-watcher>
+      <v-img>
+        <a class="navbar-brand" href="/">
+          <img
+            class="brand brandA my-0 mr-md-auto font-weight-normal"
+            src="${publicPath}img/logoA.svg"
+          />
+        </a>
+      </v-img>
       <v-list>
         <v-list-item>
           <v-list-item-content>{{ appTitle }}</v-list-item-content>
@@ -93,9 +104,9 @@
 
         <v-list-group v-if="admin" prepend-icon="mdi-lock" no-action>
           <v-list-item slot="activator" class="pl-0">
-            <v-list-item-content>{{
-              $t('adminItems.ADMIN')
-            }}</v-list-item-content>
+            <v-list-item-content>
+              {{ $t('adminItems.ADMIN') }}
+            </v-list-item-content>
           </v-list-item>
           <v-list-item
             v-for="(item, index) in adminItems"
@@ -114,12 +125,16 @@
           <v-list-item-action>
             <v-icon>mdi-exit-to-app</v-icon>
           </v-list-item-action>
-          <v-list-item-content>
-            {{ $t('menuItems.LOGOUT') }}
-          </v-list-item-content>
+          <v-list-item-content>{{
+            $t('menuItems.LOGOUT')
+          }}</v-list-item-content>
         </v-list-item>
       </v-list>
+      <!-- </nav> -->
     </v-navigation-drawer>
+    <!-- <div>
+      <nav class="navbarA my-2 my-md-0 mr-md-3"></nav>
+    </div> -->
   </div>
 </template>
 
@@ -173,7 +188,8 @@ export default {
   },
   data() {
     return {
-      sidebar: false
+      sidebar: false,
+      publicPath: process.env.BASE_URL
     }
   },
   computed: {
