@@ -30,8 +30,9 @@
       </div>
       <Heading :title="$t('home.GREETING', [name])" />
       <Description :description="$t('home.DESCRIPTION')" />
+      <Chart :title="$t('home.CHART_DESCRIPTION', [name])"></Chart>
+      <!-- TODO implement chart here -->
     </v-layout>
-    <!-- <ProjectDescription /> -->
   </v-container>
 </template>
 

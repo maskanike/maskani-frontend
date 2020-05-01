@@ -29,3 +29,12 @@ export const TOTAL_FLATS = 'TOTAL_FLATS'
 // Admin - Users
 export const USERS = 'USERS'
 export const TOTAL_USERS = 'TOTAL_USERS'
+// Tenants
+export const TENANTS = 'TENANTS'
+export const TOTAL_TENANTS = 'TOTAL_TENANTS'
+// Invoices
+export const INVOICES = 'INVOICES'
+export const TOTAL_INVOICES = 'TOTAL_INVOICES'
+// Receipts
+export const RECEIPTS = 'RECEIPTS'
+export const TOTAL_RECEIPTS = 'TOTAL_RECEIPTS'

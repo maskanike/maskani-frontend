@@ -233,10 +233,22 @@ export default {
             class: 'btnHome'
           },
           {
-            title: this.$t('menuItems.ABOUT'),
-            link: 'about',
-            icon: 'mdi-help-circle-outline',
-            class: 'btnAbout'
+            title: this.$t('menuItems.INVOICES'),
+            link: 'billing-invoices',
+            icon: 'mdi-home',
+            class: 'btnBillingInvoices'
+          },
+          {
+            title: this.$t('menuItems.RECEIPTS'),
+            link: 'billing-receipts',
+            icon: 'mdi-account-supervisor',
+            class: 'btnBillingReceipts'
+          },
+          {
+            title: this.$t('menuItems.SETTINGS'),
+            link: 'settings',
+            icon: 'mdi-spa',
+            class: 'btnSettings'
           },
           {
             title: this.$t('menuItems.MY_PROFILE'),
