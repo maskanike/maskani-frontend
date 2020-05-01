@@ -61,7 +61,7 @@
                   <v-card-text>
                     <v-container grid-list-md>
                       <v-layout wrap>
-                        <template v-if="editedItem._id">
+                        <template v-if="editedItem.id">
                           <v-flex xs12 md4>
                             <label for="createdAt">{{
                               $t('common.CREATED')
@@ -121,7 +121,7 @@
                             ></v-text-field>
                           </ValidationProvider>
                         </v-flex>
-                        <template v-if="!editedItem._id">
+                        <template v-if="!editedItem.id">
                           <v-flex xs12 md6>
                             <ValidationProvider
                               rules="required|min:5"
@@ -186,42 +186,6 @@
                             rules="required"
                             v-slot="{ errors }"
                           >
-                            <v-autocomplete
-                              id="city"
-                              name="city"
-                              :label="$t('users.headers.CITY')"
-                              :search-input.sync="searchInput"
-                              v-model="editedItem.city"
-                              :items="allCities"
-                              clearable
-                              :error="errors.length > 0"
-                              :error-messages="errors[0]"
-                              autocomplete="off"
-                              class="inputCity"
-                            />
-                          </ValidationProvider>
-                        </v-flex>
-                        <v-flex xs12 md6>
-                          <ValidationProvider
-                            rules="required"
-                            v-slot="{ errors }"
-                          >
-                            <v-text-field
-                              id="country"
-                              name="country"
-                              v-model="editedItem.country"
-                              :label="$t('users.headers.COUNTRY')"
-                              :error="errors.length > 0"
-                              :error-messages="errors[0]"
-                              autocomplete="off"
-                            ></v-text-field>
-                          </ValidationProvider>
-                        </v-flex>
-                        <v-flex xs12 md6>
-                          <ValidationProvider
-                            rules="required"
-                            v-slot="{ errors }"
-                          >
                             <v-text-field
                               id="phone"
                               name="phone"
@@ -267,11 +231,9 @@
         <td>{{ props.item.email }}</td>
         <td>{{ roleName(props.item.role) }}</td>
         <td v-html="trueFalse(props.item.verified)"></td>
-        <td>{{ props.item.city }}</td>
-        <td>{{ props.item.country }}</td>
         <td>{{ props.item.phone }}</td>
       </template>
-      <template v-slot:item._id="{ item }">
+      <template v-slot:item.id="{ item }">
         <td class="fill-height px-0">
           <v-layout class="justify-center">
             <v-tooltip top>
@@ -345,7 +307,7 @@ export default {
       pagination: {},
       editedItem: {},
       defaultItem: {},
-      fieldsToSearch: ['name', 'email', 'role', 'city', 'country', 'phone']
+      fieldsToSearch: ['name', 'email', 'role', 'phone']
     }
   },
   computed: {
@@ -355,11 +317,8 @@ export default {
         { name: this.$t('roles.USER'), value: 'user' }
       ]
     },
-    allCities() {
-      return this.$store.state.cities.allCities
-    },
     formTitle() {
-      return this.editedItem._id
+      return this.editedItem.id
         ? this.$t('dataTable.EDIT_ITEM')
         : this.$t('dataTable.NEW_ITEM')
     },
@@ -367,7 +326,7 @@ export default {
       return [
         {
           text: this.$i18n.t('dataTable.ACTIONS'),
-          value: '_id',
+          value: 'id',
           sortable: false,
           width: 100
         },
@@ -394,18 +353,6 @@ export default {
           align: 'left',
           sortable: true,
           value: 'verified'
-        },
-        {
-          text: this.$i18n.t('users.headers.CITY'),
-          align: 'left',
-          sortable: true,
-          value: 'city'
-        },
-        {
-          text: this.$i18n.t('users.headers.COUNTRY'),
-          align: 'left',
-          sortable: true,
-          value: 'country'
         },
         {
           text: this.$i18n.t('users.headers.PHONE'),
@@ -461,13 +408,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions([
-      'getAllCities',
-      'getUsers',
-      'editUser',
-      'saveUser',
-      'deleteUser'
-    ]),
+    ...mapActions(['getUsers', 'editUser', 'saveUser', 'deleteUser']),
     getFormat(date) {
       window.__localeId__ = this.$store.getters.locale
       return getFormat(date, 'iii, MMMM d yyyy, h:mm a')
@@ -515,7 +456,7 @@ export default {
         )
         if (response) {
           this.dataTableLoading = true
-          await this.deleteUser(item._id)
+          await this.deleteUser(item.id)
           await this.getUsers(
             buildPayloadPagination(this.pagination, this.buildSearch())
           )
@@ -536,7 +477,7 @@ export default {
       try {
         this.dataTableLoading = true
         // Updating item
-        if (this.editedItem._id) {
+        if (this.editedItem.id) {
           await this.editUser(this.editedItem)
           await this.getUsers(
             buildPayloadPagination(this.pagination, this.buildSearch())
@@ -549,9 +490,7 @@ export default {
             email: this.editedItem.email,
             password: this.editedItem.password,
             role: this.editedItem.role,
-            phone: this.editedItem.phone,
-            city: this.editedItem.city,
-            country: this.editedItem.country
+            phone: this.editedItem.phone
           })
           await this.getUsers(
             buildPayloadPagination(this.pagination, this.buildSearch())
@@ -566,9 +505,6 @@ export default {
         this.close()
       }
     }
-  },
-  async mounted() {
-    await this.getAllCities()
   }
 }
 </script>

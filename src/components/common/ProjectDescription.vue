@@ -1,6 +1,99 @@
 <template>
-  <div>
-    <v-flex xs12 text-xs-center mt-5 mb-5>
+  <div class="home_banner container-fluid no-padding">
+    <section class="home_bannerA jumbotron">
+      <div class="container">
+        <div class="row justify-content-end clearfix">
+          <div class="col-lg-7 col-md-7 col-sm-12">
+            <div class="home_banner_headline_wapper">
+              <h1>
+                Manage Your Tenants
+                <span>Bila Stress!</span>
+                <div class="home_banner_in">
+                  <h4>
+                    Maskani is a rental management application for the busy
+                    person. Easily invoice &amp; send receipts to tenants via
+                    SMS &amp; Email, and record important tenant information.
+                  </h4>
+                  <h3>
+                    Give it a try, it's
+                    <span>simple.</span>
+                  </h3>
+                </div>
+              </h1>
+            </div>
+          </div>
+          <div class="col-lg-5 col-md-5 col-sm-12">
+            <div class="home_banner_cta_wrapper">
+              <h4 class="titleA">Free for basic use</h4>
+              <div class="home_banner_signup_form">
+                <form
+                  class="homeSignup formA"
+                  id="signupForm1"
+                  method="POST"
+                  action="/auth/signup"
+                >
+                  <v-card-text>
+                    <v-form>
+                      <v-text-field
+                        id="signupName"
+                        label="Full Name"
+                        name="signupName"
+                        prepend-icon="person"
+                        type="text"
+                      />
+                      <v-text-field
+                        id="signupEmail"
+                        label="Email Address"
+                        name="signupEmail"
+                        prepend-icon="email"
+                        type="text"
+                      />
+                      <v-text-field
+                        id="signupPhone"
+                        label="Phone Number"
+                        name="signupPhone"
+                        prepend-icon="phone"
+                        type="text"
+                      />
+                      <v-text-field
+                        id="signupPass1"
+                        label="Password"
+                        name="signupPass1"
+                        prepend-icon="lock"
+                        type="password"
+                      />
+                      <v-text-field
+                        id="signupPass2"
+                        label="Confirm Password"
+                        name="signupPass2"
+                        prepend-icon="lock"
+                        type="password"
+                      />
+                    </v-form>
+                  </v-card-text>
+                  <div class="form-group">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" checked="checked" /> I accept the
+                        Terms of Service
+                      </label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <input
+                      class="btn btn-primary btn-lg btn-block strong cta_2"
+                      type="submit"
+                      value="Sign me up!"
+                    />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- <v-flex xs12 text-xs-center mt-5 mb-5>
       <br />
       <br />
     </v-flex>
@@ -12,7 +105,7 @@
     <v-flex xs12>
       <br />
       <br />
-    </v-flex>
+    </v-flex> -->
   </div>
 </template>
 

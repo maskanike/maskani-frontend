@@ -1,25 +1,35 @@
 <template v-slot:activator="{ on }">
   <div>
-    <v-app-bar flat>
+    <v-app-bar
+      id="home-app-bar"
+      app
+      color="white"
+      elevation="1"
+      height="80"
+      padding="2px"
+      margin-bottom="3px"
+    >
       <span class="hidden-md-and-up">
         <v-app-bar-nav-icon @click="sidebar = !sidebar"></v-app-bar-nav-icon>
       </span>
-      <div class="headline text-uppercase ml-0">
+      <div class="headline ml-0">
         <div v-resize-text>
           <router-link
             :to="{ name: 'home' }"
             tag="span"
             style="cursor: pointer;"
             v-if="isTokenSet"
-            >{{ appTitle }}</router-link
           >
+            <v-img :src="`${publicPath}img/logoA.svg`" width="250px"></v-img>
+          </router-link>
           <router-link
             :to="{ name: 'landing' }"
             tag="span"
             style="cursor: pointer;"
             v-else
-            >{{ appTitle }}</router-link
           >
+            <v-img :src="`${publicPath}img/logoA.svg`" width="250px"></v-img>
+          </router-link>
         </div>
       </div>
       <v-spacer></v-spacer>
@@ -69,7 +79,18 @@
         </v-btn>
       </v-toolbar-items>
     </v-app-bar>
+    <!-- <nav
+      class="navbar align-items-center fixed-top p-2 px-md-5 mb-3 bg-white border-bottom shadow-sm"
+    > -->
     <v-navigation-drawer v-model="sidebar" absolute disable-resize-watcher>
+      <v-img>
+        <a class="navbar-brand" href="/">
+          <img
+            class="brand brandA my-0 mr-md-auto font-weight-normal"
+            src="${publicPath}img/logoA.svg"
+          />
+        </a>
+      </v-img>
       <v-list>
         <v-list-item>
           <v-list-item-content>{{ appTitle }}</v-list-item-content>
@@ -93,9 +114,9 @@
 
         <v-list-group v-if="admin" prepend-icon="mdi-lock" no-action>
           <v-list-item slot="activator" class="pl-0">
-            <v-list-item-content>{{
-              $t('adminItems.ADMIN')
-            }}</v-list-item-content>
+            <v-list-item-content>
+              {{ $t('adminItems.ADMIN') }}
+            </v-list-item-content>
           </v-list-item>
           <v-list-item
             v-for="(item, index) in adminItems"
@@ -114,12 +135,16 @@
           <v-list-item-action>
             <v-icon>mdi-exit-to-app</v-icon>
           </v-list-item-action>
-          <v-list-item-content>
-            {{ $t('menuItems.LOGOUT') }}
-          </v-list-item-content>
+          <v-list-item-content>{{
+            $t('menuItems.LOGOUT')
+          }}</v-list-item-content>
         </v-list-item>
       </v-list>
+      <!-- </nav> -->
     </v-navigation-drawer>
+    <!-- <div>
+      <nav class="navbarA my-2 my-md-0 mr-md-3"></nav>
+    </div> -->
   </div>
 </template>
 
@@ -173,7 +198,8 @@ export default {
   },
   data() {
     return {
-      sidebar: false
+      sidebar: false,
+      publicPath: process.env.BASE_URL
     }
   },
   computed: {
@@ -184,10 +210,10 @@ export default {
     adminItems() {
       return [
         {
-          title: this.$t('adminItems.CITIES'),
-          link: 'admin-cities',
-          icon: 'mdi-city',
-          class: 'btnAdminCities'
+          title: this.$t('adminItems.FLATS'),
+          link: 'admin-flats',
+          icon: 'mdi-home',
+          class: 'btnAdminFlats'
         },
         {
           title: this.$t('adminItems.USERS'),
@@ -240,7 +266,7 @@ export default {
         },
         {
           title: this.$t('menuItems.SIGNUP'),
-          link: 'signup',
+          link: 'register',
           icon: 'mdi-plus-circle-outline',
           class: 'btnLogin'
         }
@@ -254,3 +280,14 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+#home-app-bar
+  .v-tabs-slider
+    max-width: 24px
+    margin: 3 auto
+
+  .v-tab
+    &::before
+      display: none
+</style>

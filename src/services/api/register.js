@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export default {
-  userSignUp(payload) {
+  userRegister(payload) {
     return axios.post('/register', payload)
   }
 }

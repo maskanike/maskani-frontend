@@ -6,10 +6,10 @@ export default [
       import(/* webpackChunkName: "login" */ '@/components/Login.vue')
   },
   {
-    path: '/signup',
-    name: 'signup',
+    path: '/register',
+    name: 'register',
     component: () =>
-      import(/* webpackChunkName: "signup" */ '@/components/SignUp.vue')
+      import(/* webpackChunkName: "register" */ '@/components/Register.vue')
   },
   {
     path: '/verify/:id',

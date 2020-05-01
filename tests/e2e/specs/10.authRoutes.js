@@ -11,9 +11,9 @@ describe('Auth routes', () => {
     // url should be /login
     cy.url().should('include', '/login')
   })
-  it('Forbids visits to admin cities url if not authenticated', () => {
+  it('Forbids visits to admin flats url if not authenticated', () => {
     cy.visit('/')
-    cy.visit('/admin/cities')
+    cy.visit('/admin/flats')
     // url should be /login
     cy.url().should('include', '/login')
   })

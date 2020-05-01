@@ -34,6 +34,20 @@
                 </ValidationProvider>
               </v-flex>
               <v-flex>
+                <ValidationProvider rules="required" v-slot="{ errors }">
+                  <v-text-field
+                    id="msisdn"
+                    name="msisdn"
+                    type="msisdn"
+                    :label="$t('signup.MSISDN')"
+                    v-model="msisdn"
+                    :error="errors.length > 0"
+                    :error-messages="errors[0]"
+                    autocomplete="off"
+                  ></v-text-field>
+                </ValidationProvider>
+              </v-flex>
+              <v-flex>
                 <ValidationProvider
                   rules="required|min:5"
                   v-slot="{ errors }"
@@ -96,16 +110,18 @@ export default {
     return {
       name: '',
       email: '',
+      msisdn: '',
       password: '',
       confirmPassword: ''
     }
   },
   methods: {
-    ...mapActions(['userSignUp']),
+    ...mapActions(['userRegister']),
     async submit() {
-      await this.userSignUp({
+      await this.userRegister({
         name: this.name,
         email: this.email,
+        msisdn: this.msisdn,
         password: this.password
       })
     }

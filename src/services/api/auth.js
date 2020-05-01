@@ -5,6 +5,6 @@ export default {
     return axios.post('/login', payload)
   },
   refreshToken() {
-    return axios.get('/token')
+    return axios.get('/token') // TODO implement token refersh on backend
   }
 }

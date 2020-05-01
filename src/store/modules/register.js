@@ -1,14 +1,14 @@
 import * as types from '@/store/mutation-types'
 import router from '@/router'
-import api from '@/services/api/signup'
+import api from '@/services/api/register'
 import { buildSuccess, handleError } from '@/utils/utils.js'
 
 const actions = {
-  userSignUp({ commit }, payload) {
+  userRegister({ commit }, payload) {
     return new Promise((resolve, reject) => {
       commit(types.SHOW_LOADING, true)
       api
-        .userSignUp(payload)
+        .userRegister(payload)
         .then((response) => {
           if (response.status === 201) {
             window.localStorage.setItem(

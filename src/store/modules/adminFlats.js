@@ -1,21 +1,21 @@
 import * as types from '@/store/mutation-types'
-import api from '@/services/api/adminCities'
+import api from '@/services/api/adminFlats'
 import { buildSuccess, handleError } from '@/utils/utils.js'
 
 const getters = {
-  cities: (state) => state.cities,
-  totalCities: (state) => state.totalCities
+  flats: (state) => state.flats,
+  totalFlats: (state) => state.totalFlats
 }
 
 const actions = {
-  getCities({ commit }, payload) {
+  getFlats({ commit }, payload) {
     return new Promise((resolve, reject) => {
       api
-        .getCities(payload)
+        .getFlats(payload)
         .then((response) => {
           if (response.status === 200) {
-            commit(types.CITIES, response.data.docs)
-            commit(types.TOTAL_CITIES, response.data.totalDocs)
+            commit(types.FLATS, response.data)
+            commit(types.TOTAL_FLATS, response.data.length)
             resolve()
           }
         })
@@ -24,13 +24,13 @@ const actions = {
         })
     })
   },
-  editCity({ commit }, payload) {
+  editFlat({ commit }, payload) {
     return new Promise((resolve, reject) => {
       const data = {
         name: payload.name
       }
       api
-        .editCity(payload._id, data)
+        .editFlat(payload.id, data)
         .then((response) => {
           if (response.status === 200) {
             buildSuccess(
@@ -47,10 +47,10 @@ const actions = {
         })
     })
   },
-  saveCity({ commit }, payload) {
+  saveFlat({ commit }, payload) {
     return new Promise((resolve, reject) => {
       api
-        .saveCity(payload)
+        .saveFlat(payload)
         .then((response) => {
           if (response.status === 201) {
             buildSuccess(
@@ -67,10 +67,10 @@ const actions = {
         })
     })
   },
-  deleteCity({ commit }, payload) {
+  deleteFlat({ commit }, payload) {
     return new Promise((resolve, reject) => {
       api
-        .deleteCity(payload)
+        .deleteFlat(payload)
         .then((response) => {
           if (response.status === 200) {
             buildSuccess(
@@ -90,17 +90,17 @@ const actions = {
 }
 
 const mutations = {
-  [types.CITIES](state, cities) {
-    state.cities = cities
+  [types.FLATS](state, flats) {
+    state.flats = flats
   },
-  [types.TOTAL_CITIES](state, value) {
-    state.totalCities = value
+  [types.TOTAL_FLATS](state, value) {
+    state.totalFlats = value
   }
 }
 
 const state = {
-  cities: [],
-  totalCities: 0
+  flats: [],
+  totalFlats: 0
 }
 
 export default {

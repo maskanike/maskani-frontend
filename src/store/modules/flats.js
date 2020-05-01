@@ -1,24 +1,24 @@
 import * as types from '@/store/mutation-types'
-import api from '@/services/api/cities'
+import api from '@/services/api/flats'
 import { handleError } from '@/utils/utils.js'
 
 const getters = {
-  allCities: (state) => state.allCities
+  allFlats: (state) => state.allFlats
 }
 
 const actions = {
-  getAllCities({ commit }) {
+  getAllFlats({ commit }) {
     return new Promise((resolve, reject) => {
       api
-        .getAllCities()
+        .getAllFlats()
         .then((response) => {
           if (response.status === 200) {
-            const cities = []
+            const flats = []
             const array = response.data
             array.forEach((element) => {
-              cities.push(element.name)
+              flats.push(element.name)
             })
-            commit(types.FILL_ALL_CITIES, cities)
+            commit(types.FILL_ALL_FLATS, flats)
             resolve()
           }
         })
@@ -30,13 +30,13 @@ const actions = {
 }
 
 const mutations = {
-  [types.FILL_ALL_CITIES](state, cities) {
-    state.allCities = cities
+  [types.FILL_ALL_FLATS](state, flats) {
+    state.allFlats = flats
   }
 }
 
 const state = {
-  allCities: []
+  allFlats: []
 }
 
 export default {

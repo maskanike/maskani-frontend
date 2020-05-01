@@ -27,7 +27,7 @@
     "EMAIL_ALREADY_EXISTS": "E-mail already exists",
     "ID_MALFORMED": "ID malformed",
     "ERROR_WITH_FILTER": "Error with filter",
-    "CITY_ALREADY_EXISTS": "City already exists"
+    "FLAT_ALREADY_EXISTS": "Flat already exists"
   },
   "common": {
     "DELETE": "Delete",
@@ -58,7 +58,7 @@
   },
   "adminItems": {
     "ADMIN": "Admin",
-    "CITIES": "Cities",
+    "FLATS": "Flats",
     "USERS": "Users"
   },
   "roles": {
@@ -80,8 +80,8 @@
     "OF": "of",
     "SEARCH": "Search"
   },
-  "cities": {
-    "TITLE": "Cities",
+  "flats": {
+    "TITLE": "Flats",
     "headers": {
       "NAME": "Name"
     }
@@ -93,7 +93,7 @@
       "EMAIL": "E-mail",
       "ROLE": "Role",
       "VERIFIED": "Verified",
-      "CITY": "City",
+      "FLAT": "Flat",
       "COUNTRY": "Country",
       "PHONE": "Phone"
     },
@@ -111,7 +111,7 @@
     "FRONTEND_DOCUMENTATION": "Frontend documentation"
   },
   "home": {
-    "TITLE": "Protected Home",
+    "TITLE": "Maskani Dashboard",
     "GREETING": "Welcome %{0}",
     "DESCRIPTION": "This page is only available privately when the users log in with their credentials",
     "VERIFY_YOUR_ACCOUNT": "IMPORTANT: Verify your account",
@@ -124,7 +124,7 @@
   },
   "login": {
     "TITLE": "Login",
-    "DESCRIPTION": "This is a demo. Database resets every 30 mins. So anything you do will be lost after a short time.<br />E-mail: admin@admin.com <br />Password: 12345",
+    "DESCRIPTION": "Welcome to maskani. Please sign in",
     "EMAIL": "E-mail",
     "PASSWORD": "Password",
     "LOGIN": "Login",
@@ -148,6 +148,7 @@
     "TITLE": "Signup",
     "NAME": "Name",
     "EMAIL": "E-mail",
+    "MSISDN": "Phone Number",
     "PASSWORD": "Password",
     "CONFIRM_PASSWORD": "Confirm Password",
     "SIGN_ME_UP": "Sign me up"
@@ -166,7 +167,7 @@
     "NAME": "Name",
     "EMAIL": "E-mail",
     "PHONE": "Phone",
-    "CITY": "City",
+    "FLAT": "Flat",
     "NO_RESULTS_FOUND": "No results found",
     "COUNTRY": "Country",
     "SAVE": "Save",

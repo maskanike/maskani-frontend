@@ -2,8 +2,6 @@ import Vue from 'vue'
 import * as VeeValidate from 'vee-validate'
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import en from '../locales/en'
-import es from '../locales/es'
-import cn from '../locales/cn'
 import { localize, extend } from 'vee-validate'
 import { required, email, min, confirmed } from 'vee-validate/dist/rules'
 
@@ -28,9 +26,7 @@ extend('url', {
 })
 
 localize({
-  en,
-  es,
-  cn
+  en
 })
 
 Vue.use(VeeValidate)

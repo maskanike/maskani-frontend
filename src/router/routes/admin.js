@@ -1,13 +1,13 @@
 export default [
   {
-    path: '/admin/cities',
-    name: 'admin-cities',
+    path: '/admin/flats',
+    name: 'admin-flats',
     meta: {
       requiresAuth: true
     },
     component: () =>
       import(
-        /* webpackChunkName: "admin-cities" */ '@/components/AdminCities.vue'
+        /* webpackChunkName: "admin-flats" */ '@/components/AdminFlats.vue'
       )
   },
   {
