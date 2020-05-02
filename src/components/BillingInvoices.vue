@@ -369,6 +369,12 @@ export default {
           width: 100
         },
         {
+          text: this.$i18n.t('invoices.headers.UNIT'),
+          align: 'left',
+          sortable: true,
+          value: 'name'
+        },
+        {
           text: this.$i18n.t('invoices.headers.FULL_NAME'),
           align: 'left',
           sortable: true,
@@ -385,12 +391,6 @@ export default {
           align: 'left',
           sortable: true,
           value: 'Tenant.phone'
-        },
-        {
-          text: this.$i18n.t('invoices.headers.UNIT'),
-          align: 'left',
-          sortable: true,
-          value: 'name'
         },
         {
           text: this.$i18n.t('invoices.headers.RENT'),
@@ -420,7 +420,7 @@ export default {
           text: this.$i18n.t('invoices.headers.LAST_INVOICE'),
           align: 'left',
           sortable: true,
-          value: 'lastInvoiceSentAt'
+          value: 'Tenant.lastInvoiceSentAt'
         }
       ]
     },
@@ -534,7 +534,7 @@ export default {
         )
         if (response) {
           this.dataTableLoading = true
-          await this.sendInvoice(item)
+          await this.sendInvoice(item.Tenant)
           await this.getUnits(
             buildPayloadPagination(this.pagination, this.buildSearch())
           )
