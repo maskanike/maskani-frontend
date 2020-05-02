@@ -1,21 +1,21 @@
 import * as types from '@/store/mutation-types'
-import api from '@/services/api/tenants'
+import api from '@/services/api/units'
 import { buildSuccess, handleError } from '@/utils/utils.js'
 
 const getters = {
-  tenants: (state) => state.tenants,
-  totalTenants: (state) => state.totalTenants
+  units: (state) => state.units,
+  totalUnits: (state) => state.totalUnits
 }
 
 const actions = {
-  getTenants({ commit }, payload) {
+  getUnits({ commit }, payload) {
     return new Promise((resolve, reject) => {
       api
-        .getTenants(payload)
+        .getUnits(payload)
         .then((response) => {
           if (response.status === 200) {
-            commit(types.TENANTS, response.data)
-            commit(types.TOTAL_TENANTS, response.data.length)
+            commit(types.UNITS, response.data)
+            commit(types.TOTAL_UNITS, response.data.length)
             resolve()
           }
         })
@@ -24,19 +24,13 @@ const actions = {
         })
     })
   },
-  editTenant({ commit }, payload) {
+  editUnit({ commit }, payload) {
     return new Promise((resolve, reject) => {
       const data = {
-        name: payload.name,
-        email: payload.email,
-        phone: payload.phone,
-        rent: payload.rent,
-        garbage: payload.garbage || 0,
-        water: payload.water || 0,
-        penalty: payload.penalty || 0
+        name: payload.name
       }
       api
-        .editTenant(payload.id, data)
+        .editUnit(payload.id, data)
         .then((response) => {
           if (response.status === 200) {
             buildSuccess(
@@ -53,10 +47,10 @@ const actions = {
         })
     })
   },
-  saveTenant({ commit }, payload) {
+  saveUnit({ commit }, payload) {
     return new Promise((resolve, reject) => {
       api
-        .saveTenant(payload)
+        .saveUnit(payload)
         .then((response) => {
           if (response.status === 201) {
             buildSuccess(
@@ -73,10 +67,10 @@ const actions = {
         })
     })
   },
-  deleteTenant({ commit }, payload) {
+  deleteUnit({ commit }, payload) {
     return new Promise((resolve, reject) => {
       api
-        .deleteTenant(payload)
+        .deleteUnit(payload)
         .then((response) => {
           if (response.status === 200) {
             buildSuccess(
@@ -96,17 +90,17 @@ const actions = {
 }
 
 const mutations = {
-  [types.TENANTS](state, tenants) {
-    state.tenants = tenants
+  [types.UNITS](state, units) {
+    state.units = units
   },
-  [types.TOTAL_TENANTS](state, value) {
-    state.totalTenants = value
+  [types.TOTAL_UNITS](state, value) {
+    state.totalUnits = value
   }
 }
 
 const state = {
-  tenants: [],
-  totalTenants: 0
+  units: [],
+  totalUnits: 0
 }
 
 export default {

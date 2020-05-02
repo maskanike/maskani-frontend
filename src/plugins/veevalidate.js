@@ -3,10 +3,17 @@ import * as VeeValidate from 'vee-validate'
 import { ValidationProvider, ValidationObserver } from 'vee-validate'
 import en from '../locales/en'
 import { localize, extend } from 'vee-validate'
-import { required, email, min, confirmed } from 'vee-validate/dist/rules'
+import {
+  required,
+  integer,
+  email,
+  min,
+  confirmed
+} from 'vee-validate/dist/rules'
 
 // The types of validators used in the project
 extend('required', required)
+extend('integer', integer)
 extend('confirmed', confirmed)
 extend('email', email)
 extend('min', min)

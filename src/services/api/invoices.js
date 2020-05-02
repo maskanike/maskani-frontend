@@ -6,13 +6,13 @@ export default {
       params
     })
   },
-  editInvoices(id, payload) {
+  editInvoice(id, payload) {
     return axios.patch(`/invoices/${id}`, payload)
   },
-  saveInvoices(payload) {
-    return axios.post('/invoices/', payload)
+  sendInvoice(tenantId, payload) {
+    return axios.post(`/invoices/${tenantId}`, payload)
   },
-  deleteInvoices(id) {
+  deleteInvoice(id) {
     return axios.delete(`/invoices/${id}`)
   }
 }

@@ -28,12 +28,14 @@
     "ID_MALFORMED": "ID malformed",
     "ERROR_WITH_FILTER": "Error with filter",
     "FLAT_ALREADY_EXISTS": "Flat already exists",
-    "FLAT_NOT_FOUND_FOR_USER": "Flat attached to logged in user not found"
+    "FLAT_NOT_FOUND_FOR_USER": "Flat attached to logged in user not found",
+    "URL_NOT_FOUND": "Needed link to backend not found. Contact support"
   },
   "common": {
     "DELETE": "Delete",
     "CANCEL": "Cancel",
     "WARNING": "Warning",
+    "SEND": "Send",
     "DO_YOU_REALLY_WANT_TO_DELETE_THIS_ITEM": "Do you really want to delete this item?",
     "CLOSE": "Close",
     "SAVED_SUCCESSFULLY": "Saved successfully",
@@ -74,6 +76,7 @@
     "EDIT_ITEM": "Edit Item",
     "CANCEL": "Cancel",
     "SAVE": "Save",
+    "SEND": "Send",
     "EDIT": "Edit",
     "DELETE": "Delete",
     "RESET": "Reset",
@@ -106,13 +109,19 @@
   },
   "invoices": {
     "TITLE": "Invoices",
+    "DO_YOU_REALLY_WANT_TO_SEND_INVOICE_TO_TENANT": "Do you really want to send invoice to tenant?",
+    "SEND_INVOICE": "Send Invoice to {0}",
     "headers": {
-      "NAME": "Name",
+      "FULL_NAME": "Full Name",
+      "GARBAGE": "Garbage",
+      "WATER": "Water",
+      "PENALTY": "Penalty",
       "EMAIL": "E-mail",
       "RENT": "Rent",
       "FLAT": "Flat",
       "PHONE": "Phone",
-      "RECEIPT_AMOUNT": "Receipt Amount"
+      "UNIT": "Unit",
+      "LAST_INVOICE": "Last Invoice Sent At"
     },
     "PASSWORD": "Password",
     "CONFIRM_PASSWORD": "Confirm Password"

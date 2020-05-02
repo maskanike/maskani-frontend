@@ -140,11 +140,7 @@
           }}</v-list-item-content>
         </v-list-item>
       </v-list>
-      <!-- </nav> -->
     </v-navigation-drawer>
-    <!-- <div>
-      <nav class="navbarA my-2 my-md-0 mr-md-3"></nav>
-    </div> -->
   </div>
 </template>
 
@@ -243,12 +239,6 @@ export default {
             link: 'billing-receipts',
             icon: 'mdi-account-supervisor',
             class: 'btnBillingReceipts'
-          },
-          {
-            title: this.$t('menuItems.SETTINGS'),
-            link: 'settings',
-            icon: 'mdi-spa',
-            class: 'btnSettings'
           },
           {
             title: this.$t('menuItems.MY_PROFILE'),

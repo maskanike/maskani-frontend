@@ -83,15 +83,6 @@
                                 {{ getFormat(editedItem.updatedAt) }}
                               </div>
                             </v-flex>
-                            <v-flex xs12 md4>
-                              <label for="verified">
-                                {{ $t('invoices.headers.VERIFIED') }}
-                              </label>
-                              <div
-                                name="verified"
-                                v-html="trueFalse(editedItem.verified)"
-                              ></div>
-                            </v-flex>
                           </template>
                           <v-flex xs12 md6>
                             <ValidationProvider
@@ -102,7 +93,7 @@
                                 id="name"
                                 name="name"
                                 v-model="editedItem.name"
-                                :label="$t('invoices.headers.NAME')"
+                                :label="$t('invoices.headers.FULL_NAME')"
                                 :error="errors.length > 0"
                                 :error-messages="errors[0]"
                                 autocomplete="off"
@@ -126,27 +117,95 @@
                               ></v-text-field>
                             </ValidationProvider>
                           </v-flex>
-                          <template v-if="!editedItem.id">
-                            <v-flex xs12 md6>
-                              <ValidationProvider
-                                rules="required|min:5"
-                                v-slot="{ errors }"
-                                vid="password"
-                              >
-                                <v-text-field
-                                  id="password"
-                                  name="password"
-                                  type="password"
-                                  :label="$t('invoices.PASSWORD')"
-                                  v-model="editedItem.password"
-                                  :error="errors.length > 0"
-                                  :error-messages="errors[0]"
-                                  key="password"
-                                  ref="password"
-                                  autocomplete="off"
-                                ></v-text-field>
-                              </ValidationProvider>
-                            </v-flex>
+                          <v-flex xs12 md6>
+                            <ValidationProvider
+                              rules="required"
+                              v-slot="{ errors }"
+                            >
+                              <v-text-field
+                                id="phone"
+                                name="phone"
+                                type="tel"
+                                v-model="editedItem.phone"
+                                :label="$t('invoices.headers.PHONE')"
+                                :error="errors.length > 0"
+                                :error-messages="errors[0]"
+                                autocomplete="off"
+                              ></v-text-field>
+                            </ValidationProvider>
+                          </v-flex>
+                          <v-flex xs12 md6>
+                            <ValidationProvider
+                              rules="required:integer"
+                              v-slot="{ errors }"
+                              vid="rent"
+                            >
+                              <v-text-field
+                                id="rent"
+                                name="rent"
+                                type="number"
+                                :label="$t('invoices.headers.RENT')"
+                                v-model="editedItem.rent"
+                                :error="errors.length > 0"
+                                :error-messages="errors[0]"
+                                key="rent"
+                                ref="rent"
+                                autocomplete="off"
+                              ></v-text-field>
+                            </ValidationProvider>
+                          </v-flex>
+                          <v-flex xs12 md6>
+                            <ValidationProvider
+                              rules="integer"
+                              v-slot="{ errors }"
+                            >
+                              <v-text-field
+                                id="garbage"
+                                name="garbage"
+                                type="number"
+                                v-model="editedItem.garbage"
+                                :label="$t('invoices.headers.GARBAGE')"
+                                :error="errors.length > 0"
+                                :error-messages="errors[0]"
+                                autocomplete="off"
+                              ></v-text-field>
+                            </ValidationProvider>
+                          </v-flex>
+                          <v-flex xs12 md6>
+                            <ValidationProvider
+                              rules="integer"
+                              v-slot="{ errors }"
+                            >
+                              <v-text-field
+                                id="water"
+                                name="water"
+                                type="number"
+                                v-model="editedItem.water"
+                                :label="$t('invoices.headers.WATER')"
+                                :error="errors.length > 0"
+                                :error-messages="errors[0]"
+                                autocomplete="off"
+                              ></v-text-field>
+                            </ValidationProvider>
+                          </v-flex>
+                          <v-flex xs12 md6>
+                            <ValidationProvider
+                              rules="integer"
+                              v-slot="{ errors }"
+                            >
+                              <v-text-field
+                                id="penalty"
+                                name="penalty"
+                                type="number"
+                                v-model="editedItem.penalty"
+                                :label="$t('invoices.headers.PENALTY')"
+                                :error="errors.length > 0"
+                                :error-messages="errors[0]"
+                                autocomplete="off"
+                              ></v-text-field>
+                            </ValidationProvider>
+                          </v-flex>
+                          <!-- <template v-if="!editedItem.id">
                             <v-flex xs12 md6>
                               <ValidationProvider
                                 rules="required|min:5|confirmed:password"
@@ -165,44 +224,7 @@
                                 ></v-text-field>
                               </ValidationProvider>
                             </v-flex>
-                          </template>
-                          <v-flex xs12 md6>
-                            <ValidationProvider
-                              rules="required"
-                              v-slot="{ errors }"
-                            >
-                              <v-select
-                                clearable
-                                id="role"
-                                name="role"
-                                v-model="editedItem.role"
-                                :items="roles"
-                                item-text="name"
-                                item-value="value"
-                                :label="$t('invoices.headers.ROLE')"
-                                :error="errors.length > 0"
-                                :error-messages="errors[0]"
-                                class="inputRole"
-                              ></v-select>
-                            </ValidationProvider>
-                          </v-flex>
-                          <v-flex xs12 md6>
-                            <ValidationProvider
-                              rules="required"
-                              v-slot="{ errors }"
-                            >
-                              <v-text-field
-                                id="phone"
-                                name="phone"
-                                type="tel"
-                                v-model="editedItem.phone"
-                                :label="$t('invoices.headers.PHONE')"
-                                :error="errors.length > 0"
-                                :error-messages="errors[0]"
-                                autocomplete="off"
-                              ></v-text-field>
-                            </ValidationProvider>
-                          </v-flex>
+                          </template> -->
                         </v-layout>
                       </v-container>
                     </v-card-text>
@@ -234,9 +256,9 @@
         <template v-slot:items="props">
           <td>{{ props.item.name }}</td>
           <td>{{ props.item.email }}</td>
-          <td>{{ roleName(props.item.role) }}</td>
-          <td v-html="trueFalse(props.item.verified)"></td>
           <td>{{ props.item.phone }}</td>
+          <td>{{ props.item.rent }}</td>
+          <td>{{ props.item.water }}</td>
         </template>
         <template v-slot:item.id="{ item }">
           <td class="fill-height px-0">
@@ -268,6 +290,20 @@
                   </v-btn>
                 </template>
                 <span>{{ $t('dataTable.DELETE') }}</span>
+              </v-tooltip>
+              <v-tooltip top>
+                <template v-slot:activator="{ on }">
+                  <v-btn
+                    id="send"
+                    icon
+                    class="mx-0"
+                    v-on="on"
+                    @click="sendItem(item)"
+                  >
+                    <v-icon>mdi-send</v-icon>
+                  </v-btn>
+                </template>
+                <span>{{ $t('dataTable.SEND') }}</span>
               </v-tooltip>
             </v-layout>
           </td>
@@ -315,16 +351,10 @@ export default {
       pagination: {},
       editedItem: {},
       defaultItem: {},
-      fieldsToSearch: ['name', 'email', 'role', 'phone']
+      fieldsToSearch: ['name', 'email', 'phone']
     }
   },
   computed: {
-    roles() {
-      return [
-        { name: this.$t('roles.ADMIN'), value: 'admin' },
-        { name: this.$t('roles.USER'), value: 'user' }
-      ]
-    },
     formTitle() {
       return this.editedItem.id
         ? this.$t('dataTable.EDIT_ITEM')
@@ -339,54 +369,66 @@ export default {
           width: 100
         },
         {
-          text: this.$i18n.t('invoices.headers.NAME'),
+          text: this.$i18n.t('invoices.headers.FULL_NAME'),
           align: 'left',
           sortable: true,
-          value: 'name'
+          value: 'Tenant.name'
         },
         {
           text: this.$i18n.t('invoices.headers.EMAIL'),
           align: 'left',
           sortable: true,
-          value: 'email'
+          value: 'Tenant.email'
         },
         {
           text: this.$i18n.t('invoices.headers.PHONE'),
           align: 'left',
           sortable: true,
-          value: 'phone'
+          value: 'Tenant.phone'
+        },
+        {
+          text: this.$i18n.t('invoices.headers.UNIT'),
+          align: 'left',
+          sortable: true,
+          value: 'name'
         },
         {
           text: this.$i18n.t('invoices.headers.RENT'),
           align: 'left',
           sortable: true,
-          value: 'rent'
+          value: 'Tenant.rent'
         },
         {
-          text: this.$i18n.t('invoices.headers.RECEIPT_AMOUNT'),
+          text: this.$i18n.t('invoices.headers.WATER'),
           align: 'left',
           sortable: true,
-          value: 'receiptAmount'
+          value: 'Tenant.water'
         },
         {
-          text: this.$i18n.t('common.CREATED'),
+          text: this.$i18n.t('invoices.headers.GARBAGE'),
           align: 'left',
           sortable: true,
-          value: 'createdAt'
+          value: 'Tenant.garbage'
         },
         {
-          text: this.$i18n.t('common.UPDATED'),
+          text: this.$i18n.t('invoices.headers.PENALTY'),
           align: 'left',
           sortable: true,
-          value: 'updatedAt'
+          value: 'Tenant.penalty'
+        },
+        {
+          text: this.$i18n.t('invoices.headers.LAST_INVOICE'),
+          align: 'left',
+          sortable: true,
+          value: 'lastInvoiceSentAt'
         }
       ]
     },
     items() {
-      return this.$store.state.tenants.tenants
+      return this.$store.state.units.units
     },
     totalItems() {
-      return this.$store.state.tenants.totalTenants
+      return this.$store.state.units.totalUnits
     }
   },
   watch: {
@@ -397,7 +439,7 @@ export default {
       async handler() {
         try {
           this.dataTableLoading = true
-          await this.getTenants(
+          await this.getUnits(
             buildPayloadPagination(this.pagination, this.buildSearch())
           )
           this.dataTableLoading = false
@@ -416,13 +458,16 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getTenants', 'editTenant', 'saveTenant', 'deleteTenant']),
+    ...mapActions([
+      'getUnits',
+      'editTenant',
+      'saveTenant',
+      'deleteTenant',
+      'sendInvoice'
+    ]),
     getFormat(date) {
       window.__localeId__ = this.$store.getters.locale
       return getFormat(date, 'iii, MMMM d yyyy, h:mm a')
-    },
-    roleName(value) {
-      return value === 'admin' ? this.$t('roles.ADMIN') : this.$t('roles.USER')
     },
     trueFalse(value) {
       return value
@@ -432,7 +477,7 @@ export default {
     async doSearch() {
       try {
         this.dataTableLoading = true
-        await this.getTenants(
+        await this.getUnits(
           buildPayloadPagination(this.pagination, this.buildSearch())
         )
         this.dataTableLoading = false
@@ -465,7 +510,32 @@ export default {
         if (response) {
           this.dataTableLoading = true
           await this.deleteUser(item.id)
-          await this.getTenants(
+          await this.getUnits(
+            buildPayloadPagination(this.pagination, this.buildSearch())
+          )
+          this.dataTableLoading = false
+        }
+        // eslint-disable-next-line no-unused-vars
+      } catch (error) {
+        this.dataTableLoading = false
+      }
+    },
+    async sendItem(item) {
+      try {
+        const response = await this.$confirm(
+          this.$t('invoices.DO_YOU_REALLY_WANT_TO_SEND_INVOICE_TO_TENANT'),
+          {
+            title: this.$t('invoices.SEND_INVOICE', [item.name]),
+            buttonTrueText: this.$t('common.SEND'),
+            buttonFalseText: this.$t('common.CANCEL'),
+            buttonTrueColor: 'green',
+            buttonFalseColor: 'grey lighten1'
+          }
+        )
+        if (response) {
+          this.dataTableLoading = true
+          await this.sendInvoice(item)
+          await this.getUnits(
             buildPayloadPagination(this.pagination, this.buildSearch())
           )
           this.dataTableLoading = false
@@ -487,20 +557,22 @@ export default {
         // Updating item
         if (this.editedItem.id) {
           await this.editTenant(this.editedItem)
-          await this.getTenants(
+          await this.getUnits(
             buildPayloadPagination(this.pagination, this.buildSearch())
           )
           this.dataTableLoading = false
         } else {
           // Creating new item
-          await this.saveUser({
+          await this.saveTenant({
             name: this.editedItem.name,
             email: this.editedItem.email,
-            password: this.editedItem.password,
-            role: this.editedItem.role,
-            phone: this.editedItem.phone
+            phone: this.editedItem.phone,
+            rent: this.editedItem.rent,
+            water: this.editedItem.water || 0,
+            penalty: this.editedItem.penalty || 0,
+            garbage: this.editedItem.garbage || 0
           })
-          await this.getTenants(
+          await this.getUnits(
             buildPayloadPagination(this.pagination, this.buildSearch())
           )
           this.dataTableLoading = false
