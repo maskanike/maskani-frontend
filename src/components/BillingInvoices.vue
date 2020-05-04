@@ -59,31 +59,34 @@
                       </v-btn>
                     </div>
                   </template>
-                  <v-card>
+                  <v-card class="elevation-12">
                     <v-card-title>
                       <span class="headline">{{ formTitle }}</span>
                     </v-card-title>
                     <v-card-text>
                       <v-container grid-list-md>
                         <v-layout wrap>
-                          <template v-if="editedItem.id">
+                          <template v-if="editedItem.Tenant.id">
                             <v-flex xs12 md4>
-                              <label for="createdAt">
-                                {{ $t('common.CREATED') }}
-                              </label>
+                              <label for="createdAt">{{
+                                $t('common.CREATED')
+                              }}</label>
                               <div name="createdAt">
-                                {{ getFormat(editedItem.createdAt) }}
+                                {{ getFormat(editedItem.Tenant.createdAt) }}
                               </div>
                             </v-flex>
                             <v-flex xs12 md4>
-                              <label for="updatedAt">
-                                {{ $t('common.UPDATED') }}
-                              </label>
+                              <label for="updatedAt">{{
+                                $t('common.UPDATED')
+                              }}</label>
                               <div name="updatedAt">
-                                {{ getFormat(editedItem.updatedAt) }}
+                                {{ getFormat(editedItem.Tenant.updatedAt) }}
                               </div>
                             </v-flex>
                           </template>
+                        </v-layout>
+                        <v-divider></v-divider>
+                        <v-layout wrap>
                           <v-flex xs12 md6>
                             <ValidationProvider
                               rules="required"
@@ -92,7 +95,8 @@
                               <v-text-field
                                 id="name"
                                 name="name"
-                                v-model="editedItem.name"
+                                prepend-icon="person"
+                                v-model="editedItem.Tenant.name"
                                 :label="$t('invoices.headers.FULL_NAME')"
                                 :error="errors.length > 0"
                                 :error-messages="errors[0]"
@@ -109,7 +113,8 @@
                                 id="email"
                                 name="email"
                                 type="email"
-                                v-model="editedItem.email"
+                                prepend-icon="email"
+                                v-model="editedItem.Tenant.email"
                                 :label="$t('invoices.headers.EMAIL')"
                                 :error="errors.length > 0"
                                 :error-messages="errors[0]"
@@ -126,7 +131,8 @@
                                 id="phone"
                                 name="phone"
                                 type="tel"
-                                v-model="editedItem.phone"
+                                prepend-icon="phone"
+                                v-model="editedItem.Tenant.phone"
                                 :label="$t('invoices.headers.PHONE')"
                                 :error="errors.length > 0"
                                 :error-messages="errors[0]"
@@ -134,6 +140,9 @@
                               ></v-text-field>
                             </ValidationProvider>
                           </v-flex>
+                        </v-layout>
+                        <v-divider></v-divider>
+                        <v-layout wrap>
                           <v-flex xs12 md6>
                             <ValidationProvider
                               rules="required:integer"
@@ -144,8 +153,9 @@
                                 id="rent"
                                 name="rent"
                                 type="number"
+                                prefix="KES"
                                 :label="$t('invoices.headers.RENT')"
-                                v-model="editedItem.rent"
+                                v-model="editedItem.Tenant.rent"
                                 :error="errors.length > 0"
                                 :error-messages="errors[0]"
                                 key="rent"
@@ -163,7 +173,8 @@
                                 id="garbage"
                                 name="garbage"
                                 type="number"
-                                v-model="editedItem.garbage"
+                                prefix="KES"
+                                v-model="editedItem.Tenant.garbage"
                                 :label="$t('invoices.headers.GARBAGE')"
                                 :error="errors.length > 0"
                                 :error-messages="errors[0]"
@@ -180,7 +191,8 @@
                                 id="water"
                                 name="water"
                                 type="number"
-                                v-model="editedItem.water"
+                                prefix="KES"
+                                v-model="editedItem.Tenant.water"
                                 :label="$t('invoices.headers.WATER')"
                                 :error="errors.length > 0"
                                 :error-messages="errors[0]"
@@ -197,7 +209,8 @@
                                 id="penalty"
                                 name="penalty"
                                 type="number"
-                                v-model="editedItem.penalty"
+                                prefix="KES"
+                                v-model="editedItem.Tenant.penalty"
                                 :label="$t('invoices.headers.PENALTY')"
                                 :error="errors.length > 0"
                                 :error-messages="errors[0]"
@@ -205,30 +218,48 @@
                               ></v-text-field>
                             </ValidationProvider>
                           </v-flex>
-                          <!-- <template v-if="!editedItem.id">
-                            <v-flex xs12 md6>
-                              <ValidationProvider
-                                rules="required|min:5|confirmed:password"
-                                v-slot="{ errors }"
-                              >
-                                <v-text-field
-                                  id="confirmPassword"
-                                  name="confirmPassword"
-                                  type="password"
-                                  :label="$t('invoices.CONFIRM_PASSWORD')"
-                                  v-model="editedItem.confirmPassword"
-                                  :error="errors.length > 0"
-                                  :error-messages="errors[0]"
-                                  key="confirmPassword"
-                                  autocomplete="off"
-                                ></v-text-field>
-                              </ValidationProvider>
-                            </v-flex>
-                          </template> -->
+                        </v-layout>
+                        <v-divider></v-divider>
+                        <v-layout wrap>
+                          <v-flex xs12 md6>
+                            <ValidationProvider
+                              rules="required"
+                              v-slot="{ errors }"
+                            >
+                              <v-select
+                                clearable
+                                id="role"
+                                name="role"
+                                v-model="editedItem.id"
+                                :items="unitActions"
+                                item-text="name"
+                                item-value="value"
+                                :label="$t('billing.headers.STATUS')"
+                                :error="errors.length > 0"
+                                :error-messages="errors[0]"
+                                class="inputRole"
+                              ></v-select>
+                            </ValidationProvider>
+                          </v-flex>
+                          <v-flex xs12 md6>
+                            <ValidationProvider
+                              rules="required"
+                              v-slot="{ errors }"
+                            >
+                              <v-text-field
+                                id="unitName"
+                                name="unitName"
+                                v-model="editedItem.name"
+                                :label="$t('invoices.headers.UNIT_NAME')"
+                                :error="errors.length > 0"
+                                :error-messages="errors[0]"
+                                autocomplete="off"
+                              ></v-text-field>
+                            </ValidationProvider>
+                          </v-flex>
                         </v-layout>
                       </v-container>
                     </v-card-text>
-
                     <v-card-actions>
                       <v-spacer></v-spacer>
                       <v-btn
@@ -308,12 +339,12 @@
             </v-layout>
           </td>
         </template>
-        <template v-slot:item.createdAt="{ item }">{{
-          getFormat(item.createdAt)
-        }}</template>
-        <template v-slot:item.updatedAt="{ item }">{{
-          getFormat(item.updatedAt)
-        }}</template>
+        <template v-slot:item.createdAt="{ item }">
+          {{ getFormat(item.createdAt) }}
+        </template>
+        <template v-slot:item.updatedAt="{ item }">
+          {{ getFormat(item.updatedAt) }}
+        </template>
         <template
           v-slot:footer.page-text="{ pageStart, pageStop, itemsLength }"
         >
@@ -355,6 +386,13 @@ export default {
     }
   },
   computed: {
+    unitActions() {
+      return [
+        { name: this.$t('billing.UNCHANGED'), value: 'unchanged' },
+        { name: this.$t('billing.MOVED_OUT'), value: 'moved_out' },
+        { name: this.$t('billing.CHANGED_HOUSE'), value: 'changed_house' }
+      ]
+    },
     formTitle() {
       return this.editedItem.id
         ? this.$t('dataTable.EDIT_ITEM')
@@ -564,13 +602,14 @@ export default {
         } else {
           // Creating new item
           await this.saveTenant({
-            name: this.editedItem.name,
-            email: this.editedItem.email,
-            phone: this.editedItem.phone,
-            rent: this.editedItem.rent,
-            water: this.editedItem.water || 0,
-            penalty: this.editedItem.penalty || 0,
-            garbage: this.editedItem.garbage || 0
+            unitId: this.editedItem.id,
+            name: this.editedItem.Tenant.name,
+            email: this.editedItem.Tenant.email,
+            phone: this.editedItem.Tenant.phone,
+            rent: this.editedItem.Tenant.rent,
+            water: this.editedItem.Tenant.water || 0,
+            penalty: this.editedItem.Tenant.penalty || 0,
+            garbage: this.editedItem.Tenant.garbage || 0
           })
           await this.getUnits(
             buildPayloadPagination(this.pagination, this.buildSearch())

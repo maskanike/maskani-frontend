@@ -71,6 +71,14 @@
     "ADMIN": "Administrator",
     "USER": "User"
   },
+  "billing": {
+    "UNCHANGED": "Unchanged",
+    "MOVED_OUT": "Moved Out",
+    "CHANGED_HOUSE": "Changed House",
+    "headers": {
+      "STATUS": "Tenancy Status"
+    }
+  },
   "dataTable": {
     "NEW_ITEM": "New Item",
     "EDIT_ITEM": "Edit Item",
@@ -113,6 +121,7 @@
     "SEND_INVOICE": "Send Invoice to {0}",
     "headers": {
       "FULL_NAME": "Full Name",
+      "UNIT_NAME": "Unit Name",
       "GARBAGE": "Garbage",
       "WATER": "Water",
       "PENALTY": "Penalty",
