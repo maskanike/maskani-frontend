@@ -4,6 +4,7 @@ import { buildSuccess, handleError } from '@/utils/utils.js'
 
 const getters = {
   units: (state) => state.units,
+  emptyUnits: (state) => state.units.filter((unit) => !unit.Tenant),
   totalUnits: (state) => state.totalUnits
 }
 
@@ -16,6 +17,7 @@ const actions = {
           if (response.status === 200) {
             commit(types.UNITS, response.data)
             commit(types.TOTAL_UNITS, response.data.length)
+            commit(types.EMPTY_UNITS, response.data)
             resolve()
           }
         })
@@ -95,12 +97,16 @@ const mutations = {
   },
   [types.TOTAL_UNITS](state, value) {
     state.totalUnits = value
+  },
+  [types.EMPTY_UNITS](state, value) {
+    state.emptyUnits = value.filter((unit) => !unit.Tenant)
   }
 }
 
 const state = {
   units: [],
-  totalUnits: 0
+  totalUnits: 0,
+  emptyUnits: []
 }
 
 export default {

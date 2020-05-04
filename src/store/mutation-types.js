@@ -38,6 +38,7 @@ export const TOTAL_INVOICES = 'TOTAL_INVOICES'
 // Receipts
 export const RECEIPTS = 'RECEIPTS'
 export const TOTAL_RECEIPTS = 'TOTAL_RECEIPTS'
-// Receipts
+// Units
 export const UNITS = 'UNITS'
 export const TOTAL_UNITS = 'TOTAL_UNITS'
+export const EMPTY_UNITS = 'EMPTY_UNITS'

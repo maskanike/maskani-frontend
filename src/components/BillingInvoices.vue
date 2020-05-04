@@ -66,13 +66,13 @@
                     <v-card-text>
                       <v-container grid-list-md>
                         <v-layout wrap>
-                          <template v-if="editedItem.Tenant.id">
+                          <template v-if="editedItem.id">
                             <v-flex xs12 md4>
                               <label for="createdAt">{{
                                 $t('common.CREATED')
                               }}</label>
                               <div name="createdAt">
-                                {{ getFormat(editedItem.Tenant.createdAt) }}
+                                {{ getFormat(editedTenant.createdAt) }}
                               </div>
                             </v-flex>
                             <v-flex xs12 md4>
@@ -80,7 +80,7 @@
                                 $t('common.UPDATED')
                               }}</label>
                               <div name="updatedAt">
-                                {{ getFormat(editedItem.Tenant.updatedAt) }}
+                                {{ getFormat(editedTenant.updatedAt) }}
                               </div>
                             </v-flex>
                           </template>
@@ -96,7 +96,7 @@
                                 id="name"
                                 name="name"
                                 prepend-icon="person"
-                                v-model="editedItem.Tenant.name"
+                                v-model="editedTenant.name"
                                 :label="$t('invoices.headers.FULL_NAME')"
                                 :error="errors.length > 0"
                                 :error-messages="errors[0]"
@@ -114,7 +114,7 @@
                                 name="email"
                                 type="email"
                                 prepend-icon="email"
-                                v-model="editedItem.Tenant.email"
+                                v-model="editedTenant.email"
                                 :label="$t('invoices.headers.EMAIL')"
                                 :error="errors.length > 0"
                                 :error-messages="errors[0]"
@@ -132,7 +132,7 @@
                                 name="phone"
                                 type="tel"
                                 prepend-icon="phone"
-                                v-model="editedItem.Tenant.phone"
+                                v-model="editedTenant.phone"
                                 :label="$t('invoices.headers.PHONE')"
                                 :error="errors.length > 0"
                                 :error-messages="errors[0]"
@@ -155,7 +155,7 @@
                                 type="number"
                                 prefix="KES"
                                 :label="$t('invoices.headers.RENT')"
-                                v-model="editedItem.Tenant.rent"
+                                v-model="editedTenant.rent"
                                 :error="errors.length > 0"
                                 :error-messages="errors[0]"
                                 key="rent"
@@ -174,7 +174,7 @@
                                 name="garbage"
                                 type="number"
                                 prefix="KES"
-                                v-model="editedItem.Tenant.garbage"
+                                v-model="editedTenant.garbage"
                                 :label="$t('invoices.headers.GARBAGE')"
                                 :error="errors.length > 0"
                                 :error-messages="errors[0]"
@@ -192,7 +192,7 @@
                                 name="water"
                                 type="number"
                                 prefix="KES"
-                                v-model="editedItem.Tenant.water"
+                                v-model="editedTenant.water"
                                 :label="$t('invoices.headers.WATER')"
                                 :error="errors.length > 0"
                                 :error-messages="errors[0]"
@@ -210,7 +210,7 @@
                                 name="penalty"
                                 type="number"
                                 prefix="KES"
-                                v-model="editedItem.Tenant.penalty"
+                                v-model="editedTenant.penalty"
                                 :label="$t('invoices.headers.PENALTY')"
                                 :error="errors.length > 0"
                                 :error-messages="errors[0]"
@@ -228,16 +228,16 @@
                             >
                               <v-select
                                 clearable
-                                id="role"
-                                name="role"
-                                v-model="editedItem.id"
+                                id="status"
+                                name="status"
+                                v-model="editedTenant.status"
                                 :items="unitActions"
                                 item-text="name"
-                                item-value="value"
+                                item-value="text"
                                 :label="$t('billing.headers.STATUS')"
                                 :error="errors.length > 0"
                                 :error-messages="errors[0]"
-                                class="inputRole"
+                                class="inputStatus"
                               ></v-select>
                             </ValidationProvider>
                           </v-flex>
@@ -246,15 +246,18 @@
                               rules="required"
                               v-slot="{ errors }"
                             >
-                              <v-text-field
-                                id="unitName"
-                                name="unitName"
-                                v-model="editedItem.name"
-                                :label="$t('invoices.headers.UNIT_NAME')"
+                              <v-select
+                                clearable
+                                id="unit"
+                                name="unit"
+                                :items="emptyUnits"
+                                item-text="name"
+                                item-value="id"
+                                :label="$t('invoices.headers.UNIT')"
                                 :error="errors.length > 0"
                                 :error-messages="errors[0]"
-                                autocomplete="off"
-                              ></v-text-field>
+                                class="inputUnit"
+                              ></v-select>
                             </ValidationProvider>
                           </v-flex>
                         </v-layout>
@@ -381,6 +384,7 @@ export default {
       search: '',
       pagination: {},
       editedItem: {},
+      editedTenant: {},
       defaultItem: {},
       fieldsToSearch: ['name', 'email', 'phone']
     }
@@ -392,6 +396,9 @@ export default {
         { name: this.$t('billing.MOVED_OUT'), value: 'moved_out' },
         { name: this.$t('billing.CHANGED_HOUSE'), value: 'changed_house' }
       ]
+    },
+    emptyUnits() {
+      return this.$store.state.units.emptyUnits
     },
     formTitle() {
       return this.editedItem.id
@@ -531,6 +538,7 @@ export default {
     },
     editItem(item) {
       this.editedItem = Object.assign({}, item)
+      this.editedTenant = Object.assign({}, item.Tenant)
       this.dialog = true
     },
     async deleteItem(item) {
@@ -587,6 +595,7 @@ export default {
       this.dialog = false
       setTimeout(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedTenant = Object.assign({}, this.defaultItem)
       }, 300)
     },
     async save() {
@@ -594,7 +603,7 @@ export default {
         this.dataTableLoading = true
         // Updating item
         if (this.editedItem.id) {
-          await this.editTenant(this.editedItem)
+          await this.editTenant(this.editedTenant)
           await this.getUnits(
             buildPayloadPagination(this.pagination, this.buildSearch())
           )
@@ -603,13 +612,13 @@ export default {
           // Creating new item
           await this.saveTenant({
             unitId: this.editedItem.id,
-            name: this.editedItem.Tenant.name,
-            email: this.editedItem.Tenant.email,
-            phone: this.editedItem.Tenant.phone,
-            rent: this.editedItem.Tenant.rent,
-            water: this.editedItem.Tenant.water || 0,
-            penalty: this.editedItem.Tenant.penalty || 0,
-            garbage: this.editedItem.Tenant.garbage || 0
+            name: this.editedTenant.name,
+            email: this.editedTenant.email,
+            phone: this.editedTenant.phone,
+            rent: this.editedTenant.rent,
+            water: this.editedTenant.water || 0,
+            penalty: this.editedTenant.penalty || 0,
+            garbage: this.editedTenant.garbage || 0
           })
           await this.getUnits(
             buildPayloadPagination(this.pagination, this.buildSearch())
