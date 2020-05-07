@@ -23,6 +23,8 @@ export const FILL_PROFILE = 'FILL_PROFILE'
 export const ADD_PROFILE_DATA = 'ADD_PROFILE_DATA'
 // flats
 export const FILL_ALL_FLATS = 'FILL_ALL_FLATS'
+export const ADD_UNIT_DATA = 'ADD_UNIT_DATA'
+export const CURRENT_FLAT = 'CURRENT_FLAT'
 // Admin - Flats
 export const FLATS = 'FLATS'
 export const TOTAL_FLATS = 'TOTAL_FLATS'

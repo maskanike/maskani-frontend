@@ -245,6 +245,12 @@ export default {
             link: 'profile',
             icon: 'mdi-face',
             class: 'btnProfile'
+          },
+          {
+            title: this.$t('menuItems.MANAGE'),
+            link: 'manage',
+            icon: 'mdi-home',
+            class: 'btnManage'
           }
         ]
       }

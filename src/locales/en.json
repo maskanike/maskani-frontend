@@ -53,6 +53,7 @@
   },
   "menuItems": {
     "HOME": "Home",
+    "MANAGE": "Manage",
     "ABOUT": "About",
     "RECEIPTS": "Receipts",
     "INVOICES": "Invoices",
@@ -220,6 +221,16 @@
     "FLAT": "Flat",
     "NO_RESULTS_FOUND": "No results found",
     "COUNTRY": "Country",
+    "SAVE": "Save",
+    "PROFILE_SAVED_SUCCESSFULLY": "Profile saved successfuly"
+  },
+  "manageFlat": {
+    "TITLE": "Manage Flat",
+    "ADD_UNIT": "New Unit",
+    "NAME": "Name",
+    "BANK_DETAILS": "Bank Details",
+    "FLAT": "Flat",
+    "NO_RESULTS_FOUND": "No results found",
     "SAVE": "Save",
     "PROFILE_SAVED_SUCCESSFULLY": "Profile saved successfuly"
   }
