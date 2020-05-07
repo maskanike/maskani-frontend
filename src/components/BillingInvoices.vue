@@ -221,7 +221,7 @@
                         </v-layout>
                         <v-divider></v-divider>
                         <v-layout wrap>
-                          <v-flex xs12 md6>
+                          <v-flex xs12 md6 v-if="editedItem.id">
                             <ValidationProvider
                               rules="required"
                               v-slot="{ errors }"
@@ -250,6 +250,7 @@
                                 clearable
                                 id="unit"
                                 name="unit"
+                                v-model="editedTenant.UnitId"
                                 :items="emptyUnits"
                                 item-text="name"
                                 item-value="id"
@@ -538,7 +539,7 @@ export default {
     },
     editItem(item) {
       this.editedItem = Object.assign({}, item)
-      this.editedTenant = Object.assign({}, item.Tenant)
+      this.editedTenant = Object.assign({}, item.Tenant, { UnitId: item.id })
       this.dialog = true
     },
     async deleteItem(item) {
@@ -611,7 +612,7 @@ export default {
         } else {
           // Creating new item
           await this.saveTenant({
-            unitId: this.editedItem.id,
+            UnitId: this.editedTenant.UnitId,
             name: this.editedTenant.name,
             email: this.editedTenant.email,
             phone: this.editedTenant.phone,
