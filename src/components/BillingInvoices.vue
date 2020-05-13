@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <div>
+    <div v-if="currentFlat.name">
       <v-data-table
         :loading="dataTableLoading"
         :no-data-text="$t('dataTable.NO_DATA')"
@@ -362,6 +362,9 @@
       <ErrorMessage />
       <SuccessMessage />
     </div>
+    <div v-else>
+      <CreateFlat />
+    </div>
   </v-container>
 </template>
 
@@ -469,6 +472,9 @@ export default {
           value: 'Tenant.lastInvoiceSentAt'
         }
       ]
+    },
+    currentFlat() {
+      return this.$store.state.flats.currentFlat
     },
     items() {
       return this.$store.state.units.units
