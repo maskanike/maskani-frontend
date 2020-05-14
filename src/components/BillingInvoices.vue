@@ -515,7 +515,8 @@ export default {
       'editTenant',
       'saveTenant',
       'deleteTenant',
-      'sendInvoice'
+      'sendInvoice',
+      'getUserFlat'
     ]),
     getFormat(date) {
       window.__localeId__ = this.$store.getters.locale
@@ -640,6 +641,9 @@ export default {
         this.close()
       }
     }
+  },
+  async mounted() {
+    await this.getUserFlat()
   }
 }
 </script>
