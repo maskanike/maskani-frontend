@@ -82,6 +82,7 @@
   },
   "dataTable": {
     "NEW_ITEM": "New Item",
+    "NEW_FLAT_ITEM": "New Flat",
     "EDIT_ITEM": "Edit Item",
     "CANCEL": "Cancel",
     "SAVE": "Save",
@@ -98,6 +99,7 @@
   },
   "flats": {
     "TITLE": "Flats",
+    "ADD_NEW_FLAT": "Create Flat",
     "headers": {
       "NAME": "Name"
     }

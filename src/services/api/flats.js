@@ -6,5 +6,8 @@ export default {
   },
   getUserFlat() {
     return axios.get(`/flats/user`)
+  },
+  saveUserFlat(id, payload) {
+    return axios.post(`/flats/users/${id}`, payload)
   }
 }

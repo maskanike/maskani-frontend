@@ -1,6 +1,6 @@
 import * as types from '@/store/mutation-types'
 import api from '@/services/api/flats'
-import { handleError } from '@/utils/utils.js'
+import { handleError, buildSuccess } from '@/utils/utils.js'
 
 const getters = {
   allFlats: (state) => state.allFlats,
@@ -45,6 +45,30 @@ const actions = {
   },
   addUnitData({ commit }, data) {
     commit(types.ADD_UNIT_DATA, data)
+  },
+  saveUserFlat({ commit }, payload) {
+    const data = {
+      name: payload.name
+    }
+
+    return new Promise((resolve, reject) => {
+      api
+        .saveUserFlat(payload.userId, data)
+        .then((response) => {
+          if (response.status === 201) {
+            buildSuccess(
+              {
+                msg: 'common.SAVED_SUCCESSFULLY'
+              },
+              commit,
+              resolve
+            )
+          }
+        })
+        .catch((error) => {
+          handleError(error, commit, reject)
+        })
+    })
   }
 }
 
