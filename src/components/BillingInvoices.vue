@@ -596,7 +596,6 @@ export default {
             rent: item.Tenant.rent,
             penalty: item.Tenant.penalty
           }
-          console.log(data)
           await this.sendInvoice(data)
           await this.getUnits(
             buildPayloadPagination(this.pagination, this.buildSearch())

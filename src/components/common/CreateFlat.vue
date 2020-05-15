@@ -115,7 +115,6 @@ export default {
     },
     async save() {
       try {
-        // console.log(this.flatName)
         const { flatName } = this
         // Creating new item
         await this.saveUserFlat({ userId: this.user.id, name: flatName })
