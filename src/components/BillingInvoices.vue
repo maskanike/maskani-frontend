@@ -588,7 +588,7 @@ export default {
         )
         if (response) {
           this.dataTableLoading = true
-          await this.sendInvoice(item.Tenant)
+          await this.sendInvoice({ ...item.Tenant, UnitId: item.id })
           await this.getUnits(
             buildPayloadPagination(this.pagination, this.buildSearch())
           )
