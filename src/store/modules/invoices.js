@@ -57,7 +57,7 @@ const actions = {
         UnitId: payload.UnitId
       }
       api
-        .sendInvoice(payload.id, data)
+        .sendInvoice(payload.TenantId, data)
         .then((response) => {
           if (response.status === 201) {
             buildSuccess(

@@ -588,7 +588,16 @@ export default {
         )
         if (response) {
           this.dataTableLoading = true
-          await this.sendInvoice({ ...item.Tenant, UnitId: item.id })
+          const data = {
+            UnitId: item.id,
+            TenantId: item.Tenant.id,
+            water: item.Tenant.water,
+            garbage: item.Tenant.garbage,
+            rent: item.Tenant.rent,
+            penalty: item.Tenant.penalty
+          }
+          console.log(data)
+          await this.sendInvoice(data)
           await this.getUnits(
             buildPayloadPagination(this.pagination, this.buildSearch())
           )
