@@ -1,13 +1,13 @@
 export default [
   {
-    path: '/billing/invoices',
-    name: 'billing-invoices',
+    path: '/billing',
+    name: 'billing',
     meta: {
       requiresAuth: true
     },
     component: () =>
       import(
-        /* webpackChunkName: "billing-invoices" */ '@/components/BillingInvoices.vue'
+        /* webpackChunkName: "billing" */ '@/components/BillingInvoices.vue'
       )
   },
   {

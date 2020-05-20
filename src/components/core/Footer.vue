@@ -1,5 +1,5 @@
 <template>
-  <v-footer class="d-block text-center">
+  <v-footer class="d-block text-center" app>
     <div>
       v{{ appVersion }} - {{ $t('footer.MADE_WITH') }}
       <v-icon small class="red--text mx-0 px-0">mdi-cards-heart</v-icon>

@@ -1,370 +1,378 @@
 <template>
   <v-container fluid>
-    <div v-if="currentFlat.name">
-      <v-data-table
-        :loading="dataTableLoading"
-        :no-data-text="$t('dataTable.NO_DATA')"
-        :no-results-text="$t('dataTable.NO_RESULTS')"
-        :headers="headers"
-        :items="items"
-        :options.sync="pagination"
-        :items-per-page="5"
-        :server-items-length="totalItems"
-        class="elevation-1"
-        :footer-props="{
-          'items-per-page-text': $t('dataTable.ROWS_PER_PAGE'),
-          'items-per-page-options': [5, 10, 25]
-        }"
-      >
-        <template v-slot:top>
-          <v-layout wrap>
-            <v-flex xs12 sm12 md4 mt-3 pl-4>
-              <div class="text-left">
-                <v-toolbar-title>{{ $t('invoices.TITLE') }}</v-toolbar-title>
-              </div>
-            </v-flex>
-            <v-flex xs12 sm6 md4 px-3>
-              <v-text-field
-                v-model="search"
-                append-icon="mdi-magnify"
-                :label="$t('dataTable.SEARCH')"
-                id="search"
-                single-line
-                hide-details
-                clearable
-                clear-icon="mdi-close"
-              ></v-text-field>
-            </v-flex>
-            <v-flex xs12 sm6 md4 text-xs-right mb-2 mt-2 pr-2>
-              <ValidationObserver
-                ref="observer"
-                v-slot="{ invalid }"
-                tag="form"
-                @submit.prevent="submit()"
-              >
-                <v-dialog
-                  v-model="dialog"
-                  max-width="800px"
-                  content-class="dlgNewEditItem"
-                >
-                  <template v-slot:activator="{ on }">
-                    <div class="text-right">
+    <v-row align="center" justify="center">
+      <v-col cols="10">
+        <v-card v-if="currentFlat.name">
+          <v-data-table
+            :loading="dataTableLoading"
+            :no-data-text="$t('dataTable.NO_DATA')"
+            :no-results-text="$t('dataTable.NO_RESULTS')"
+            :headers="headers"
+            :items="items"
+            :options.sync="pagination"
+            :items-per-page="5"
+            :server-items-length="totalItems"
+            class="elevation-1"
+            :footer-props="{
+              'items-per-page-text': $t('dataTable.ROWS_PER_PAGE'),
+              'items-per-page-options': [5, 10, 25]
+            }"
+          >
+            <template v-slot:top>
+              <v-layout wrap>
+                <v-flex xs12 sm12 md4 mt-3 pl-4>
+                  <div class="text-left">
+                    <v-toolbar-title>
+                      {{ $t('invoices.TITLE') }}
+                    </v-toolbar-title>
+                  </div>
+                </v-flex>
+                <v-flex xs12 sm6 md4 px-3>
+                  <v-text-field
+                    v-model="search"
+                    append-icon="mdi-magnify"
+                    :label="$t('dataTable.SEARCH')"
+                    id="search"
+                    single-line
+                    hide-details
+                    clearable
+                    clear-icon="mdi-close"
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6 md4 text-xs-right mb-2 mt-2 pr-2>
+                  <ValidationObserver
+                    ref="observer"
+                    v-slot="{ invalid }"
+                    tag="form"
+                    @submit.prevent="submit()"
+                  >
+                    <v-dialog
+                      v-model="dialog"
+                      max-width="800px"
+                      content-class="dlgNewEditItem"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <div class="text-right">
+                          <v-btn
+                            color="secondary"
+                            v-on="on"
+                            class="btnNewItem pr-4"
+                          >
+                            <v-icon class="mr-2">mdi-plus</v-icon>
+                            {{ $t('dataTable.NEW_ITEM') }}
+                          </v-btn>
+                        </div>
+                      </template>
+                      <v-card class="elevation-12">
+                        <v-card-title>
+                          <span class="headline">{{ formTitle }}</span>
+                        </v-card-title>
+                        <v-card-text>
+                          <v-container grid-list-md>
+                            <v-layout wrap>
+                              <template v-if="editedItem.id">
+                                <v-flex xs12 md4>
+                                  <label for="createdAt">{{
+                                    $t('common.CREATED')
+                                  }}</label>
+                                  <div name="createdAt">
+                                    {{ getFormat(editedTenant.createdAt) }}
+                                  </div>
+                                </v-flex>
+                                <v-flex xs12 md4>
+                                  <label for="updatedAt">{{
+                                    $t('common.UPDATED')
+                                  }}</label>
+                                  <div name="updatedAt">
+                                    {{ getFormat(editedTenant.updatedAt) }}
+                                  </div>
+                                </v-flex>
+                              </template>
+                            </v-layout>
+                            <v-divider></v-divider>
+                            <v-layout wrap>
+                              <v-flex xs12 md6>
+                                <ValidationProvider
+                                  rules="required"
+                                  v-slot="{ errors }"
+                                >
+                                  <v-text-field
+                                    id="name"
+                                    name="name"
+                                    prepend-icon="person"
+                                    v-model="editedTenant.name"
+                                    :label="$t('invoices.headers.FULL_NAME')"
+                                    :error="errors.length > 0"
+                                    :error-messages="errors[0]"
+                                    autocomplete="off"
+                                  ></v-text-field>
+                                </ValidationProvider>
+                              </v-flex>
+                              <v-flex xs12 md6>
+                                <ValidationProvider
+                                  rules="required|email"
+                                  v-slot="{ errors }"
+                                >
+                                  <v-text-field
+                                    id="email"
+                                    name="email"
+                                    type="email"
+                                    prepend-icon="email"
+                                    v-model="editedTenant.email"
+                                    :label="$t('invoices.headers.EMAIL')"
+                                    :error="errors.length > 0"
+                                    :error-messages="errors[0]"
+                                    autocomplete="off"
+                                  ></v-text-field>
+                                </ValidationProvider>
+                              </v-flex>
+                              <v-flex xs12 md6>
+                                <ValidationProvider
+                                  rules="required"
+                                  v-slot="{ errors }"
+                                >
+                                  <v-text-field
+                                    id="phone"
+                                    name="phone"
+                                    type="tel"
+                                    prepend-icon="phone"
+                                    v-model="editedTenant.phone"
+                                    :label="$t('invoices.headers.PHONE')"
+                                    :error="errors.length > 0"
+                                    :error-messages="errors[0]"
+                                    autocomplete="off"
+                                  ></v-text-field>
+                                </ValidationProvider>
+                              </v-flex>
+                            </v-layout>
+                            <v-divider></v-divider>
+                            <v-layout wrap>
+                              <v-flex xs12 md6>
+                                <ValidationProvider
+                                  rules="required:integer"
+                                  v-slot="{ errors }"
+                                  vid="rent"
+                                >
+                                  <v-text-field
+                                    id="rent"
+                                    name="rent"
+                                    type="number"
+                                    prefix="KES"
+                                    :label="$t('invoices.headers.RENT')"
+                                    v-model="editedTenant.rent"
+                                    :error="errors.length > 0"
+                                    :error-messages="errors[0]"
+                                    key="rent"
+                                    ref="rent"
+                                    autocomplete="off"
+                                  ></v-text-field>
+                                </ValidationProvider>
+                              </v-flex>
+                              <v-flex xs12 md6>
+                                <ValidationProvider
+                                  rules="integer"
+                                  v-slot="{ errors }"
+                                >
+                                  <v-text-field
+                                    id="garbage"
+                                    name="garbage"
+                                    type="number"
+                                    prefix="KES"
+                                    v-model="editedTenant.garbage"
+                                    :label="$t('invoices.headers.GARBAGE')"
+                                    :error="errors.length > 0"
+                                    :error-messages="errors[0]"
+                                    autocomplete="off"
+                                  ></v-text-field>
+                                </ValidationProvider>
+                              </v-flex>
+                              <v-flex xs12 md6>
+                                <ValidationProvider
+                                  rules="integer"
+                                  v-slot="{ errors }"
+                                >
+                                  <v-text-field
+                                    id="water"
+                                    name="water"
+                                    type="number"
+                                    prefix="KES"
+                                    v-model="editedTenant.water"
+                                    :label="$t('invoices.headers.WATER')"
+                                    :error="errors.length > 0"
+                                    :error-messages="errors[0]"
+                                    autocomplete="off"
+                                  ></v-text-field>
+                                </ValidationProvider>
+                              </v-flex>
+                              <v-flex xs12 md6>
+                                <ValidationProvider
+                                  rules="integer"
+                                  v-slot="{ errors }"
+                                >
+                                  <v-text-field
+                                    id="penalty"
+                                    name="penalty"
+                                    type="number"
+                                    prefix="KES"
+                                    v-model="editedTenant.penalty"
+                                    :label="$t('invoices.headers.PENALTY')"
+                                    :error="errors.length > 0"
+                                    :error-messages="errors[0]"
+                                    autocomplete="off"
+                                  ></v-text-field>
+                                </ValidationProvider>
+                              </v-flex>
+                            </v-layout>
+                            <v-divider></v-divider>
+                            <v-layout wrap>
+                              <v-flex xs12 md6 v-if="editedItem.id">
+                                <ValidationProvider
+                                  rules="required"
+                                  v-slot="{ errors }"
+                                >
+                                  <v-select
+                                    clearable
+                                    id="status"
+                                    name="status"
+                                    v-model="editedTenant.status"
+                                    :items="unitActions"
+                                    item-text="name"
+                                    item-value="text"
+                                    :label="$t('billing.headers.STATUS')"
+                                    :error="errors.length > 0"
+                                    :error-messages="errors[0]"
+                                    class="inputStatus"
+                                  ></v-select>
+                                </ValidationProvider>
+                              </v-flex>
+                              <v-flex xs12 md6>
+                                <ValidationProvider
+                                  rules="required"
+                                  v-slot="{ errors }"
+                                >
+                                  <v-select
+                                    clearable
+                                    id="unit"
+                                    name="unit"
+                                    v-model="editedTenant.UnitId"
+                                    :items="emptyUnits"
+                                    item-text="name"
+                                    item-value="id"
+                                    :label="$t('invoices.headers.UNIT')"
+                                    :error="errors.length > 0"
+                                    :error-messages="errors[0]"
+                                    class="inputUnit"
+                                  ></v-select>
+                                </ValidationProvider>
+                              </v-flex>
+                            </v-layout>
+                          </v-container>
+                        </v-card-text>
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn
+                            color="red lighten3"
+                            text
+                            @click="close"
+                            class="btnCancel"
+                            >{{ $t('dataTable.CANCEL') }}</v-btn
+                          >
+                          <v-btn
+                            color="green"
+                            text
+                            @click="save"
+                            :disabled="invalid"
+                            class="btnSave"
+                            >{{ $t('dataTable.SAVE') }}</v-btn
+                          >
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+                  </ValidationObserver>
+                </v-flex>
+              </v-layout>
+            </template>
+            <template v-slot:items="props">
+              <td>{{ props.item.name }}</td>
+              <td>{{ props.item.email }}</td>
+              <td>{{ props.item.phone }}</td>
+              <td>{{ props.item.rent }}</td>
+              <td>{{ props.item.water }}</td>
+            </template>
+            <template v-slot:item.id="{ item }">
+              <td class="fill-height px-0">
+                <v-layout class="justify-center">
+                  <v-tooltip top>
+                    <template v-slot:activator="{ on }">
                       <v-btn
-                        color="secondary"
+                        id="edit"
+                        icon
+                        class="mx-0"
                         v-on="on"
-                        class="btnNewItem pr-4"
+                        @click="editItem(item)"
                       >
-                        <v-icon class="mr-2">mdi-plus</v-icon>
-                        {{ $t('dataTable.NEW_ITEM') }}
+                        <v-icon>mdi-pencil</v-icon>
                       </v-btn>
-                    </div>
-                  </template>
-                  <v-card class="elevation-12">
-                    <v-card-title>
-                      <span class="headline">{{ formTitle }}</span>
-                    </v-card-title>
-                    <v-card-text>
-                      <v-container grid-list-md>
-                        <v-layout wrap>
-                          <template v-if="editedItem.id">
-                            <v-flex xs12 md4>
-                              <label for="createdAt">{{
-                                $t('common.CREATED')
-                              }}</label>
-                              <div name="createdAt">
-                                {{ getFormat(editedTenant.createdAt) }}
-                              </div>
-                            </v-flex>
-                            <v-flex xs12 md4>
-                              <label for="updatedAt">{{
-                                $t('common.UPDATED')
-                              }}</label>
-                              <div name="updatedAt">
-                                {{ getFormat(editedTenant.updatedAt) }}
-                              </div>
-                            </v-flex>
-                          </template>
-                        </v-layout>
-                        <v-divider></v-divider>
-                        <v-layout wrap>
-                          <v-flex xs12 md6>
-                            <ValidationProvider
-                              rules="required"
-                              v-slot="{ errors }"
-                            >
-                              <v-text-field
-                                id="name"
-                                name="name"
-                                prepend-icon="person"
-                                v-model="editedTenant.name"
-                                :label="$t('invoices.headers.FULL_NAME')"
-                                :error="errors.length > 0"
-                                :error-messages="errors[0]"
-                                autocomplete="off"
-                              ></v-text-field>
-                            </ValidationProvider>
-                          </v-flex>
-                          <v-flex xs12 md6>
-                            <ValidationProvider
-                              rules="required|email"
-                              v-slot="{ errors }"
-                            >
-                              <v-text-field
-                                id="email"
-                                name="email"
-                                type="email"
-                                prepend-icon="email"
-                                v-model="editedTenant.email"
-                                :label="$t('invoices.headers.EMAIL')"
-                                :error="errors.length > 0"
-                                :error-messages="errors[0]"
-                                autocomplete="off"
-                              ></v-text-field>
-                            </ValidationProvider>
-                          </v-flex>
-                          <v-flex xs12 md6>
-                            <ValidationProvider
-                              rules="required"
-                              v-slot="{ errors }"
-                            >
-                              <v-text-field
-                                id="phone"
-                                name="phone"
-                                type="tel"
-                                prepend-icon="phone"
-                                v-model="editedTenant.phone"
-                                :label="$t('invoices.headers.PHONE')"
-                                :error="errors.length > 0"
-                                :error-messages="errors[0]"
-                                autocomplete="off"
-                              ></v-text-field>
-                            </ValidationProvider>
-                          </v-flex>
-                        </v-layout>
-                        <v-divider></v-divider>
-                        <v-layout wrap>
-                          <v-flex xs12 md6>
-                            <ValidationProvider
-                              rules="required:integer"
-                              v-slot="{ errors }"
-                              vid="rent"
-                            >
-                              <v-text-field
-                                id="rent"
-                                name="rent"
-                                type="number"
-                                prefix="KES"
-                                :label="$t('invoices.headers.RENT')"
-                                v-model="editedTenant.rent"
-                                :error="errors.length > 0"
-                                :error-messages="errors[0]"
-                                key="rent"
-                                ref="rent"
-                                autocomplete="off"
-                              ></v-text-field>
-                            </ValidationProvider>
-                          </v-flex>
-                          <v-flex xs12 md6>
-                            <ValidationProvider
-                              rules="integer"
-                              v-slot="{ errors }"
-                            >
-                              <v-text-field
-                                id="garbage"
-                                name="garbage"
-                                type="number"
-                                prefix="KES"
-                                v-model="editedTenant.garbage"
-                                :label="$t('invoices.headers.GARBAGE')"
-                                :error="errors.length > 0"
-                                :error-messages="errors[0]"
-                                autocomplete="off"
-                              ></v-text-field>
-                            </ValidationProvider>
-                          </v-flex>
-                          <v-flex xs12 md6>
-                            <ValidationProvider
-                              rules="integer"
-                              v-slot="{ errors }"
-                            >
-                              <v-text-field
-                                id="water"
-                                name="water"
-                                type="number"
-                                prefix="KES"
-                                v-model="editedTenant.water"
-                                :label="$t('invoices.headers.WATER')"
-                                :error="errors.length > 0"
-                                :error-messages="errors[0]"
-                                autocomplete="off"
-                              ></v-text-field>
-                            </ValidationProvider>
-                          </v-flex>
-                          <v-flex xs12 md6>
-                            <ValidationProvider
-                              rules="integer"
-                              v-slot="{ errors }"
-                            >
-                              <v-text-field
-                                id="penalty"
-                                name="penalty"
-                                type="number"
-                                prefix="KES"
-                                v-model="editedTenant.penalty"
-                                :label="$t('invoices.headers.PENALTY')"
-                                :error="errors.length > 0"
-                                :error-messages="errors[0]"
-                                autocomplete="off"
-                              ></v-text-field>
-                            </ValidationProvider>
-                          </v-flex>
-                        </v-layout>
-                        <v-divider></v-divider>
-                        <v-layout wrap>
-                          <v-flex xs12 md6 v-if="editedItem.id">
-                            <ValidationProvider
-                              rules="required"
-                              v-slot="{ errors }"
-                            >
-                              <v-select
-                                clearable
-                                id="status"
-                                name="status"
-                                v-model="editedTenant.status"
-                                :items="unitActions"
-                                item-text="name"
-                                item-value="text"
-                                :label="$t('billing.headers.STATUS')"
-                                :error="errors.length > 0"
-                                :error-messages="errors[0]"
-                                class="inputStatus"
-                              ></v-select>
-                            </ValidationProvider>
-                          </v-flex>
-                          <v-flex xs12 md6>
-                            <ValidationProvider
-                              rules="required"
-                              v-slot="{ errors }"
-                            >
-                              <v-select
-                                clearable
-                                id="unit"
-                                name="unit"
-                                v-model="editedTenant.UnitId"
-                                :items="emptyUnits"
-                                item-text="name"
-                                item-value="id"
-                                :label="$t('invoices.headers.UNIT')"
-                                :error="errors.length > 0"
-                                :error-messages="errors[0]"
-                                class="inputUnit"
-                              ></v-select>
-                            </ValidationProvider>
-                          </v-flex>
-                        </v-layout>
-                      </v-container>
-                    </v-card-text>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
+                    </template>
+                    <span>{{ $t('dataTable.EDIT') }}</span>
+                  </v-tooltip>
+                  <v-tooltip top>
+                    <template v-slot:activator="{ on }">
                       <v-btn
-                        color="red lighten3"
-                        text
-                        @click="close"
-                        class="btnCancel"
-                        >{{ $t('dataTable.CANCEL') }}</v-btn
+                        id="delete"
+                        icon
+                        class="mx-0"
+                        v-on="on"
+                        @click="deleteItem(item)"
                       >
+                        <v-icon>mdi-delete</v-icon>
+                      </v-btn>
+                    </template>
+                    <span>{{ $t('dataTable.DELETE') }}</span>
+                  </v-tooltip>
+                  <v-tooltip top>
+                    <template v-slot:activator="{ on }">
                       <v-btn
-                        color="green"
-                        text
-                        @click="save"
-                        :disabled="invalid"
-                        class="btnSave"
-                        >{{ $t('dataTable.SAVE') }}</v-btn
+                        id="send"
+                        icon
+                        class="mx-0"
+                        v-on="on"
+                        @click="sendItem(item)"
                       >
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-              </ValidationObserver>
-            </v-flex>
-          </v-layout>
-        </template>
-        <template v-slot:items="props">
-          <td>{{ props.item.name }}</td>
-          <td>{{ props.item.email }}</td>
-          <td>{{ props.item.phone }}</td>
-          <td>{{ props.item.rent }}</td>
-          <td>{{ props.item.water }}</td>
-        </template>
-        <template v-slot:item.id="{ item }">
-          <td class="fill-height px-0">
-            <v-layout class="justify-center">
-              <v-tooltip top>
-                <template v-slot:activator="{ on }">
-                  <v-btn
-                    id="edit"
-                    icon
-                    class="mx-0"
-                    v-on="on"
-                    @click="editItem(item)"
-                  >
-                    <v-icon>mdi-pencil</v-icon>
-                  </v-btn>
-                </template>
-                <span>{{ $t('dataTable.EDIT') }}</span>
-              </v-tooltip>
-              <v-tooltip top>
-                <template v-slot:activator="{ on }">
-                  <v-btn
-                    id="delete"
-                    icon
-                    class="mx-0"
-                    v-on="on"
-                    @click="deleteItem(item)"
-                  >
-                    <v-icon>mdi-delete</v-icon>
-                  </v-btn>
-                </template>
-                <span>{{ $t('dataTable.DELETE') }}</span>
-              </v-tooltip>
-              <v-tooltip top>
-                <template v-slot:activator="{ on }">
-                  <v-btn
-                    id="send"
-                    icon
-                    class="mx-0"
-                    v-on="on"
-                    @click="sendItem(item)"
-                  >
-                    <v-icon>mdi-send</v-icon>
-                  </v-btn>
-                </template>
-                <span>{{ $t('dataTable.SEND') }}</span>
-              </v-tooltip>
-            </v-layout>
-          </td>
-        </template>
-        <template v-slot:item.createdAt="{ item }">
-          {{ getFormat(item.createdAt) }}
-        </template>
-        <template v-slot:item.updatedAt="{ item }">
-          {{ getFormat(item.updatedAt) }}
-        </template>
-        <template
-          v-slot:footer.page-text="{ pageStart, pageStop, itemsLength }"
-        >
-          {{ pageStart }} - {{ pageStop }}
-          {{ $t('dataTable.OF') }}
-          {{ itemsLength }}
-        </template>
-        <template v-slot:no-data>{{ $t('dataTable.NO_DATA') }}</template>
-        <template v-slot:no-results>{{ $t('dataTable.NO_RESULTS') }}</template>
-      </v-data-table>
-      <ErrorMessage />
-      <SuccessMessage />
-    </div>
-    <div v-else>
-      <CreateFlat />
-    </div>
+                        <v-icon>mdi-send</v-icon>
+                      </v-btn>
+                    </template>
+                    <span>{{ $t('dataTable.SEND') }}</span>
+                  </v-tooltip>
+                </v-layout>
+              </td>
+            </template>
+            <template v-slot:item.createdAt="{ item }">
+              {{ getFormat(item.createdAt) }}
+            </template>
+            <template v-slot:item.updatedAt="{ item }">
+              {{ getFormat(item.updatedAt) }}
+            </template>
+            <template
+              v-slot:footer.page-text="{ pageStart, pageStop, itemsLength }"
+            >
+              {{ pageStart }} - {{ pageStop }}
+              {{ $t('dataTable.OF') }}
+              {{ itemsLength }}
+            </template>
+            <template v-slot:no-data>{{ $t('dataTable.NO_DATA') }}</template>
+            <template v-slot:no-results>
+              {{ $t('dataTable.NO_RESULTS') }}
+            </template>
+          </v-data-table>
+          <ErrorMessage />
+          <SuccessMessage />
+        </v-card>
+        <v-card v-else>
+          <CreateFlat />
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
