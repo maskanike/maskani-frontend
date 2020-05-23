@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-row align="center" justify="center">
-      <v-col cols="10">
+      <v-col cols="12">
         <v-card v-if="currentFlat.name">
           <v-data-table
             :loading="dataTableLoading"
@@ -23,7 +23,7 @@
                 <v-flex xs12 sm12 md4 mt-3 pl-4>
                   <div class="text-left">
                     <v-toolbar-title>
-                      {{ $t('invoices.TITLE') }}
+                      {{ $t('invoices.TENANT_TITLE') }}
                     </v-toolbar-title>
                   </div>
                 </v-flex>
@@ -384,7 +384,7 @@ export default {
   metaInfo() {
     return {
       title: this.$store.getters.appTitle,
-      titleTemplate: `${this.$t('invoices.TITLE')} - %s`
+      titleTemplate: `${this.$t('invoices.TENANT_TITLE')} - %s`
     }
   },
   data() {

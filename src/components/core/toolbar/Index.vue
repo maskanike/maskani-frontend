@@ -146,11 +146,6 @@ export default {
       ]
     }
   },
-  methods: {
-    userLogout() {
-      this.$store.dispatch('userLogout')
-    }
-  },
   components: {
     Authenticated,
     Unauthenticated

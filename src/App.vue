@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <Toolbar />
-    <v-content>
+    <v-content class="text-center">
       <loading />
       <v-container fill-height fluid>
         <v-row align="center" justify="center">
