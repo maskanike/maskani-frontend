@@ -115,14 +115,7 @@ export default {
           { icon: 'mdi-dollars', text: 'Finances' }
         ]
       },
-      {
-        icon: 'mdi-chevron-up',
-        'icon-alt': 'mdi-chevron-down',
-        text: 'More',
-        model: false,
-        children: [{ text: 'Import' }, { text: 'Export' }]
-      },
-      { icon: 'mdi-settings', text: 'Settings', link: 'settings' },
+      { icon: 'mdi-account-cog', text: 'Settings', link: 'settings' },
       { icon: 'mdi-message', text: 'Send feedback', link: 'feedback' },
       { icon: 'mdi-help-circle', text: 'Help', link: 'help' }
     ]

@@ -7,7 +7,7 @@ export default [
     },
     component: () =>
       import(
-        /* webpackChunkName: "billing" */ '@/components/BillingInvoices.vue'
+        /* webpackChunkName: "billing" */ '@/components/billing/BillingInvoices.vue'
       )
   },
   {
@@ -18,7 +18,7 @@ export default [
     },
     component: () =>
       import(
-        /* webpackChunkName: "billing-receipts" */ '@/components/BillingReceipts.vue'
+        /* webpackChunkName: "billing-receipts" */ '@/components/billing/BillingReceipts.vue'
       )
   }
 ]

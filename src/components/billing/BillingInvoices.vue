@@ -302,6 +302,15 @@
             <template v-slot:item.id="{ item }">
               <td class="fill-height px-0">
                 <v-layout class="justify-center">
+                  <v-dialog v-model="sendInvoiceModal">
+                    <template v-slot:activator="{ on }">
+                      <v-btn color="primary" id="send" class="mx-0" v-on="on">
+                        {{ $t('dataTable.SEND_INVOICE') }}
+                        <v-icon>mdi-send</v-icon>
+                      </v-btn>
+                    </template>
+                    <SendInvoiceModal></SendInvoiceModal>
+                  </v-dialog>
                   <v-tooltip top>
                     <template v-slot:activator="{ on }">
                       <v-btn
@@ -329,20 +338,6 @@
                       </v-btn>
                     </template>
                     <span>{{ $t('dataTable.DELETE') }}</span>
-                  </v-tooltip>
-                  <v-tooltip top>
-                    <template v-slot:activator="{ on }">
-                      <v-btn
-                        id="send"
-                        icon
-                        class="mx-0"
-                        v-on="on"
-                        @click="sendItem(item)"
-                      >
-                        <v-icon>mdi-send</v-icon>
-                      </v-btn>
-                    </template>
-                    <span>{{ $t('dataTable.SEND') }}</span>
                   </v-tooltip>
                 </v-layout>
               </td>
@@ -379,6 +374,7 @@
 <script>
 import { mapActions } from 'vuex'
 import { getFormat, buildPayloadPagination } from '@/utils/utils.js'
+import SendInvoiceModal from './SendInvoiceModal'
 
 export default {
   metaInfo() {
@@ -393,6 +389,7 @@ export default {
       dataTableLoading: true,
       delayTimer: null,
       dialog: false,
+      sendInvoiceModal: false,
       search: '',
       pagination: {},
       editedItem: {},
@@ -420,10 +417,10 @@ export default {
     headers() {
       return [
         {
-          text: this.$i18n.t('dataTable.ACTIONS'),
-          value: 'id',
-          sortable: false,
-          width: 100
+          text: this.$i18n.t('invoices.headers.STATUS'),
+          align: 'left',
+          sortable: true,
+          value: 'status'
         },
         {
           text: this.$i18n.t('invoices.headers.UNIT'),
@@ -478,6 +475,12 @@ export default {
           align: 'left',
           sortable: true,
           value: 'Tenant.lastInvoiceSentAt'
+        },
+        {
+          text: this.$i18n.t('dataTable.ACTIONS'),
+          value: 'id',
+          sortable: false,
+          width: 100
         }
       ]
     },
@@ -493,6 +496,9 @@ export default {
   },
   watch: {
     dialog(value) {
+      return value ? true : this.close()
+    },
+    showInvoiceModal(value) {
       return value ? true : this.close()
     },
     pagination: {
@@ -584,6 +590,7 @@ export default {
     },
     async sendItem(item) {
       try {
+        // modal to edit invoice to send
         const response = await this.$confirm(
           this.$t('invoices.DO_YOU_REALLY_WANT_TO_SEND_INVOICE_TO_TENANT'),
           {
@@ -660,6 +667,9 @@ export default {
   },
   async mounted() {
     await this.getUserFlat()
+  },
+  components: {
+    SendInvoiceModal
   }
 }
 </script>

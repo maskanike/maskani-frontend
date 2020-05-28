@@ -86,7 +86,7 @@
     "EDIT_ITEM": "Edit Item",
     "CANCEL": "Cancel",
     "SAVE": "Save",
-    "SEND": "Send",
+    "SEND_INVOICE": "Send Invoice",
     "EDIT": "Edit",
     "DELETE": "Delete",
     "RESET": "Reset",
@@ -133,6 +133,7 @@
       "FLAT": "Flat",
       "PHONE": "Phone",
       "UNIT": "Unit",
+      "STATUS": "Status",
       "LAST_INVOICE": "Last Invoice Sent At"
     },
     "PASSWORD": "Password",
