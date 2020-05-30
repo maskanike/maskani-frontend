@@ -54,7 +54,8 @@ const actions = {
         garbage: payload.garbage,
         penalty: payload.penalty,
         water: payload.water,
-        UnitId: payload.UnitId
+        UnitId: payload.UnitId,
+        dueDate: payload.dueDate
       }
       api
         .sendInvoice(payload.TenantId, data)

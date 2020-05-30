@@ -336,11 +336,11 @@
                   <td class="fill-height px-0">
                     <v-layout class="justify-center">
                       <SendInvoiceModal
-                        v-if="item.Tenant"
+                        v-if="item.Tenant && invoiceNotSentToday(item)"
                         :item="item"
                       ></SendInvoiceModal>
                       <AssignTenantToUnit
-                        v-else
+                        v-else-if="!item.Tenant"
                         :UnitId="item.id"
                         @refreshUnitsTable="refreshTable()"
                       ></AssignTenantToUnit>
@@ -433,6 +433,7 @@ import { mapActions } from 'vuex'
 import { getFormat, buildPayloadPagination } from '@/utils/utils.js'
 import SendInvoiceModal from './SendInvoiceModal'
 import AssignTenantToUnit from './AssignTenantToUnitModal'
+import { differenceInHours, parseISO } from 'date-fns'
 
 export default {
   metaInfo() {
@@ -612,6 +613,20 @@ export default {
       return this.search
         ? { query: this.search, fields: this.fieldsToSearch.join(',') }
         : {}
+    },
+
+    invoiceNotSentToday(item) {
+      const lastInv = item.Tenant.lastInvoiceSentAt
+      if (!lastInv) {
+        return true
+      }
+
+      const now = new Date()
+      const hoursDiff = differenceInHours(now, parseISO(lastInv))
+      if (hoursDiff > 24) {
+        return true
+      }
+      return false
     },
 
     triggerClick(action, item) {

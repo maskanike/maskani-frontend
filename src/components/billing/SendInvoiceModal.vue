@@ -143,7 +143,8 @@ export default {
             rent: this.rent,
             water: this.water || 0,
             penalty: this.penalty || 0,
-            garbage: this.garbage || 0
+            garbage: this.garbage || 0,
+            dueDate: this.date
           }
           await this.sendInvoice(data)
           this.close()
