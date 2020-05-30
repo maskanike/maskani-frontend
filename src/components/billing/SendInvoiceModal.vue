@@ -13,7 +13,11 @@
         <v-container>
           <v-row>
             <v-col cols="12">
-              <v-text-field label="Tenant"></v-text-field>
+              <v-text-field
+                label="Tenant"
+                v-model="tenant"
+                disabled
+              ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="3">
               <v-text-field
@@ -64,7 +68,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" text @click="invDialog = false">
+        <v-btn color="blue darken-1" text @click="close">
           Close
         </v-btn>
         <v-btn color="blue darken-1" text @click="send">Send</v-btn>
@@ -74,17 +78,19 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   props: {
     item: Object
   },
   data() {
     return {
-      rent: this.item.rent,
-      water: 0,
-      penalty: 0,
-      garbage: 0,
-      tenantName: '',
+      rent: this.item.Tenant.rent,
+      water: this.item.Tenant.water,
+      penalty: this.item.Tenant.penalty,
+      garbage: this.item.Tenant.garbage,
+      tenant: `${this.item.Tenant.name} (${this.item.Tenant.email})`,
       date: new Date().toISOString().substr(0, 10),
       modal: false,
       invDialog: false,
@@ -93,22 +99,38 @@ export default {
   },
 
   methods: {
+    ...mapActions(['sendInvoice']),
+    close() {
+      this.invDialog = false
+    },
     async send() {
       try {
-        this.dataTableLoading = true
-        await this.sendInvoice({
-          tenantId: this.tenantId,
-          rent: this.rent,
-          water: this.water || 0,
-          penalty: this.penalty || 0,
-          garbage: this.garbage || 0
-        })
-        this.dataTableLoading = false
-        this.close()
-        return
+        const response = await this.$confirm(
+          this.$t('invoices.DO_YOU_REALLY_WANT_TO_SEND_INVOICE_TO_TENANT'),
+          {
+            title: this.$t('invoices.SEND_INVOICE', [this.item.name]),
+            buttonTrueText: this.$t('common.SEND'),
+            buttonFalseText: this.$t('common.CANCEL'),
+            buttonTrueColor: 'green',
+            buttonFalseColor: 'grey lighten1'
+          }
+        )
+        if (response) {
+          const data = {
+            TenantId: this.item.Tenant.id,
+            UnitId: this.item.id,
+            rent: this.rent,
+            water: this.water || 0,
+            penalty: this.penalty || 0,
+            garbage: this.garbage || 0
+          }
+          await this.sendInvoice(data)
+          this.close()
+          return
+        }
         // eslint-disable-next-line no-unused-vars
       } catch (error) {
-        this.dataTableLoading = false
+        console.log(error)
         this.close()
       }
     }

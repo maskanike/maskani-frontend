@@ -381,8 +381,10 @@ export default {
       defaultItem: {},
       fieldsToSearch: ['name', 'email', 'phone'],
       actions: [
-        { title: 'Edit', id: 'edit' },
-        { title: 'Delete', id: 'delete' }
+        { title: 'Edit Unit', id: 'edit' },
+        { title: 'Delete Unit', id: 'delete' },
+        { title: 'Vacate Unit', id: 'vacate' },
+        { title: 'Move Tenant to other Unit', id: 'migrate' }
       ]
     }
   },
@@ -486,9 +488,6 @@ export default {
     dialog(value) {
       return value ? true : this.close()
     },
-    showInvoiceModal(value) {
-      return value ? true : this.close()
-    },
     pagination: {
       async handler() {
         try {
@@ -517,7 +516,6 @@ export default {
       'editTenant',
       'saveTenant',
       'deleteTenant',
-      'sendInvoice',
       'getUserFlat'
     ]),
     getFormat(date) {
@@ -575,40 +573,6 @@ export default {
         if (response) {
           this.dataTableLoading = true
           await this.deleteUser(item.id)
-          await this.getUnits(
-            buildPayloadPagination(this.pagination, this.buildSearch())
-          )
-          this.dataTableLoading = false
-        }
-        // eslint-disable-next-line no-unused-vars
-      } catch (error) {
-        this.dataTableLoading = false
-      }
-    },
-    async sendItem(item) {
-      try {
-        // modal to edit invoice to send
-        const response = await this.$confirm(
-          this.$t('invoices.DO_YOU_REALLY_WANT_TO_SEND_INVOICE_TO_TENANT'),
-          {
-            title: this.$t('invoices.SEND_INVOICE', [item.name]),
-            buttonTrueText: this.$t('common.SEND'),
-            buttonFalseText: this.$t('common.CANCEL'),
-            buttonTrueColor: 'green',
-            buttonFalseColor: 'grey lighten1'
-          }
-        )
-        if (response) {
-          this.dataTableLoading = true
-          const data = {
-            UnitId: item.id,
-            TenantId: item.Tenant.id,
-            water: item.Tenant.water,
-            garbage: item.Tenant.garbage,
-            rent: item.Tenant.rent,
-            penalty: item.Tenant.penalty
-          }
-          await this.sendInvoice(data)
           await this.getUnits(
             buildPayloadPagination(this.pagination, this.buildSearch())
           )
