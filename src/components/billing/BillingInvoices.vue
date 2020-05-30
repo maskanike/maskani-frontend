@@ -59,7 +59,7 @@
                             class="btnNewItem pr-4"
                           >
                             <v-icon class="mr-2">mdi-plus</v-icon>
-                            {{ $t('dataTable.NEW_ITEM') }}
+                            {{ $t('dataTable.NEW_UNIT') }}
                           </v-btn>
                         </div>
                       </template>
@@ -89,8 +89,60 @@
                                 </v-flex>
                               </template>
                             </v-layout>
+                            <v-divider v-if="editedItem.id"></v-divider>
+                            <v-layout wrap>
+                              <v-flex xs12 md12>
+                                <ValidationProvider
+                                  rules="required"
+                                  v-slot="{ errors }"
+                                >
+                                  <v-text-field
+                                    v-if="editedItem.id"
+                                    id="unit"
+                                    name="unit"
+                                    prepend-icon="home"
+                                    v-model="editedItem.name"
+                                    :label="$t('invoices.headers.UNIT_NAME')"
+                                    disabled
+                                  ></v-text-field>
+                                  <v-text-field
+                                    v-else
+                                    id="unit"
+                                    name="unit"
+                                    prepend-icon="home"
+                                    v-model="editedItem.name"
+                                    :label="$t('invoices.headers.UNIT_NAME')"
+                                    :error="errors.length > 0"
+                                    :error-messages="errors[0]"
+                                    autocomplete="off"
+                                  ></v-text-field>
+                                  <!-- <v-select
+                                    clearable
+                                    id="unit"
+                                    name="unit"
+                                    v-model="editedTenant.UnitId"
+                                    :items="emptyUnits"
+                                    item-text="name"
+                                    item-value="id"
+                                    :label="$t('invoices.headers.UNIT')"
+                                    :error="errors.length > 0"
+                                    :error-messages="errors[0]"
+                                    class="inputUnit"
+                                  ></v-select> -->
+                                </ValidationProvider>
+                              </v-flex>
+                            </v-layout>
                             <v-divider></v-divider>
                             <v-layout wrap>
+                              <v-flex xs12 md12>
+                                <v-switch
+                                  v-if="!editedItem.id"
+                                  v-model="occupied"
+                                  :label="`Is the new unit occupied?`"
+                                ></v-switch>
+                              </v-flex>
+                            </v-layout>
+                            <v-layout wrap v-if="occupied">
                               <v-flex xs12 md6>
                                 <ValidationProvider
                                   rules="required"
@@ -145,8 +197,7 @@
                                 </ValidationProvider>
                               </v-flex>
                             </v-layout>
-                            <v-divider></v-divider>
-                            <v-layout wrap>
+                            <v-layout wrap v-if="occupied">
                               <v-flex xs12 md6>
                                 <ValidationProvider
                                   rules="required:integer"
@@ -242,26 +293,6 @@
                                     :error="errors.length > 0"
                                     :error-messages="errors[0]"
                                     class="inputStatus"
-                                  ></v-select>
-                                </ValidationProvider>
-                              </v-flex>
-                              <v-flex xs12 md6>
-                                <ValidationProvider
-                                  rules="required"
-                                  v-slot="{ errors }"
-                                >
-                                  <v-select
-                                    clearable
-                                    id="unit"
-                                    name="unit"
-                                    v-model="editedTenant.UnitId"
-                                    :items="emptyUnits"
-                                    item-text="name"
-                                    item-value="id"
-                                    :label="$t('invoices.headers.UNIT')"
-                                    :error="errors.length > 0"
-                                    :error-messages="errors[0]"
-                                    class="inputUnit"
                                   ></v-select>
                                 </ValidationProvider>
                               </v-flex>
@@ -385,7 +416,8 @@ export default {
         { title: 'Delete Unit', id: 'delete' },
         { title: 'Vacate Unit', id: 'vacate' },
         { title: 'Move Tenant to other Unit', id: 'migrate' }
-      ]
+      ],
+      occupied: true
     }
   },
   computed: {
@@ -401,8 +433,8 @@ export default {
     },
     formTitle() {
       return this.editedItem.id
-        ? this.$t('dataTable.EDIT_ITEM')
-        : this.$t('dataTable.NEW_ITEM')
+        ? this.$t('dataTable.EDIT_UNIT')
+        : this.$t('dataTable.NEW_UNIT')
     },
     headers() {
       return [
@@ -595,7 +627,8 @@ export default {
         this.dataTableLoading = true
         // Updating item
         if (this.editedItem.id) {
-          await this.editTenant(this.editedTenant)
+          const data = { ...this.editedTenant, UnitId: this.editedItem.id }
+          await this.editTenant(data)
           await this.getUnits(
             buildPayloadPagination(this.pagination, this.buildSearch())
           )

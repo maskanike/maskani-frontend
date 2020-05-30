@@ -27,6 +27,7 @@ const actions = {
   editTenant({ commit }, payload) {
     return new Promise((resolve, reject) => {
       const data = {
+        UnitId: payload.UnitId,
         name: payload.name,
         email: payload.email,
         phone: payload.phone,

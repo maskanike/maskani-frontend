@@ -83,7 +83,9 @@
   "dataTable": {
     "NEW_ITEM": "New Item",
     "NEW_FLAT_ITEM": "New Flat",
+    "NEW_UNIT": "New Unit",
     "EDIT_ITEM": "Edit Item",
+    "EDIT_UNIT": "Edit Unit",
     "CANCEL": "Cancel",
     "SAVE": "Save",
     "SEND_INVOICE": "Send Invoice",
