@@ -54,7 +54,7 @@
           </v-list-item>
         </template>
         <template>
-          <v-list-item :key="logout" @click="userLogout">
+          <v-list-item @click="logout">
             <v-list-item-action>
               <v-icon>mdi-exit-to-app</v-icon>
             </v-list-item-action>
@@ -93,6 +93,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   props: {
     source: String
@@ -121,8 +123,10 @@ export default {
     ]
   }),
   methods: {
-    userLogout() {
-      this.$store.dispatch('userLogout')
+    ...mapActions(['userLogout']),
+    logout() {
+      this.userLogout()
+      // this.$store.dispatch('userLogout')
     }
   }
 }

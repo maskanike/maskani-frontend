@@ -302,43 +302,27 @@
             <template v-slot:item.id="{ item }">
               <td class="fill-height px-0">
                 <v-layout class="justify-center">
-                  <v-dialog v-model="sendInvoiceModal">
+                  <SendInvoiceModal :item="item"></SendInvoiceModal>
+                  <v-menu>
                     <template v-slot:activator="{ on }">
-                      <v-btn color="primary" id="send" class="mx-0" v-on="on">
-                        {{ $t('dataTable.SEND_INVOICE') }}
-                        <v-icon>mdi-send</v-icon>
+                      <v-btn icon v-on="on">
+                        <v-icon>mdi-menu-down</v-icon>
                       </v-btn>
                     </template>
-                    <SendInvoiceModal></SendInvoiceModal>
-                  </v-dialog>
-                  <v-tooltip top>
-                    <template v-slot:activator="{ on }">
-                      <v-btn
-                        id="edit"
-                        icon
+                    <v-list>
+                      <v-list-item
+                        v-for="(action, index) in actions"
+                        :key="index"
                         class="mx-0"
-                        v-on="on"
-                        @click="editItem(item)"
+                        id="action.id"
+                        @click="triggerClick(action.id, item)"
                       >
-                        <v-icon>mdi-pencil</v-icon>
-                      </v-btn>
-                    </template>
-                    <span>{{ $t('dataTable.EDIT') }}</span>
-                  </v-tooltip>
-                  <v-tooltip top>
-                    <template v-slot:activator="{ on }">
-                      <v-btn
-                        id="delete"
-                        icon
-                        class="mx-0"
-                        v-on="on"
-                        @click="deleteItem(item)"
-                      >
-                        <v-icon>mdi-delete</v-icon>
-                      </v-btn>
-                    </template>
-                    <span>{{ $t('dataTable.DELETE') }}</span>
-                  </v-tooltip>
+                        <v-list-item-title>
+                          {{ action.title }}
+                        </v-list-item-title>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu>
                 </v-layout>
               </td>
             </template>
@@ -389,13 +373,17 @@ export default {
       dataTableLoading: true,
       delayTimer: null,
       dialog: false,
-      sendInvoiceModal: false,
+      invDialog: false,
       search: '',
       pagination: {},
       editedItem: {},
       editedTenant: {},
       defaultItem: {},
-      fieldsToSearch: ['name', 'email', 'phone']
+      fieldsToSearch: ['name', 'email', 'phone'],
+      actions: [
+        { title: 'Edit', id: 'edit' },
+        { title: 'Delete', id: 'delete' }
+      ]
     }
   },
   computed: {
@@ -558,6 +546,15 @@ export default {
         ? { query: this.search, fields: this.fieldsToSearch.join(',') }
         : {}
     },
+
+    triggerClick(action, item) {
+      if (action === 'edit') {
+        this.editItem(item)
+      } else if (action === 'delete') {
+        this.deleteItem(item)
+      }
+    },
+
     editItem(item) {
       this.editedItem = Object.assign({}, item)
       this.editedTenant = Object.assign({}, item.Tenant, { UnitId: item.id })
