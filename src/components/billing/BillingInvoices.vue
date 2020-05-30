@@ -412,8 +412,8 @@ export default {
       defaultItem: {},
       fieldsToSearch: ['name', 'email', 'phone'],
       actions: [
-        { title: 'Edit Unit', id: 'edit' },
-        { title: 'Delete Unit', id: 'delete' },
+        { title: 'Edit Tenant', id: 'edit' },
+        { title: 'Delete Tenant', id: 'delete' },
         { title: 'Vacate Unit', id: 'vacate' },
         { title: 'Move Tenant to other Unit', id: 'migrate' }
       ],
@@ -546,7 +546,8 @@ export default {
     ...mapActions([
       'getUnits',
       'editTenant',
-      'saveTenant',
+      'saveUnitWithTenant',
+      'saveUnit',
       'deleteTenant',
       'getUserFlat'
     ]),
@@ -622,6 +623,23 @@ export default {
         this.editedTenant = Object.assign({}, this.defaultItem)
       }, 300)
     },
+    async saveUnitAndTenantIfExists() {
+      if (this.occupied) {
+        // Creating new unit with a tenant
+        await this.saveUnitWithTenant({
+          unitName: this.editedItem.name,
+          name: this.editedTenant.name,
+          email: this.editedTenant.email,
+          phone: this.editedTenant.phone,
+          rent: this.editedTenant.rent,
+          water: this.editedTenant.water || 0,
+          penalty: this.editedTenant.penalty || 0,
+          garbage: this.editedTenant.garbage || 0
+        })
+      } else {
+        await this.saveUnit({ name: this.editedItem.name })
+      }
+    },
     async save() {
       try {
         this.dataTableLoading = true
@@ -634,17 +652,7 @@ export default {
           )
           this.dataTableLoading = false
         } else {
-          // Creating new item
-          await this.saveTenant({
-            UnitId: this.editedTenant.UnitId,
-            name: this.editedTenant.name,
-            email: this.editedTenant.email,
-            phone: this.editedTenant.phone,
-            rent: this.editedTenant.rent,
-            water: this.editedTenant.water || 0,
-            penalty: this.editedTenant.penalty || 0,
-            garbage: this.editedTenant.garbage || 0
-          })
+          await this.saveUnitAndTenantIfExists()
           await this.getUnits(
             buildPayloadPagination(this.pagination, this.buildSearch())
           )

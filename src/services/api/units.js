@@ -12,6 +12,9 @@ export default {
   saveUnit(payload) {
     return axios.post('/units/', payload)
   },
+  saveUnitWithTenant(payload) {
+    return axios.post('/units/tenant/', payload)
+  },
   deleteUnit(id) {
     return axios.delete(`/units/${id}`)
   }

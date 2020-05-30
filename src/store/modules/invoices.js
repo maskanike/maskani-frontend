@@ -35,7 +35,7 @@ const actions = {
           if (response.status === 200) {
             buildSuccess(
               {
-                msg: 'common.SAVED_SUCCESSFULLY'
+                msg: 'common.EDITED_SUCCESSFULLY'
               },
               commit,
               resolve
@@ -62,7 +62,7 @@ const actions = {
           if (response.status === 201) {
             buildSuccess(
               {
-                msg: 'common.SAVED_SUCCESSFULLY'
+                msg: 'common.SENT_SUCCESSFULLY'
               },
               commit,
               resolve

@@ -69,6 +69,26 @@ const actions = {
         })
     })
   },
+  saveUnitWithTenant({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      api
+        .saveUnitWithTenant(payload)
+        .then((response) => {
+          if (response.status === 201) {
+            buildSuccess(
+              {
+                msg: 'common.SAVED_SUCCESSFULLY'
+              },
+              commit,
+              resolve
+            )
+          }
+        })
+        .catch((error) => {
+          handleError(error, commit, reject)
+        })
+    })
+  },
   deleteUnit({ commit }, payload) {
     return new Promise((resolve, reject) => {
       api
