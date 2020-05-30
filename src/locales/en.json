@@ -36,6 +36,7 @@
     "CANCEL": "Cancel",
     "WARNING": "Warning",
     "SEND": "Send",
+    "SAVE": "Save",
     "DO_YOU_REALLY_WANT_TO_DELETE_THIS_ITEM": "Do you really want to delete this item?",
     "CLOSE": "Close",
     "SAVED_SUCCESSFULLY": "Saved successfully",
@@ -86,6 +87,7 @@
     "NEW_ITEM": "New Item",
     "NEW_FLAT_ITEM": "New Flat",
     "NEW_UNIT": "New Unit",
+    "CREATE_TENANT": "Create Tenant",
     "EDIT_ITEM": "Edit Item",
     "EDIT_UNIT": "Edit Unit",
     "CANCEL": "Cancel",
@@ -125,7 +127,9 @@
   "invoices": {
     "TENANT_TITLE": "Tenants",
     "DO_YOU_REALLY_WANT_TO_SEND_INVOICE_TO_TENANT": "Do you really want to send invoice to tenant?",
+    "DO_YOU_REALLY_WANT_TO_SAVE_TENANT": "Do you really want to save this tenant?",
     "SEND_INVOICE": "Send Invoice to {0}",
+    "SAVE_TENANT": "Send Tenant {0}",
     "headers": {
       "FULL_NAME": "Full Name",
       "UNIT_NAME": "Unit Name",

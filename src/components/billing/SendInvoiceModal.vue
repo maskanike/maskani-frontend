@@ -6,73 +6,94 @@
       </v-btn>
     </template>
     <v-card>
-      <v-card-title>
-        <span class="headline">Send Invoice</span>
-      </v-card-title>
-      <v-card-text>
-        <v-container>
-          <v-row>
-            <v-col cols="12">
-              <v-text-field
-                label="Tenant"
-                v-model="tenant"
-                disabled
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="6" md="3">
-              <v-text-field
-                label="Rent*"
-                v-model="rent"
-                required
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="6" md="3">
-              <v-text-field label="Water" v-model="water"></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="6" md="3">
-              <v-text-field label="Garbage" v-model="garbage"></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="6" md="3">
-              <v-text-field label="Penalty" v-model="penalty"></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-dialog
-                ref="dialog"
-                v-model="modal"
-                :return-value.sync="date"
-                width="290px"
-              >
-                <template v-slot:activator="{ on }">
+      <ValidationObserver
+        ref="observer"
+        v-slot="{ invalid }"
+        tag="form"
+        @submit.prevent="submit()"
+      >
+        <v-card-title>
+          <span class="headline">Send Invoice</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12">
+                <v-text-field
+                  label="Tenant"
+                  v-model="tenant"
+                  disabled
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6" md="3">
+                <ValidationProvider rules="required" v-slot="{ errors }">
                   <v-text-field
-                    v-model="date"
-                    label="Due date"
-                    prepend-icon="event"
-                    readonly
-                    v-on="on"
+                    label="Rent*"
+                    v-model="rent"
+                    :error="errors.length > 0"
+                    :error-messages="errors[0]"
                   ></v-text-field>
-                </template>
-                <v-date-picker v-model="date" scrollable>
-                  <v-spacer></v-spacer>
-                  <v-btn text color="primary" @click="modal = false">
-                    Cancel
-                  </v-btn>
-                  <v-btn text color="primary" @click="$refs.dialog.save(date)">
-                    OK
-                  </v-btn>
-                </v-date-picker>
-              </v-dialog>
-            </v-col>
-          </v-row>
-        </v-container>
-        <small>*indicates required field</small>
-      </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" text @click="close">
-          Close
-        </v-btn>
-        <v-btn color="blue darken-1" text @click="send">Send</v-btn>
-      </v-card-actions>
+                </ValidationProvider>
+              </v-col>
+              <v-col cols="12" sm="6" md="3">
+                <v-text-field label="Water" v-model="water"></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6" md="3">
+                <v-text-field label="Garbage" v-model="garbage"></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6" md="3">
+                <v-text-field label="Penalty" v-model="penalty"></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-dialog
+                  ref="dialog"
+                  v-model="modal"
+                  :return-value.sync="date"
+                  width="290px"
+                >
+                  <template v-slot:activator="{ on }">
+                    <v-text-field
+                      v-model="date"
+                      label="Due date"
+                      prepend-icon="event"
+                      readonly
+                      v-on="on"
+                    ></v-text-field>
+                  </template>
+                  <v-date-picker v-model="date" scrollable>
+                    <v-spacer></v-spacer>
+                    <v-btn text color="primary" @click="modal = false">
+                      Cancel
+                    </v-btn>
+                    <v-btn
+                      text
+                      color="primary"
+                      @click="$refs.dialog.save(date)"
+                    >
+                      OK
+                    </v-btn>
+                  </v-date-picker>
+                </v-dialog>
+              </v-col>
+            </v-row>
+          </v-container>
+          <small>*indicates required field</small>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="close">
+            Close
+          </v-btn>
+          <v-btn
+            color="green"
+            text
+            @click="send"
+            :disabled="invalid"
+            class="btnSave"
+            >{{ $t('dataTable.SEND_INVOICE') }}</v-btn
+          >
+        </v-card-actions>
+      </ValidationObserver>
     </v-card>
   </v-dialog>
 </template>
@@ -130,7 +151,6 @@ export default {
         }
         // eslint-disable-next-line no-unused-vars
       } catch (error) {
-        console.log(error)
         this.close()
       }
     }
