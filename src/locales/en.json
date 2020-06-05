@@ -93,6 +93,7 @@
     "CANCEL": "Cancel",
     "SAVE": "Save",
     "SEND_INVOICE": "Send Invoice",
+    "SEND_REMINDER": "Send Reminder",
     "EDIT": "Edit",
     "DELETE": "Delete",
     "RESET": "Reset",

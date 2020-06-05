@@ -335,9 +335,15 @@
                 <template v-slot:item.id="{ item }">
                   <td class="fill-height px-0">
                     <v-layout class="justify-center">
+                      <SendReminder
+                        v-if="item.Tenant && !invoiceNotSentToday(item)"
+                        :item="item"
+                        @refreshUnitsTable="refreshTable()"
+                      ></SendReminder>
                       <SendInvoiceModal
                         v-if="item.Tenant && invoiceNotSentToday(item)"
                         :item="item"
+                        @refreshUnitsTable="refreshTable()"
                       ></SendInvoiceModal>
                       <AssignTenantToUnit
                         v-else-if="!item.Tenant"
@@ -432,6 +438,7 @@
 import { mapActions } from 'vuex'
 import { getFormat, buildPayloadPagination } from '@/utils/utils.js'
 import SendInvoiceModal from './SendInvoiceModal'
+import SendReminder from './SendReminder'
 import AssignTenantToUnit from './AssignTenantToUnitModal'
 import { differenceInHours, parseISO } from 'date-fns'
 
@@ -751,7 +758,8 @@ export default {
   },
   components: {
     SendInvoiceModal,
-    AssignTenantToUnit
+    AssignTenantToUnit,
+    SendReminder
   }
 }
 </script>

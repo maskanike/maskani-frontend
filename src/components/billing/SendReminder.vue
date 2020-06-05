@@ -1,8 +1,8 @@
 <template>
   <v-dialog v-model="invDialog" max-width="600px">
     <template v-slot:activator="{ on }">
-      <v-btn text small color="primary" id="send" class="mx-0" v-on="on">
-        {{ $t('dataTable.SEND_INVOICE') }}
+      <v-btn text small color="warning" id="send" class="mx-0" v-on="on">
+        {{ $t('dataTable.SEND_REMINDER') }}
       </v-btn>
     </template>
     <v-card>
@@ -13,7 +13,7 @@
         @submit.prevent="submit()"
       >
         <v-card-title>
-          <span class="headline">Send Invoice</span>
+          <span class="headline">Send Invoice Reminder</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -26,23 +26,32 @@
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6" md="3">
-                <ValidationProvider rules="required" v-slot="{ errors }">
-                  <v-text-field
-                    label="Rent*"
-                    v-model="rent"
-                    :error="errors.length > 0"
-                    :error-messages="errors[0]"
-                  ></v-text-field>
-                </ValidationProvider>
+                <v-text-field
+                  label="Rent"
+                  v-model="rent"
+                  disabled
+                ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6" md="3">
-                <v-text-field label="Water" v-model="water"></v-text-field>
+                <v-text-field
+                  label="Water"
+                  v-model="water"
+                  disabled
+                ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6" md="3">
-                <v-text-field label="Garbage" v-model="garbage"></v-text-field>
+                <v-text-field
+                  label="Garbage"
+                  v-model="garbage"
+                  disabled
+                ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6" md="3">
-                <v-text-field label="Penalty" v-model="penalty"></v-text-field>
+                <v-text-field
+                  label="Penalty"
+                  v-model="penalty"
+                  disabled
+                ></v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-dialog
@@ -85,12 +94,12 @@
             Close
           </v-btn>
           <v-btn
-            color="green"
+            color="warning"
             text
             @click="send"
             :disabled="invalid"
             class="btnSave"
-            >{{ $t('dataTable.SEND_INVOICE') }}</v-btn
+            >{{ $t('dataTable.SEND_REMINDER') }}</v-btn
           >
         </v-card-actions>
       </ValidationObserver>
@@ -120,16 +129,16 @@ export default {
   },
 
   methods: {
-    ...mapActions(['sendInvoice']),
+    ...mapActions(['sendInvoiceReminder']),
     close() {
       this.invDialog = false
     },
     async send() {
       try {
         const response = await this.$confirm(
-          this.$t('invoices.DO_YOU_REALLY_WANT_TO_SEND_INVOICE_TO_TENANT'),
+          this.$t('invoices.DO_YOU_REALLY_WANT_TO_SEND_REMINDER_TO_TENANT'),
           {
-            title: this.$t('invoices.SEND_INVOICE', [this.item.name]),
+            title: this.$t('invoices.SEND_REMINDER', [this.item.name]),
             buttonTrueText: this.$t('common.SEND'),
             buttonFalseText: this.$t('common.CANCEL'),
             buttonTrueColor: 'green',
