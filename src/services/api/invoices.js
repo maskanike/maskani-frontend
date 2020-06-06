@@ -12,6 +12,9 @@ export default {
   sendInvoice(tenantId, payload) {
     return axios.post(`/invoices/${tenantId}`, payload)
   },
+  sendInvoiceReminder(invoiceId, payload) {
+    return axios.post(`/invoices/${invoiceId}/reminder`, payload)
+  },
   deleteInvoice(id) {
     return axios.delete(`/invoices/${id}`)
   }

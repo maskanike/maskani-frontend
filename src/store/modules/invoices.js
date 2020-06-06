@@ -47,6 +47,7 @@ const actions = {
         })
     })
   },
+
   sendInvoice({ commit }, payload) {
     return new Promise((resolve, reject) => {
       const data = {
@@ -75,6 +76,31 @@ const actions = {
         })
     })
   },
+
+  sendInvoiceReminder({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      const data = {
+        message: payload.message
+      }
+      api
+        .sendInvoiceReminder(payload.InvoiceId, data)
+        .then((response) => {
+          if (response.status === 201) {
+            buildSuccess(
+              {
+                msg: 'common.SENT_SUCCESSFULLY'
+              },
+              commit,
+              resolve
+            )
+          }
+        })
+        .catch((error) => {
+          handleError(error, commit, reject)
+        })
+    })
+  },
+
   deleteInvoice({ commit }, payload) {
     return new Promise((resolve, reject) => {
       api

@@ -54,39 +54,15 @@
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-dialog
-                  ref="dialog"
-                  v-model="modal"
-                  :return-value.sync="date"
-                  width="290px"
-                >
-                  <template v-slot:activator="{ on }">
-                    <v-text-field
-                      v-model="date"
-                      label="Due date"
-                      prepend-icon="event"
-                      readonly
-                      v-on="on"
-                    ></v-text-field>
-                  </template>
-                  <v-date-picker v-model="date" scrollable>
-                    <v-spacer></v-spacer>
-                    <v-btn text color="primary" @click="modal = false">
-                      Cancel
-                    </v-btn>
-                    <v-btn
-                      text
-                      color="primary"
-                      @click="$refs.dialog.save(date)"
-                    >
-                      OK
-                    </v-btn>
-                  </v-date-picker>
-                </v-dialog>
+                <v-textarea
+                  v-model="message"
+                  label="Reminder Message"
+                  prepend-icon="message"
+                  v-on="on"
+                ></v-textarea>
               </v-col>
             </v-row>
           </v-container>
-          <small>*indicates required field</small>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -121,7 +97,7 @@ export default {
       penalty: this.item.Tenant.penalty,
       garbage: this.item.Tenant.garbage,
       tenant: `${this.item.Tenant.name} (${this.item.Tenant.email})`,
-      date: new Date().toISOString().substr(0, 10),
+      message: '',
       modal: false,
       invDialog: false,
       dataTableLoading: false
@@ -132,6 +108,9 @@ export default {
     ...mapActions(['sendInvoiceReminder']),
     close() {
       this.invDialog = false
+      setTimeout(() => {
+        this.message = ''
+      }, 300)
     },
     async send() {
       try {
@@ -147,15 +126,10 @@ export default {
         )
         if (response) {
           const data = {
-            TenantId: this.item.Tenant.id,
-            UnitId: this.item.id,
-            rent: this.rent,
-            water: this.water || 0,
-            penalty: this.penalty || 0,
-            garbage: this.garbage || 0,
-            dueDate: this.date
+            InvoiceId: this.item.Tenant.lastInvoiceSentId,
+            message: this.message
           }
-          await this.sendInvoice(data)
+          await this.sendInvoiceReminder(data)
           this.$emit('refreshUnitsTable')
           this.close()
           return
