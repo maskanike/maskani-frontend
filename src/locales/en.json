@@ -27,15 +27,21 @@
     "EMAIL_ALREADY_EXISTS": "E-mail already exists",
     "ID_MALFORMED": "ID malformed",
     "ERROR_WITH_FILTER": "Error with filter",
-    "FLAT_ALREADY_EXISTS": "Flat already exists"
+    "FLAT_ALREADY_EXISTS": "Flat already exists",
+    "FLAT_NOT_FOUND_FOR_USER": "Flat attached to logged in user not found",
+    "URL_NOT_FOUND": "Needed link to backend not found. Contact support"
   },
   "common": {
     "DELETE": "Delete",
     "CANCEL": "Cancel",
     "WARNING": "Warning",
+    "SEND": "Send",
+    "SAVE": "Save",
     "DO_YOU_REALLY_WANT_TO_DELETE_THIS_ITEM": "Do you really want to delete this item?",
     "CLOSE": "Close",
     "SAVED_SUCCESSFULLY": "Saved successfully",
+    "EDITED_SUCCESSFULLY": "Edited successfully",
+    "SENT_SUCCESSFULLY": "Sent successfully",
     "DELETED_SUCCESSFULLY": "Deleted successfully",
     "CREATED": "Created At",
     "UPDATED": "Updated At",
@@ -50,7 +56,11 @@
   },
   "menuItems": {
     "HOME": "Home",
+    "MANAGE": "Manage",
     "ABOUT": "About",
+    "RECEIPTS": "Receipts",
+    "INVOICES": "Invoices",
+    "SETTINGS": "Settings",
     "MY_PROFILE": "My Profile",
     "SIGNUP": "Sign Up",
     "LOGIN": "Login",
@@ -65,11 +75,25 @@
     "ADMIN": "Administrator",
     "USER": "User"
   },
+  "billing": {
+    "UNCHANGED": "Unchanged",
+    "MOVED_OUT": "Moved Out",
+    "CHANGED_HOUSE": "Changed House",
+    "headers": {
+      "STATUS": "Tenancy Status"
+    }
+  },
   "dataTable": {
     "NEW_ITEM": "New Item",
+    "NEW_FLAT_ITEM": "New Flat",
+    "NEW_UNIT": "New Unit",
+    "CREATE_TENANT": "Create Tenant",
     "EDIT_ITEM": "Edit Item",
+    "EDIT_UNIT": "Edit Unit",
     "CANCEL": "Cancel",
     "SAVE": "Save",
+    "SEND_INVOICE": "Send Invoice",
+    "SEND_REMINDER": "Send Reminder",
     "EDIT": "Edit",
     "DELETE": "Delete",
     "RESET": "Reset",
@@ -82,12 +106,50 @@
   },
   "flats": {
     "TITLE": "Flats",
+    "ADD_NEW_FLAT": "Create Flat",
     "headers": {
       "NAME": "Name"
     }
   },
   "users": {
     "TITLE": "Users",
+    "headers": {
+      "NAME": "Name",
+      "EMAIL": "E-mail",
+      "ROLE": "Role",
+      "VERIFIED": "Verified",
+      "FLAT": "Flat",
+      "COUNTRY": "Country",
+      "PHONE": "Phone"
+    },
+    "PASSWORD": "Password",
+    "CONFIRM_PASSWORD": "Confirm Password"
+  },
+  "invoices": {
+    "TENANT_TITLE": "Tenants",
+    "DO_YOU_REALLY_WANT_TO_SEND_INVOICE_TO_TENANT": "Do you really want to send invoice to tenant?",
+    "DO_YOU_REALLY_WANT_TO_SAVE_TENANT": "Do you really want to save this tenant?",
+    "SEND_INVOICE": "Send Invoice to {0}",
+    "SAVE_TENANT": "Send Tenant {0}",
+    "headers": {
+      "FULL_NAME": "Full Name",
+      "UNIT_NAME": "Unit Name",
+      "GARBAGE": "Garbage",
+      "WATER": "Water",
+      "PENALTY": "Penalty",
+      "EMAIL": "E-mail",
+      "RENT": "Rent",
+      "FLAT": "Flat",
+      "PHONE": "Phone",
+      "UNIT": "Unit",
+      "STATUS": "Status",
+      "LAST_INVOICE": "Last Invoice Sent At"
+    },
+    "PASSWORD": "Password",
+    "CONFIRM_PASSWORD": "Confirm Password"
+  },
+  "receipts": {
+    "TITLE": "Receipts",
     "headers": {
       "NAME": "Name",
       "EMAIL": "E-mail",
@@ -112,8 +174,9 @@
   },
   "home": {
     "TITLE": "Maskani Dashboard",
-    "GREETING": "Welcome %{0}",
-    "DESCRIPTION": "This page is only available privately when the users log in with their credentials",
+    "GREETING": "Welcome, %{0}",
+    "DESCRIPTION": "Maskani is here to help you keep your records in a better way and to get data to help in decision making",
+    "CHART_DESCRIPTION": "Chart for Flat %{0}",
     "VERIFY_YOUR_ACCOUNT": "IMPORTANT: Verify your account",
     "VERIFY_YOUR_ACCOUNT_DESCRIPTION": "You must verify your account by clicking the link sent to your E-mail to be able to enjoy all our app features",
     "CLOSE": "Close"
@@ -170,6 +233,16 @@
     "FLAT": "Flat",
     "NO_RESULTS_FOUND": "No results found",
     "COUNTRY": "Country",
+    "SAVE": "Save",
+    "PROFILE_SAVED_SUCCESSFULLY": "Profile saved successfuly"
+  },
+  "manageFlat": {
+    "TITLE": "Manage Flat",
+    "ADD_UNIT": "New Unit",
+    "NAME": "Name",
+    "BANK_DETAILS": "Bank Details",
+    "FLAT": "Flat",
+    "NO_RESULTS_FOUND": "No results found",
     "SAVE": "Save",
     "PROFILE_SAVED_SUCCESSFULLY": "Profile saved successfuly"
   }

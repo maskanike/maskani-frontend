@@ -1,5 +1,5 @@
 <template>
-  <div class="home_banner container-fluid no-padding">
+  <v-container fluid class="home_banner">
     <section class="home_bannerA jumbotron">
       <div class="container">
         <div class="row justify-content-end clearfix">
@@ -106,7 +106,7 @@
       <br />
       <br />
     </v-flex> -->
-  </div>
+  </v-container>
 </template>
 
 <script>

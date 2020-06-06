@@ -23,9 +23,24 @@ export const FILL_PROFILE = 'FILL_PROFILE'
 export const ADD_PROFILE_DATA = 'ADD_PROFILE_DATA'
 // flats
 export const FILL_ALL_FLATS = 'FILL_ALL_FLATS'
+export const ADD_UNIT_DATA = 'ADD_UNIT_DATA'
+export const CURRENT_FLAT = 'CURRENT_FLAT'
 // Admin - Flats
 export const FLATS = 'FLATS'
 export const TOTAL_FLATS = 'TOTAL_FLATS'
 // Admin - Users
 export const USERS = 'USERS'
 export const TOTAL_USERS = 'TOTAL_USERS'
+// Tenants
+export const TENANTS = 'TENANTS'
+export const TOTAL_TENANTS = 'TOTAL_TENANTS'
+// Invoices
+export const INVOICES = 'INVOICES'
+export const TOTAL_INVOICES = 'TOTAL_INVOICES'
+// Receipts
+export const RECEIPTS = 'RECEIPTS'
+export const TOTAL_RECEIPTS = 'TOTAL_RECEIPTS'
+// Units
+export const UNITS = 'UNITS'
+export const TOTAL_UNITS = 'TOTAL_UNITS'
+export const EMPTY_UNITS = 'EMPTY_UNITS'

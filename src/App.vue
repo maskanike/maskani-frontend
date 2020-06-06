@@ -3,10 +3,12 @@
     <Toolbar />
     <v-content class="text-center">
       <loading />
-      <v-container fluid ma-0 pa-0 fill-height>
-        <transition name="fade" mode="out-in">
-          <router-view />
-        </transition>
+      <v-container fluid>
+        <v-row align="top" justify="top">
+          <transition name="fade" mode="out-in">
+            <router-view />
+          </transition>
+        </v-row>
       </v-container>
     </v-content>
     <Footer />
@@ -14,7 +16,7 @@
 </template>
 
 <script>
-import Toolbar from '@/components/core/Toolbar.vue'
+import Toolbar from '@/components/core/toolbar/Index.vue'
 import Loading from '@/components/core/Loading.vue'
 import Footer from '@/components/core/Footer.vue'
 
