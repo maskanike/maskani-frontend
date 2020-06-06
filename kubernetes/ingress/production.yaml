@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: maskani-portal
+  namespace: production
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    kubernetes.io/force-ssl-redirect: "true"
+    kubernetes.io/from-to-www-redirect: "true"
+spec:
+  tls:
+  - hosts:
+    - portal.maskani.co.ke
+    secretName: maskani-tls
+  rules:
+    - host: portal.maskani.co.ke
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: maskani-portal
+            servicePort: 3030
