@@ -1,7 +1,7 @@
 <template>
   <section class="section">
     <div class="hello">
-      <h1>{{ msg }}</h1>
+      <h3>{{ msg }}</h3>
     </div>
   </section>
 </template>
@@ -11,8 +11,8 @@ export default {
   name: 'Health',
   data() {
     return {
-      msg: `${process.env.NODE_ENV} env is healthy`,
-    };
-  },
-};
+      msg: `${process.env.NODE_ENV} env is healthy`
+    }
+  }
+}
 </script>
