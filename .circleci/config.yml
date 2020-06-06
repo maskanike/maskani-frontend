@@ -3,13 +3,6 @@ jobs:
   build:
     docker:
       - image: google/cloud-sdk:latest
-      - image: postgres:9.6.10-alpine
-        ports:
-          - "5432:5432"
-        environment:
-          - POSTGRES_DB: saal_db
-          - POSTGRES_USER: test
-          - POSTGRES_PASSWORD: test
     environment:
       - APP_NAME: maskani-portal
       - APP_VERSION: 1.0.0
@@ -17,10 +10,6 @@ jobs:
       - PROJECT_NAME: flatspad
       - CLUSTER_NAME: flatspad-k8s-large
       - CLUSTER_ZONE: europe-west1-d
-      - TEST_DB_NAME: saal_db
-      - DB_NAME: saal_db
-      - DB_USERNAME: test
-      - DB_PASSWORD: test
       - TERM: xterm
     working_directory: ~/app
     steps:
@@ -54,7 +43,7 @@ jobs:
       - run: 
           name: Run Tests
           command: |
-            cd application && yarn install
+            cd application && yarn install && yarn test
       - run:
           name: Build Image
           command: |
