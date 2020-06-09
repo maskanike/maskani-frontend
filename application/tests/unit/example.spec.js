@@ -1,13 +1,11 @@
 import { expect } from 'chai'
 import { shallowMount } from '@vue/test-utils'
-import HelloWorld from '@/components/HelloWorld.vue'
+import Health from '@/components/Health.vue'
 
-describe('HelloWorld.vue', () => {
-  it('renders props.msg when passed', () => {
-    const msg = 'new message'
-    const wrapper = shallowMount(HelloWorld, {
-      propsData: { msg }
-    })
+describe('Health.vue', () => {
+  it('checks on if the health page renders', () => {
+    const msg = `${process.env.NODE_ENV} env is healthy`
+    const wrapper = shallowMount(Health)
     expect(wrapper.text()).to.include(msg)
   })
 })
