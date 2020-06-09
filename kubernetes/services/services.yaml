@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: maskani-portal
+  labels:
+    app:  core
+    tier: backend
+    type: app
+    name: maskani-portal
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    app: core
+    tier: backend
+    type: app
+    name: maskani-portal

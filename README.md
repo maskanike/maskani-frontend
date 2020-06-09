@@ -14,7 +14,7 @@ Maskani is a web portal to help landlords and agents manage their propery with e
 ### Install yarn dependencies after installing
 
 ```bash
-cd myproject
+cd application
 yarn install
 yarn update
 ```
