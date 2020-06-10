@@ -12,7 +12,7 @@ spec:
   tls:
   - hosts:
     - portal.maskani.co.ke
-    secretName: maskani-tls
+    secretName: maskani-portal-tls
   rules:
     - host: portal.maskani.co.ke
       http:
