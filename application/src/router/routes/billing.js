@@ -9,5 +9,5 @@ export default [
       import(
         /* webpackChunkName: "billing" */ '@/components/billing/BillingInvoices.vue'
       )
-  },
+  }
 ]
