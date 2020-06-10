@@ -1,8 +1,7 @@
 #build stage
 FROM node:12-alpine as build-stage
 WORKDIR /app
-ARG VUE_APP_APIKEY
-ARG VUE_APP_BASE_URL
+ARG VUE_APP_API_URL
 ADD application/package.json application/yarn.lock /app/
 RUN yarn && yarn cache clean;
 ADD application /app
