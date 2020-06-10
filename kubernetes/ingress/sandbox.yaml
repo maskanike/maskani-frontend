@@ -20,4 +20,4 @@ spec:
         - path: /
           backend:
             serviceName: maskani-portal
-            servicePort: 3030
+            servicePort: 8080
