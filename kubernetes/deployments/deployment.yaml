@@ -25,16 +25,16 @@ spec:
         image: gcr.io/flatspad/maskani-portal:1.0.0
         readinessProbe:
           httpGet:
-            path: /health
-            port: 8080
+            path: /
+            port: 80
             scheme: HTTP
           initialDelaySeconds: 20
         livenessProbe:
           httpGet:
-            path: /health
-            port: 8080
+            path: /
+            port: 80
             scheme: HTTP
           initialDelaySeconds: 40
           timeoutSeconds: 5
         ports:
-          - containerPort: 8080
+          - containerPort: 80
