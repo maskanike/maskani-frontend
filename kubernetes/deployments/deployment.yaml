@@ -36,25 +36,5 @@ spec:
             scheme: HTTP
           initialDelaySeconds: 40
           timeoutSeconds: 5
-        envFrom:
-          - secretRef:
-              name: maskani-portal-secrets
-          - secretRef:
-              name: cloudsql-db-credentials
         ports:
           - containerPort: 8080
-      - name: cloudsql-proxy
-        image: gcr.io/cloudsql-docker/gce-proxy:1.12
-        command:
-          - /cloud_sql_proxy
-          - -instances=flatspad:europe-west1:flatspad-prod=tcp:5432
-          - -credential_file=/secrets/cloudsql/credentials.json
-        volumeMounts:
-          - name: cloudsql-instance-credentials
-            mountPath: /secrets/cloudsql
-            readOnly: true
-      volumes:
-        - name: cloudsql-instance-credentials
-          secret:
-            secretName: cloudsql-instance-credentials
-
