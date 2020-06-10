@@ -1,5 +1,5 @@
 <template>
-  <v-flex xs12 text-xs-center my-4 text-uppercase v-html="title"></v-flex>
+  <h1 xs12 text-xs-center my-4 text-uppercase v-html="title"></h1>
 </template>
 
 <script>
