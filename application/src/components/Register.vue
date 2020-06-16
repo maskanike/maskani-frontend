@@ -36,11 +36,11 @@
               <v-flex>
                 <ValidationProvider rules="required" v-slot="{ errors }">
                   <v-text-field
-                    id="msisdn"
-                    name="msisdn"
-                    type="msisdn"
-                    :label="$t('signup.MSISDN')"
-                    v-model="msisdn"
+                    id="phone"
+                    name="phone"
+                    type="phone"
+                    :label="$t('signup.PHONE')"
+                    v-model="phone"
                     :error="errors.length > 0"
                     :error-messages="errors[0]"
                     autocomplete="off"
@@ -110,7 +110,7 @@ export default {
     return {
       name: '',
       email: '',
-      msisdn: '',
+      phone: '',
       password: '',
       confirmPassword: ''
     }
@@ -121,7 +121,7 @@ export default {
       await this.userRegister({
         name: this.name,
         email: this.email,
-        msisdn: this.msisdn,
+        phone: this.phone,
         password: this.password
       })
     }
