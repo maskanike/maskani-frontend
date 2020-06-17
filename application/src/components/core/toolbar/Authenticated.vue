@@ -105,21 +105,21 @@ export default {
     items: [
       { icon: 'mdi-keyboard', text: 'Dashboard', link: 'home' },
       { icon: 'mdi-history', text: 'Billing', link: 'billing' },
-      { icon: 'mdi-content-copy', text: 'Manage', link: 'manage' },
-      {
-        icon: 'mdi-chevron-up',
-        'icon-alt': 'mdi-chevron-down',
-        text: 'Reports',
-        model: true,
-        children: [
-          { icon: 'mdi-user', text: 'Tenants' },
-          { icon: 'mdi-house', text: 'Flat' },
-          { icon: 'mdi-dollars', text: 'Finances' }
-        ]
-      },
-      { icon: 'mdi-account-cog', text: 'Settings', link: 'settings' },
-      { icon: 'mdi-message', text: 'Send feedback', link: 'feedback' },
-      { icon: 'mdi-help-circle', text: 'Help', link: 'help' }
+      { icon: 'mdi-content-copy', text: 'Manage', link: 'manage' }
+      // {
+      //   icon: 'mdi-chevron-up',
+      //   'icon-alt': 'mdi-chevron-down',
+      //   text: 'Reports',
+      //   model: true,
+      //   children: [
+      //     { icon: 'mdi-user', text: 'Tenants' },
+      //     { icon: 'mdi-house', text: 'Flat' },
+      //     { icon: 'mdi-dollars', text: 'Finances' }
+      //   ]
+      // },
+      // { icon: 'mdi-account-cog', text: 'Settings', link: 'settings' },
+      // { icon: 'mdi-message', text: 'Send feedback', link: 'feedback' },
+      // { icon: 'mdi-help-circle', text: 'Help', link: 'help' }
     ]
   }),
   methods: {
