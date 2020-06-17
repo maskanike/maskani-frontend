@@ -2,6 +2,7 @@
 FROM node:12-alpine as build-stage
 WORKDIR /app
 ARG VUE_APP_API_URL
+ARG VUE_MIXPANEL_TOKEN
 ADD application/package.json application/yarn.lock /app/
 RUN yarn && yarn cache clean;
 ADD application /app
