@@ -11,7 +11,6 @@ Vue.use(Router)
 Vue.use(Meta)
 
 const router = new Router({
-  mode: 'history',
   base: process.env.BASE_URL,
   routes: [...routes]
 })
