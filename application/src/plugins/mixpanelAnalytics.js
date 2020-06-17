@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import router from '@/router'
-import VueAnalytics from 'vue-analytics'
+import VueMixpanel from 'vue-mixpanel'
 
 if (process.env.NODE_ENV === 'production') {
-  Vue.use(VueAnalytics, {
-    id: '', //  TODO add google anaylics key
+  Vue.use(VueMixpanel, {
+    token: process.env.MIXPANEL_TOKEN,
     router
   })
 }

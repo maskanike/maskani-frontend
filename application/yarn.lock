@@ -11430,11 +11430,6 @@ vm-browserify@^1.0.0, vm-browserify@^1.0.1:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==
 
-vue-analytics@^5.22.1:
-  version "5.22.1"
-  resolved "https://registry.yarnpkg.com/vue-analytics/-/vue-analytics-5.22.1.tgz#9d6b32da56daee1b9dfb23a267b50349a03f710f"
-  integrity sha512-HPKQMN7gfcUqS5SxoO0VxqLRRSPkG1H1FqglsHccz6BatBatNtm/Vyy8brApktZxNCfnAkrSVDpxg3/FNDeOgQ==
-
 vue-cli-plugin-axios@0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/vue-cli-plugin-axios/-/vue-cli-plugin-axios-0.0.4.tgz#29d4eb48275c7fe15b92e1fd5d95fbe2a966436f"
@@ -11518,6 +11513,11 @@ vue-meta@^2.4.0:
   integrity sha512-XEeZUmlVeODclAjCNpWDnjgw+t3WA6gdzs6ENoIAgwO1J1d5p1tezDhtteLUFwcaQaTtayRrsx7GL6oXp/m2Jw==
   dependencies:
     deepmerge "^4.2.2"
+
+vue-mixpanel@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/vue-mixpanel/-/vue-mixpanel-1.0.4.tgz#15d960801ca6ee59efbc892230d3be78db4e9c88"
+  integrity sha512-nxOUYou1WV1SMpyCqFZxoReW/CFrq1W6jIXvie9L70xtzW2+dUG912PhafZHIdMH0FJBcPnxd7F408BxTPD67g==
 
 vue-resize-text@^0.1.1:
   version "0.1.1"
