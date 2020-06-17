@@ -11,10 +11,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - portal.staging.maskani.co.ke
+    - staging.maskani.co.ke
     secretName: maskani-portal-tls
   rules:
-    - host: portal.staging.maskani.co.ke
+    - host: staging.maskani.co.ke
       http:
         paths:
         - path: /

@@ -11,10 +11,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - portal.sandbox.maskani.co.ke
+    - sandbox.maskani.co.ke
     secretName: maskani-portal-tls
   rules:
-    - host: portal.sandbox.maskani.co.ke
+    - host: sandbox.maskani.co.ke
       http:
         paths:
         - path: /

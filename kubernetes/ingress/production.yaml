@@ -11,10 +11,18 @@ metadata:
 spec:
   tls:
   - hosts:
-    - portal.maskani.co.ke
+    - maskani.co.ke
+    - www.maskani.co.ke
     secretName: maskani-portal-tls
   rules:
-    - host: portal.maskani.co.ke
+    - host: maskani.co.ke
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: maskani-portal
+            servicePort: 8080
+    - host: www.maskani.co.ke
       http:
         paths:
         - path: /
