@@ -11,14 +11,30 @@
           <div class="text-center copyright">
             <p>
               © Maskani - 2020. All Rights Reserved &nbsp;
-              <a class="footer_links #{activeClass}" href="/terms-of-service">
+              <router-link
+                :to="{ name: 'toc' }"
+                style="footer_links #{activeClass}"
+              >
                 Terms of Service
-              </a>
-              <a class="footer_links #{activeClass}" href="/privacy-policy">
+              </router-link>
+              <router-link
+                :to="{ name: 'pp' }"
+                style="footer_links #{activeClass}"
+              >
                 Privacy Policy
-              </a>
-              <a class="footer_links #{activeClass}" href="/about">About</a>
-              <a class="footer_links #{activeClass}" href="/contact">Contact</a>
+              </router-link>
+              <router-link
+                :to="{ name: 'about' }"
+                style="footer_links #{activeClass}"
+              >
+                About
+              </router-link>
+              <router-link
+                :to="{ name: 'contact' }"
+                style="footer_links #{activeClass}"
+              >
+                Contact
+              </router-link>
             </p>
           </div>
         </div>

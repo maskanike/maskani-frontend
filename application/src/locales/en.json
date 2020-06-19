@@ -185,6 +185,10 @@
     "TITLE": "About",
     "DESCRIPTION": "This page is publicly available"
   },
+  "contact": {
+    "TITLE": "Contact",
+    "DESCRIPTION": "Reach out to us on info@maskani.co.ke or 0110098460"
+  },
   "login": {
     "TITLE": "Login",
     "DESCRIPTION": "Welcome to maskani. Please sign in",
