@@ -114,9 +114,12 @@
                       </v-form>
                     </v-card-text>
                     <div style="color: #1976d2;">
-                      <!-- Disable signup button if not checked. -->
                       <div class="checkbox">
-                        <input type="checkbox" />
+                        <input
+                          type="checkbox"
+                          id="checkbox"
+                          v-model="checked"
+                        />
                         <router-link
                           :to="{ name: 'toc' }"
                           tag="span"
@@ -131,6 +134,7 @@
                         class="btn btn-primary btn-lg btn-block strong cta_2"
                         type="submit"
                         value="Sign me up!"
+                        :disabled="!checked"
                       />
                     </div>
                   </form>
@@ -158,8 +162,37 @@
 </template>
 
 <script>
+import router from '@/router'
+import { mapActions } from 'vuex'
+
 export default {
-  name: 'ProjectDescription'
+  name: 'ProjectDescription',
+  data() {
+    return {
+      name: '',
+      email: '',
+      phone: '',
+      password: '',
+      confirmPassword: '',
+      checked: false
+    }
+  },
+  methods: {
+    ...mapActions(['userRegister']),
+    async submit() {
+      await this.userRegister({
+        name: this.name,
+        email: this.email,
+        phone: this.phone,
+        password: this.password
+      })
+    }
+  },
+  created() {
+    if (this.$store.state.auth.isTokenSet) {
+      router.push({ name: 'home' })
+    }
+  }
 }
 </script>
 

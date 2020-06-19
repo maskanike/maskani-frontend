@@ -3,7 +3,7 @@
     <div class="header">
       <h1 class="text-center">Privacy Policy</h1>
     </div>
-    <div id="privacy">
+    <div id="privacy" style="text-align: left;">
       <h4>General Information</h4>
       <p>
         At Maskani we believe it is important for you to understand what types
@@ -20,9 +20,9 @@
         disclosure of your personal information as explained in this privacy
         policy (the “Privacy Policy”). This Privacy Policy is incorporated into
         and is subject to the Terms of Service, which can be accessed
-        <a href="/terms-of-service">here</a>. Your use of the Service and any
-        information you provide through the Service is subject to the terms of
-        this Privacy Policy and our Terms of Service.
+        <router-link :to="{ name: 'toc' }">here</router-link>. Your use of the
+        Service and any information you provide through the Service is subject
+        to the terms of this Privacy Policy and our Terms of Service.
       </p>
       <h4>What you will find in this privacy policy?</h4>
       <ol>
@@ -210,8 +210,7 @@
         Sec 198.83) that permits users who are California residents to request
         certain information regarding the disclosure of personal information
         during the past year for marketing purposes. To make such a request, you
-        can
-        <a href="/#/contact">contact us</a>.
+        can <router-link :to="{ name: 'contact' }"> contact us </router-link>.
       </p>
       <h4>ELECTRONIC MAILING LISTS AND HOW TO UNSUBSCRIBE</h4>
       <p>
@@ -223,11 +222,11 @@
       <p>
         If you no longer wish to receive e-mails from us and want to be removed
         from our electronic mailing list, please
-        <a href="/contact">contact us</a> and include “Email Unsubscribe” in the
-        body of your message. If you choose to unsubscribe from our mailing
-        lists, we will hold your contact information on file marked so that we
-        do not inadvertently contact you if your details are subsequently
-        provided to us by a third party.
+        <router-link :to="{ name: 'contact' }"> contact us </router-link>
+        and include “Email Unsubscribe” in the body of your message. If you
+        choose to unsubscribe from our mailing lists, we will hold your contact
+        information on file marked so that we do not inadvertently contact you
+        if your details are subsequently provided to us by a third party.
       </p>
       <h4>OTHER PROVISIONS</h4>
       <p>
@@ -288,9 +287,10 @@
       </p>
       <p>
         Your privacy is important to us. If you have questions about any of the
-        provisions described above, please <a href="/contact">contact us</a>.
+        provisions described above, please
+        <router-link :to="{ name: 'contact' }"> contact us </router-link>
       </p>
-      <p>Last Updated: NEW_APP_CREATION_DATE</p>
+      <p>Last Updated: 19th June 2020</p>
     </div>
   </v-container>
 </template>

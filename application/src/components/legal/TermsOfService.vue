@@ -3,7 +3,7 @@
     <div class="header">
       <h1 class="text-center">Terms of Service</h1>
     </div>
-    <div id="terms">
+    <div id="terms" style="text-align: left;">
       <p>
         By signing up for Maskani, you are agreeing to be bound by the following
         terms and conditions (the “
