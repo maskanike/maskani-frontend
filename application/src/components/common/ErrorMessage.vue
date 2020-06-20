@@ -7,7 +7,7 @@
           color="error"
           multi-line
           bottom
-          :timeout="0"
+          :timeout="-1"
         >
           <ul>
             <li v-for="(item, index) in error" :key="index">{{ item }}</li>

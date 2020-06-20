@@ -73,6 +73,7 @@
 </template>
 <script>
 import ResizeText from 'vue-resize-text'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'UnauthenticatedToolbar',
@@ -86,29 +87,32 @@ export default {
       menuItems: [
         {
           title: this.$t('menuItems.HOME'),
-          link: 'landing',
-          icon: 'mdi-home'
+          link: 'landing'
+          // icon: 'mdi-home'
         },
         {
           title: this.$t('menuItems.ABOUT'),
           link: 'about',
-          icon: 'mdi-help-circle-outline',
+          // icon: 'mdi-help-circle-outline',
           class: 'btnAbout'
         },
         {
           title: this.$t('menuItems.LOGIN'),
           link: 'login',
-          icon: 'mdi-lock',
+          // icon: 'mdi-lock',
           class: 'btnLogin'
         },
         {
           title: this.$t('menuItems.SIGNUP'),
           link: 'register',
-          icon: 'mdi-plus-circle-outline',
+          // icon: 'mdi-plus-circle-outline',
           class: 'btnLogin'
         }
       ]
     }
+  },
+  computed: {
+    ...mapGetters(['appTitle'])
   }
 }
 </script>

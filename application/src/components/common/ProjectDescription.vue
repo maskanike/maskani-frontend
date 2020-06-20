@@ -145,19 +145,7 @@
         </div>
       </div>
     </section>
-    <!-- <v-flex xs12 text-xs-center mt-5 mb-5>
-      <br />
-      <br />
-    </v-flex>
-
-    <v-flex xs12 text-xs-center mb-5>
-      <br />
-      <br />
-    </v-flex>
-    <v-flex xs12>
-      <br />
-      <br />
-    </v-flex> -->
+    <ErrorMessage />
   </v-container>
 </template>
 
