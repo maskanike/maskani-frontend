@@ -56,6 +56,7 @@ const actions = {
         .saveUserFlat(payload.userId, data)
         .then((response) => {
           if (response.status === 201) {
+            commit(types.CURRENT_FLAT, response.data)
             buildSuccess(
               {
                 msg: 'common.SAVED_SUCCESSFULLY'

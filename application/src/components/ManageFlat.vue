@@ -281,6 +281,9 @@ export default {
     }
   },
   computed: {
+    currentFlat() {
+      return this.$store.state.flats.currentFlat
+    },
     name: {
       get() {
         return this.$store.state.flats.currentFlat.name
@@ -334,13 +337,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions([
-      'saveUnit',
-      'getUserFlat',
-      'getUnits',
-      'addUnitData',
-      'saveFlat'
-    ]),
+    ...mapActions(['saveUnit', 'getUnits', 'addUnitData', 'saveFlat']),
     async submit() {
       await this.saveProfile({
         name: this.name,
@@ -454,9 +451,6 @@ export default {
         this.doSearch()
       }, 400)
     }
-  },
-  async mounted() {
-    await this.getUserFlat()
   }
 }
 </script>

@@ -176,7 +176,6 @@
     "TITLE": "Maskani Dashboard",
     "GREETING": "Welcome, %{0}",
     "DESCRIPTION": "Maskani is here to help you keep your records in a better way and to get data to help in decision making",
-    "CHART_DESCRIPTION": "Chart for Flat %{0}",
     "VERIFY_YOUR_ACCOUNT": "IMPORTANT: Verify your account",
     "VERIFY_YOUR_ACCOUNT_DESCRIPTION": "You must verify your account by clicking the link sent to your E-mail to be able to enjoy all our app features",
     "CLOSE": "Close"

@@ -1,10 +1,8 @@
 <template>
-  <v-layout>
+  <v-layout row>
+    <v-flex xs12>Start by creating a flat to manage your units!</v-flex>
     <v-flex xs12 sm12 md4 mt-3 pl-4>
-      <div class="text-left">
-        <v-toolbar-title>{{ $t('flats.ADD_NEW_FLAT') }}</v-toolbar-title>
-      </div>
-      <div class="text-right">
+      <div class="text-center">
         <v-flex xs12 sm6 md4 text-xs-right mb-2 mt-2 pr-2>
           <ValidationObserver
             ref="observer"
@@ -81,6 +79,7 @@
   </v-layout>
 </template>
 <script>
+import router from '@/router'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -119,6 +118,7 @@ export default {
         // Creating new item
         await this.saveUserFlat({ userId: this.user.id, name: flatName })
         this.close()
+        router.push({ name: 'billing' })
         return
         // eslint-disable-next-line no-unused-vars
       } catch (error) {

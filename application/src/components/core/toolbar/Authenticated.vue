@@ -81,12 +81,13 @@
         <v-icon>mdi-bell</v-icon>
       </v-btn>
       <v-btn icon large>
-        <v-avatar size="32px" item>
-          <v-img
-            src="https://cdn.vuetifyjs.com/images/logos/logo.svg"
-            alt="Vuetify"
-          ></v-img>
-        </v-avatar>
+        <router-link
+          :to="{ name: 'profile' }"
+          tag="span"
+          style="cursor: pointer;"
+        >
+          <v-icon>mdi-account</v-icon>
+        </router-link>
       </v-btn>
     </v-app-bar>
   </div>

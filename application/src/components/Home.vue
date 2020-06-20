@@ -30,13 +30,18 @@
       </div>
       <Heading :title="$t('home.GREETING', [name])" />
       <Description :description="$t('home.DESCRIPTION')" />
-      <Chart :title="$t('home.CHART_DESCRIPTION', [name])"></Chart>
-      <!-- TODO implement chart here -->
+      <Chart
+        v-if="currentFlat && currentFlat.name"
+        :currentFlat="currentFlat"
+      ></Chart>
+      <CreateFlat v-else></CreateFlat>
     </v-layout>
   </v-container>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   metaInfo() {
     return {
@@ -48,6 +53,14 @@ export default {
     return {
       name: this.$store.state.auth.user.name,
       showVerifyDialog: !this.$store.state.verify.emailVerified
+    }
+  },
+  methods: {
+    ...mapActions(['getUserFlat'])
+  },
+  computed: {
+    currentFlat() {
+      return this.$store.state.flats.currentFlat
     }
   }
 }

@@ -16,7 +16,7 @@ const mutations = {
     } else {
       state.showSuccessMessage = true
       state.successMessageTimeout =
-        payload.timeout === 0 ? 0 : payload.timeout || 6000
+        payload.timeout === 0 ? -1 : payload.timeout || 6000
       state.successMessage = payload.msg
       if (payload.params) {
         state.successMessageParams = payload.params
@@ -32,7 +32,7 @@ const state = {
   showSuccessMessage: false,
   successMessage: null,
   successMessageParams: [],
-  successMessageTimeout: 0
+  successMessageTimeout: -1
 }
 
 export default {
