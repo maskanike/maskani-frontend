@@ -4,10 +4,10 @@ import Chart from '@/components/common/Chart.vue'
 
 describe('Chart.vue', () => {
   it('checks on if the chart page renders', () => {
-    const title = `Chart Page`
+    const name = `Chart Name`
     const wrapper = shallowMount(Chart, {
-      propsData: { title }
+      propsData: { currentFlat: { name } }
     })
-    expect(wrapper.text()).to.include(title)
+    expect(wrapper.text()).to.include(name)
   })
 })
