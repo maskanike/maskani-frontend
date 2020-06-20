@@ -26,92 +26,161 @@
             <div class="home_banner_cta_wrapper">
               <h4 class="titleA">Free for basic use</h4>
               <div class="home_banner_signup_form">
-                <form
-                  class="homeSignup formA"
-                  id="signupForm1"
-                  method="POST"
-                  action="/auth/signup"
-                >
-                  <v-card-text>
-                    <v-form>
-                      <v-text-field
-                        id="signupName"
-                        label="Full Name"
-                        name="signupName"
-                        prepend-icon="person"
-                        type="text"
-                      />
-                      <v-text-field
-                        id="signupEmail"
-                        label="Email Address"
-                        name="signupEmail"
-                        prepend-icon="email"
-                        type="text"
-                      />
-                      <v-text-field
-                        id="signupPhone"
-                        label="Phone Number"
-                        name="signupPhone"
-                        prepend-icon="phone"
-                        type="text"
-                      />
-                      <v-text-field
-                        id="signupPass1"
-                        label="Password"
-                        name="signupPass1"
-                        prepend-icon="lock"
-                        type="password"
-                      />
-                      <v-text-field
-                        id="signupPass2"
-                        label="Confirm Password"
-                        name="signupPass2"
-                        prepend-icon="lock"
-                        type="password"
-                      />
-                    </v-form>
-                  </v-card-text>
-                  <div class="form-group">
-                    <div class="checkbox">
-                      <label>
-                        <input type="checkbox" checked="checked" /> I accept the
-                        Terms of Service
-                      </label>
+                <ValidationObserver v-slot="{ handleSubmit }">
+                  <form @submit.prevent="handleSubmit(submit)">
+                    <v-card-text>
+                      <v-form>
+                        <ValidationProvider
+                          rules="required"
+                          v-slot="{ errors }"
+                        >
+                          <v-text-field
+                            id="name"
+                            :label="$t('signup.NAME')"
+                            v-model="name"
+                            prepend-icon="person"
+                            :error="errors.length > 0"
+                            :error-messages="errors[0]"
+                            autocomplete="off"
+                          />
+                        </ValidationProvider>
+                        <ValidationProvider
+                          rules="required|email"
+                          v-slot="{ errors }"
+                        >
+                          <v-text-field
+                            id="email"
+                            name="email"
+                            type="text"
+                            :label="$t('signup.EMAIL')"
+                            v-model="email"
+                            :error="errors.length > 0"
+                            :error-messages="errors[0]"
+                            autocomplete="off"
+                            prepend-icon="email"
+                          />
+                        </ValidationProvider>
+                        <ValidationProvider
+                          rules="required"
+                          v-slot="{ errors }"
+                        >
+                          <v-text-field
+                            id="phone"
+                            name="phone"
+                            type="phone"
+                            :label="$t('signup.PHONE')"
+                            v-model="phone"
+                            :error="errors.length > 0"
+                            :error-messages="errors[0]"
+                            autocomplete="off"
+                            prepend-icon="phone"
+                          />
+                        </ValidationProvider>
+                        <ValidationProvider
+                          rules="required|min:5"
+                          v-slot="{ errors }"
+                          vid="password"
+                        >
+                          <v-text-field
+                            id="password"
+                            name="password"
+                            type="password"
+                            :label="$t('signup.PASSWORD')"
+                            v-model="password"
+                            :error="errors.length > 0"
+                            :error-messages="errors[0]"
+                            ref="password"
+                            autocomplete="off"
+                            prepend-icon="lock"
+                          />
+                        </ValidationProvider>
+                        <ValidationProvider
+                          rules="required|min:5"
+                          v-slot="{ errors }"
+                          vid="password"
+                        >
+                          <v-text-field
+                            prepend-icon="lock"
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            :label="$t('signup.CONFIRM_PASSWORD')"
+                            v-model="confirmPassword"
+                            :error="errors.length > 0"
+                            :error-messages="errors[0]"
+                            autocomplete="off"
+                          />
+                        </ValidationProvider>
+                      </v-form>
+                    </v-card-text>
+                    <div style="color: #1976d2;">
+                      <div class="checkbox">
+                        <input
+                          type="checkbox"
+                          id="checkbox"
+                          v-model="checked"
+                        />
+                        <router-link
+                          :to="{ name: 'toc' }"
+                          tag="span"
+                          style="cursor: pointer;"
+                        >
+                          I accept the Terms of Service
+                        </router-link>
+                      </div>
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <input
-                      class="btn btn-primary btn-lg btn-block strong cta_2"
-                      type="submit"
-                      value="Sign me up!"
-                    />
-                  </div>
-                </form>
+                    <div class="form-group">
+                      <input
+                        class="btn btn-primary btn-lg btn-block strong cta_2"
+                        type="submit"
+                        value="Sign me up!"
+                        :disabled="!checked"
+                      />
+                    </div>
+                  </form>
+                </ValidationObserver>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-    <!-- <v-flex xs12 text-xs-center mt-5 mb-5>
-      <br />
-      <br />
-    </v-flex>
-
-    <v-flex xs12 text-xs-center mb-5>
-      <br />
-      <br />
-    </v-flex>
-    <v-flex xs12>
-      <br />
-      <br />
-    </v-flex> -->
+    <ErrorMessage />
   </v-container>
 </template>
 
 <script>
+import router from '@/router'
+import { mapActions } from 'vuex'
+
 export default {
-  name: 'ProjectDescription'
+  name: 'ProjectDescription',
+  data() {
+    return {
+      name: '',
+      email: '',
+      phone: '',
+      password: '',
+      confirmPassword: '',
+      checked: false
+    }
+  },
+  methods: {
+    ...mapActions(['userRegister']),
+    async submit() {
+      await this.userRegister({
+        name: this.name,
+        email: this.email,
+        phone: this.phone,
+        password: this.password
+      })
+    }
+  },
+  created() {
+    if (this.$store.state.auth.isTokenSet) {
+      router.push({ name: 'home' })
+    }
+  }
 }
 </script>
 
