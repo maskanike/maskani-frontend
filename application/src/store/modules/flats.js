@@ -56,6 +56,10 @@ const actions = {
         .saveUserFlat(payload.userId, data)
         .then((response) => {
           if (response.status === 201) {
+            window.localStorage.setItem(
+              'currentFlat',
+              JSON.stringify(response.data)
+            )
             commit(types.CURRENT_FLAT, response.data)
             buildSuccess(
               {

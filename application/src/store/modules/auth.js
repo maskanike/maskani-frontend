@@ -85,7 +85,9 @@ const actions = {
   },
   autoLogin({ commit }) {
     const user = JSON.parse(localStorage.getItem('user'))
+    const currentFlat = JSON.parse(localStorage.getItem('currentFlat')) || {}
     commit(types.SAVE_USER, user)
+    commit(types.CURRENT_FLAT, currentFlat)
     commit(types.SAVE_TOKEN, JSON.parse(localStorage.getItem('token')))
     commit(types.SET_LOCALE, JSON.parse(localStorage.getItem('locale')))
     commit(types.EMAIL_VERIFIED, user.verified)

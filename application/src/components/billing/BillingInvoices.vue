@@ -335,6 +335,11 @@
                 <template v-slot:item.id="{ item }">
                   <td class="fill-height px-0">
                     <v-layout class="justify-center">
+                      <RecordPayment
+                        v-if="item.Tenant && !invoiceNotSentToday(item)"
+                        :item="item"
+                        @refreshUnitsTable="refreshTable()"
+                      ></RecordPayment>
                       <SendReminder
                         v-if="item.Tenant && !invoiceNotSentToday(item)"
                         :item="item"
@@ -439,6 +444,7 @@ import { mapActions } from 'vuex'
 import { getFormat, buildPayloadPagination } from '@/utils/utils.js'
 import SendInvoiceModal from './SendInvoiceModal'
 import SendReminder from './SendReminder'
+import RecordPayment from './RecordPayment'
 import AssignTenantToUnit from './AssignTenantToUnitModal'
 import { differenceInHours, parseISO } from 'date-fns'
 
@@ -594,10 +600,10 @@ export default {
       'saveUnitWithTenant',
       'saveUnit',
       'deleteTenant',
-      'deleteUnit'
+      'deleteUnit',
+      'getUserFlat'
     ]),
     getFormat(date) {
-      window.__localeId__ = this.$store.getters.locale
       return getFormat(date, 'iii, MMMM d yyyy, h:mm a')
     },
     trueFalse(value) {
@@ -752,10 +758,14 @@ export default {
       }
     }
   },
+  async mounted() {
+    await this.getUserFlat()
+  },
   components: {
     SendInvoiceModal,
     AssignTenantToUnit,
-    SendReminder
+    SendReminder,
+    RecordPayment
   }
 }
 </script>

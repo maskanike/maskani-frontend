@@ -30,11 +30,8 @@
       </div>
       <Heading :title="$t('home.GREETING', [name])" />
       <Description :description="$t('home.DESCRIPTION')" />
-      <Chart
-        v-if="currentFlat && currentFlat.name"
-        :currentFlat="currentFlat"
-      ></Chart>
-      <CreateFlat v-else></CreateFlat>
+      <CreateFlat v-if="!currentFlat"></CreateFlat>
+      <Chart v-else :currentFlat="currentFlat"></Chart>
     </v-layout>
   </v-container>
 </template>
@@ -62,6 +59,9 @@ export default {
     currentFlat() {
       return this.$store.state.flats.currentFlat
     }
+  },
+  async mounted() {
+    await this.getUserFlat()
   }
 }
 </script>
