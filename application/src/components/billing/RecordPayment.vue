@@ -27,8 +27,8 @@
               </v-col>
               <v-col cols="12" sm="6" md="3">
                 <v-text-field
-                  label="Amount Paod"
-                  v-model="amout"
+                  label="Amount Paid"
+                  v-model="amount"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -75,7 +75,7 @@ export default {
     close() {
       this.invDialog = false
       setTimeout(() => {
-        this.message = ''
+        this.amount = ''
       }, 300)
     },
     async send() {
@@ -92,7 +92,8 @@ export default {
         )
         if (response) {
           const data = {
-            InvoiceId: this.item.Tenant.lastInvoiceSentId,
+            TenantId: this.item.Tenant.id,
+            InvoiceId: this.item.Tenant.lastInvoiceSentId, // TODO this is flawed. It means payment will always be made for the latest invoice only
             amount: this.amount
           }
           await this.recordPayment(data)

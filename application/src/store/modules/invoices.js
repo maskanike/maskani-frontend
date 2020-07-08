@@ -24,29 +24,6 @@ const actions = {
         })
     })
   },
-  editInvoice({ commit }, payload) {
-    return new Promise((resolve, reject) => {
-      const data = {
-        name: payload.name
-      }
-      api
-        .editInvoice(payload.id, data)
-        .then((response) => {
-          if (response.status === 200) {
-            buildSuccess(
-              {
-                msg: 'common.EDITED_SUCCESSFULLY'
-              },
-              commit,
-              resolve
-            )
-          }
-        })
-        .catch((error) => {
-          handleError(error, commit, reject)
-        })
-    })
-  },
 
   sendInvoice({ commit }, payload) {
     return new Promise((resolve, reject) => {
@@ -56,10 +33,11 @@ const actions = {
         penalty: payload.penalty,
         water: payload.water,
         UnitId: payload.UnitId,
-        dueDate: payload.dueDate
+        dueDate: payload.dueDate,
+        TenantId: payload.TenantId
       }
       api
-        .sendInvoice(payload.TenantId, data)
+        .sendInvoice(data)
         .then((response) => {
           if (response.status === 201) {
             buildSuccess(
@@ -80,36 +58,16 @@ const actions = {
   sendInvoiceReminder({ commit }, payload) {
     return new Promise((resolve, reject) => {
       const data = {
-        message: payload.message
+        message: payload.message,
+        InvoiceId: payload.InvoiceId
       }
       api
-        .sendInvoiceReminder(payload.InvoiceId, data)
+        .sendInvoiceReminder(data)
         .then((response) => {
           if (response.status === 201) {
             buildSuccess(
               {
                 msg: 'common.SENT_SUCCESSFULLY'
-              },
-              commit,
-              resolve
-            )
-          }
-        })
-        .catch((error) => {
-          handleError(error, commit, reject)
-        })
-    })
-  },
-
-  deleteInvoice({ commit }, payload) {
-    return new Promise((resolve, reject) => {
-      api
-        .deleteInvoice(payload)
-        .then((response) => {
-          if (response.status === 200) {
-            buildSuccess(
-              {
-                msg: 'common.DELETED_SUCCESSFULLY'
               },
               commit,
               resolve

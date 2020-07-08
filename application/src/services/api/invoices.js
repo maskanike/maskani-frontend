@@ -6,16 +6,10 @@ export default {
       params
     })
   },
-  editInvoice(id, payload) {
-    return axios.patch(`/invoices/${id}`, payload)
+  sendInvoice(payload) {
+    return axios.post(`/invoices/`, payload)
   },
-  sendInvoice(tenantId, payload) {
-    return axios.post(`/invoices/${tenantId}`, payload)
-  },
-  sendInvoiceReminder(invoiceId, payload) {
-    return axios.post(`/invoices/${invoiceId}/reminder`, payload)
-  },
-  deleteInvoice(id) {
-    return axios.delete(`/invoices/${id}`)
+  sendInvoiceReminder(payload) {
+    return axios.post(`/invoices/reminder`, payload)
   }
 }
