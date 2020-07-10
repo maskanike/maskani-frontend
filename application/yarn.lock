@@ -11555,10 +11555,10 @@ vue@^2.6.11:
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.11.tgz#76594d877d4b12234406e84e35275c6d514125c5"
   integrity sha512-VfPwgcGABbGAue9+sfrD4PuwFar7gPb1yl1UK1MwXoQPAw0BKSqWfoYCT/ThFrdEVWoI51dBuyCoiNU9bZDZxQ==
 
-vuetify-confirm@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/vuetify-confirm/-/vuetify-confirm-2.0.3.tgz#fcc98503ef6d2bf399740c1cf58147f83cecfa64"
-  integrity sha512-aIoicfPbanzXdOmamS+h9ABlvWeS89xtQ6gc+KOOGEf405Gb8NX8+K9tCqbpOWuePhjKciSoQ7uCBp/dMNMpaQ==
+vuetify-confirm@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/vuetify-confirm/-/vuetify-confirm-2.0.5.tgz#3c3bcac6eea74b24fbaa84d3a045ce27085512a4"
+  integrity sha512-ApDl4z5QIkB6N8ChiYonu1mA59I6qyszyyFOHmDEfK58qpmK8nqayZ7BKLQLMJt2pCrKe/NbCHJXm2v+R1WJqA==
 
 vuetify-loader@^1.5.0:
   version "1.5.0"
