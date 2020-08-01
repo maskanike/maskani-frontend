@@ -62,6 +62,9 @@ export default {
   },
   async mounted() {
     await this.getUserFlat()
+    this.$mixpanel.track('Login Successful', {
+      email: this.$store.state.auth.user.email
+    })
   }
 }
 </script>

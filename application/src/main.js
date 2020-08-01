@@ -10,8 +10,12 @@ import App from '@/App.vue'
 import router from '@/router'
 import { store } from '@/store'
 import VuetifyConfirm from 'vuetify-confirm'
+// import VueMixpanel from 'vue-mixpanel'
 
 Vue.config.productionTip = false
+// Vue.use(VueMixpanel, {
+//   token: process.env.VUE_APP_MIXPANEL_TOKEN
+// })
 Vue.use(VuetifyConfirm, { vuetify })
 
 const app = new Vue({
