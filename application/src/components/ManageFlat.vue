@@ -51,8 +51,8 @@
       <ErrorMessage />
       <SuccessMessage />
     </v-layout>
-    <v-layout>
-      <div>
+    <v-row align="center" justify="center">
+      <v-col cols="12">
         <v-data-table
           :loading="dataTableLoading"
           :no-data-text="$t('dataTable.NO_DATA')"
@@ -250,8 +250,8 @@
         </v-data-table>
         <ErrorMessage />
         <SuccessMessage />
-      </div>
-    </v-layout>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
