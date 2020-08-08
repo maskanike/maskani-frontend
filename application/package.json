@@ -29,7 +29,7 @@
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
     "date-fns": "^2.14.0",
-    "remark-cli": "^8.0.0",
+    "remark-cli": "^8.0.1",
     "vee-validate": "^3.3.4",
     "vue": "^2.6.11",
     "vue-drift": "^2.0.2",
