@@ -76,9 +76,9 @@ export default {
   methods: {
     ...mapActions(['userLogin']),
     async submit() {
-      this.$mixpanel.track('Login Attempt', {
-        email: this.email
-      })
+      // this.$mixpanel.track('Login Attempt', {
+      //   email: this.email
+      // })
       await this.userLogin({
         email: this.email,
         password: this.password

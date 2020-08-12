@@ -93,6 +93,29 @@ const actions = {
           handleError(error, commit, reject)
         })
     })
+  },
+  movedOutTenant({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      const data = {
+        id: payload.TenantId
+      }
+      api
+        .tenantMovedOut(data)
+        .then((response) => {
+          if (response.status === 200) {
+            buildSuccess(
+              {
+                msg: 'common.TENANT_VACATED'
+              },
+              commit,
+              resolve
+            )
+          }
+        })
+        .catch((error) => {
+          handleError(error, commit, reject)
+        })
+    })
   }
 }
 

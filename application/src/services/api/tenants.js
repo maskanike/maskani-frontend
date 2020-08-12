@@ -14,5 +14,8 @@ export default {
   },
   deleteTenant(id) {
     return axios.delete(`/tenants/${id}`)
+  },
+  tenantMovedOut(payload) {
+    return axios.patch('/tenants/movedout/', payload)
   }
 }

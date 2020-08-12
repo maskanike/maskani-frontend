@@ -355,6 +355,11 @@
                         :UnitId="item.id"
                         @refreshUnitsTable="refreshTable()"
                       ></AssignTenantToUnit>
+                      <VacateUnit
+                        v-show="vacateDialog"
+                        :item="item"
+                        @refreshUnitsTable="refreshTable()"
+                      ></VacateUnit>
                       <v-menu>
                         <template v-slot:activator="{ on }">
                           <v-btn icon v-on="on">
@@ -443,6 +448,7 @@
 import { mapActions } from 'vuex'
 import { getFormat, buildPayloadPagination } from '@/utils/utils.js'
 import SendInvoiceModal from './SendInvoiceModal'
+import VacateUnit from './VacateUnit'
 import SendReminder from './SendReminder'
 import RecordPayment from './RecordPayment'
 import AssignTenantToUnit from './AssignTenantToUnitModal'
@@ -461,7 +467,7 @@ export default {
       dataTableLoading: true,
       delayTimer: null,
       dialog: false,
-      invDialog: false,
+      vacateDialog: false,
       search: '',
       pagination: {},
       editedItem: {},
@@ -573,6 +579,9 @@ export default {
     dialog(value) {
       return value ? true : this.close()
     },
+    vacateDialog(value) {
+      return value ? true : this.vacateDialog()
+    },
     pagination: {
       async handler() {
         try {
@@ -601,6 +610,7 @@ export default {
       'saveUnit',
       'deleteTenant',
       'deleteUnit',
+      'vacateUnit',
       'getUserFlat'
     ]),
     getFormat(date) {
@@ -648,6 +658,8 @@ export default {
         this.deleteTenantItem(item.id)
       } else if (action === 'deleteUnit') {
         this.deleteUnitItem(item.id)
+      } else if (action === 'vacateUnit') {
+        this.vacateUnitAction(item.id)
       }
     },
 
@@ -662,6 +674,12 @@ export default {
       this.editedTenant = Object.assign({}, item.Tenant, { UnitId: item.id })
       this.dialog = true
     },
+
+    // vacateUnit(item) {
+    //   this.editedItem = Object.assign({}, item)
+    //   this.editedTenant = Object.assign({}, item.Tenant, { UnitId: item.id })
+    //   this.vacateUnit = true
+    // },
 
     async deleteTenantItem(tenantId) {
       try {
@@ -711,8 +729,39 @@ export default {
       }
     },
 
+    async vacateUnitAction(unitId) {
+      try {
+        const response = await this.$confirm(
+          this.$t('common.DO_YOU_REALLY_WANT_TO_VACATE_UNIT'),
+          {
+            title: this.$t('common.WARNING'),
+            buttonTrueText: this.$t('common.SEND'),
+            buttonFalseText: this.$t('common.CANCEL'),
+            buttonTrueColor: 'green lighten3',
+            buttonFalseColor: 'yellow'
+          }
+        )
+        if (response) {
+          this.dataTableLoading = true
+          await this.vacateUnit(unitId)
+          await this.refreshTable()
+          this.dataTableLoading = false
+        }
+        // eslint-disable-next-line no-unused-vars
+      } catch (error) {
+        this.dataTableLoading = false
+      }
+    },
+
     close() {
       this.dialog = false
+      setTimeout(() => {
+        this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedTenant = Object.assign({}, this.defaultItem)
+      }, 300)
+    },
+    vacateClose() {
+      this.vacateDialog = false
       setTimeout(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
         this.editedTenant = Object.assign({}, this.defaultItem)
@@ -765,6 +814,7 @@ export default {
     SendInvoiceModal,
     AssignTenantToUnit,
     SendReminder,
+    VacateUnit,
     RecordPayment
   }
 }
