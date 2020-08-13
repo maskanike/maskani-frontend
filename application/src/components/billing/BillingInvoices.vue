@@ -355,11 +355,6 @@
                         :UnitId="item.id"
                         @refreshUnitsTable="refreshTable()"
                       ></AssignTenantToUnit>
-                      <VacateUnit
-                        v-show="vacateDialog"
-                        :item="item"
-                        @refreshUnitsTable="refreshTable()"
-                      ></VacateUnit>
                       <v-menu>
                         <template v-slot:activator="{ on }">
                           <v-btn icon v-on="on">
@@ -448,7 +443,6 @@
 import { mapActions } from 'vuex'
 import { getFormat, buildPayloadPagination } from '@/utils/utils.js'
 import SendInvoiceModal from './SendInvoiceModal'
-import VacateUnit from './VacateUnit'
 import SendReminder from './SendReminder'
 import RecordPayment from './RecordPayment'
 import AssignTenantToUnit from './AssignTenantToUnitModal'
@@ -610,7 +604,7 @@ export default {
       'saveUnit',
       'deleteTenant',
       'deleteUnit',
-      'vacateUnit',
+      'offboardTenant',
       'getUserFlat'
     ]),
     getFormat(date) {
@@ -658,8 +652,8 @@ export default {
         this.deleteTenantItem(item.id)
       } else if (action === 'deleteUnit') {
         this.deleteUnitItem(item.id)
-      } else if (action === 'vacateUnit') {
-        this.vacateUnitAction(item.id)
+      } else if (action === 'vacate') {
+        this.vacateUnitAction(item.Tenant.id)
       }
     },
 
@@ -674,12 +668,6 @@ export default {
       this.editedTenant = Object.assign({}, item.Tenant, { UnitId: item.id })
       this.dialog = true
     },
-
-    // vacateUnit(item) {
-    //   this.editedItem = Object.assign({}, item)
-    //   this.editedTenant = Object.assign({}, item.Tenant, { UnitId: item.id })
-    //   this.vacateUnit = true
-    // },
 
     async deleteTenantItem(tenantId) {
       try {
@@ -729,10 +717,10 @@ export default {
       }
     },
 
-    async vacateUnitAction(unitId) {
+    async vacateUnitAction(tenantId) {
       try {
         const response = await this.$confirm(
-          this.$t('common.DO_YOU_REALLY_WANT_TO_VACATE_UNIT'),
+          this.$t('billing.DO_YOU_REALLY_WANT_TO_VACATE_UNIT'),
           {
             title: this.$t('common.WARNING'),
             buttonTrueText: this.$t('common.SEND'),
@@ -743,7 +731,7 @@ export default {
         )
         if (response) {
           this.dataTableLoading = true
-          await this.vacateUnit(unitId)
+          await this.offboardTenant({ id: tenantId })
           await this.refreshTable()
           this.dataTableLoading = false
         }
@@ -814,7 +802,6 @@ export default {
     SendInvoiceModal,
     AssignTenantToUnit,
     SendReminder,
-    VacateUnit,
     RecordPayment
   }
 }

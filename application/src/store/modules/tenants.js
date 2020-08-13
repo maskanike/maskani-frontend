@@ -94,18 +94,15 @@ const actions = {
         })
     })
   },
-  movedOutTenant({ commit }, payload) {
+  offboardTenant({ commit }, payload) {
     return new Promise((resolve, reject) => {
-      const data = {
-        id: payload.TenantId
-      }
       api
-        .tenantMovedOut(data)
+        .offboardTenant(payload)
         .then((response) => {
           if (response.status === 200) {
             buildSuccess(
               {
-                msg: 'common.TENANT_VACATED'
+                msg: 'billing.TENANT_VACATED'
               },
               commit,
               resolve
