@@ -461,7 +461,6 @@ export default {
       dataTableLoading: true,
       delayTimer: null,
       dialog: false,
-      invDialog: false,
       search: '',
       pagination: {},
       editedItem: {},
@@ -601,6 +600,7 @@ export default {
       'saveUnit',
       'deleteTenant',
       'deleteUnit',
+      'offboardTenant',
       'getUserFlat'
     ]),
     getFormat(date) {
@@ -648,6 +648,8 @@ export default {
         this.deleteTenantItem(item.id)
       } else if (action === 'deleteUnit') {
         this.deleteUnitItem(item.id)
+      } else if (action === 'vacate') {
+        this.vacateUnitAction(item.Tenant.id)
       }
     },
 
@@ -711,6 +713,30 @@ export default {
       }
     },
 
+    async vacateUnitAction(tenantId) {
+      try {
+        const response = await this.$confirm(
+          this.$t('billing.DO_YOU_REALLY_WANT_TO_VACATE_UNIT'),
+          {
+            title: this.$t('common.WARNING'),
+            buttonTrueText: this.$t('common.SEND'),
+            buttonFalseText: this.$t('common.CANCEL'),
+            buttonTrueColor: 'green lighten3',
+            buttonFalseColor: 'yellow'
+          }
+        )
+        if (response) {
+          this.dataTableLoading = true
+          await this.offboardTenant({ id: tenantId })
+          await this.refreshTable()
+          this.dataTableLoading = false
+        }
+        // eslint-disable-next-line no-unused-vars
+      } catch (error) {
+        this.dataTableLoading = false
+      }
+    },
+
     close() {
       this.dialog = false
       setTimeout(() => {
@@ -718,6 +744,7 @@ export default {
         this.editedTenant = Object.assign({}, this.defaultItem)
       }, 300)
     },
+
     async saveUnitAndTenantIfExists() {
       if (this.occupied) {
         // Creating new unit with a tenant

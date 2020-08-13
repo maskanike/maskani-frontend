@@ -78,6 +78,8 @@
   "billing": {
     "UNCHANGED": "Unchanged",
     "MOVED_OUT": "Moved Out",
+    "TENANT_VACATED": "Tenant Vacated from Unit",
+    "DO_YOU_REALLY_WANT_TO_VACATE_UNIT": "Do you really want to vacate unit",
     "CHANGED_HOUSE": "Changed House",
     "headers": {
       "STATUS": "Tenancy Status"

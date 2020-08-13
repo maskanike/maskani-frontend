@@ -93,6 +93,26 @@ const actions = {
           handleError(error, commit, reject)
         })
     })
+  },
+  offboardTenant({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      api
+        .offboardTenant(payload)
+        .then((response) => {
+          if (response.status === 200) {
+            buildSuccess(
+              {
+                msg: 'billing.TENANT_VACATED'
+              },
+              commit,
+              resolve
+            )
+          }
+        })
+        .catch((error) => {
+          handleError(error, commit, reject)
+        })
+    })
   }
 }
 
