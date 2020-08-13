@@ -461,7 +461,6 @@ export default {
       dataTableLoading: true,
       delayTimer: null,
       dialog: false,
-      vacateDialog: false,
       search: '',
       pagination: {},
       editedItem: {},
@@ -572,9 +571,6 @@ export default {
   watch: {
     dialog(value) {
       return value ? true : this.close()
-    },
-    vacateDialog(value) {
-      return value ? true : this.vacateDialog()
     },
     pagination: {
       async handler() {
@@ -748,13 +744,7 @@ export default {
         this.editedTenant = Object.assign({}, this.defaultItem)
       }, 300)
     },
-    vacateClose() {
-      this.vacateDialog = false
-      setTimeout(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
-        this.editedTenant = Object.assign({}, this.defaultItem)
-      }, 300)
-    },
+
     async saveUnitAndTenantIfExists() {
       if (this.occupied) {
         // Creating new unit with a tenant
