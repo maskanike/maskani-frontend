@@ -32,7 +32,7 @@
     "remark-cli": "^8.0.0",
     "vee-validate": "^3.3.4",
     "vue": "^2.6.11",
-    "vue-drift": "^2.0.2",
+    "vue-drift": "^2.0.3",
     "vue-i18n": "^8.18.2",
     "vue-meta": "^2.4.0",
     "vue-mixpanel": "^1.0.4",
