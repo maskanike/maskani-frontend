@@ -100,12 +100,6 @@ export default {
             class: 'btnBillingInvoices'
           },
           {
-            title: this.$t('menuItems.RECEIPTS'),
-            link: 'billing-receipts',
-            icon: 'mdi-account-supervisor',
-            class: 'btnBillingReceipts'
-          },
-          {
             title: this.$t('menuItems.MY_PROFILE'),
             link: 'profile',
             icon: 'mdi-face',
