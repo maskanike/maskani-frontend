@@ -253,5 +253,14 @@
   },
   "units": {
     "TITLE": "Units"
+  },
+  "tenants": {
+    "headers": {
+      "NAME": "Name",
+      "EMAIL": "Email",
+      "PHONE": "Phone",
+      "RENT": "Rent",
+      "DEPOSIT": "Deposit"
+    }
   }
 }

@@ -78,15 +78,6 @@
                               {{ getFormat(editedItem.updatedAt) }}
                             </div>
                           </v-flex>
-                          <v-flex xs12 md4>
-                            <label for="verified">{{
-                              $t('tenants.headers.VERIFIED')
-                            }}</label>
-                            <div
-                              name="verified"
-                              v-html="trueFalse(editedItem.verified)"
-                            ></div>
-                          </v-flex>
                         </template>
                         <v-flex xs12 md6>
                           <ValidationProvider
@@ -166,26 +157,6 @@
                             rules="required"
                             v-slot="{ errors }"
                           >
-                            <v-select
-                              clearable
-                              id="role"
-                              name="role"
-                              v-model="editedItem.role"
-                              :items="roles"
-                              item-text="name"
-                              item-value="value"
-                              :label="$t('tenants.headers.ROLE')"
-                              :error="errors.length > 0"
-                              :error-messages="errors[0]"
-                              class="inputRole"
-                            ></v-select>
-                          </ValidationProvider>
-                        </v-flex>
-                        <v-flex xs12 md6>
-                          <ValidationProvider
-                            rules="required"
-                            v-slot="{ errors }"
-                          >
                             <v-text-field
                               id="phone"
                               name="phone"
@@ -195,6 +166,25 @@
                               :error="errors.length > 0"
                               :error-messages="errors[0]"
                               autocomplete="off"
+                            ></v-text-field>
+                          </ValidationProvider>
+                        </v-flex>
+                        <v-flex xs12 md6>
+                          <ValidationProvider
+                            rules="required"
+                            v-slot="{ errors }"
+                          >
+                            <v-text-field
+                              clearable
+                              id="rent"
+                              name="rent"
+                              v-model="editedItem.rent"
+                              item-text="name"
+                              item-value="value"
+                              :label="$t('tenants.headers.RENT')"
+                              :error="errors.length > 0"
+                              :error-messages="errors[0]"
+                              class="inputRent"
                             ></v-text-field>
                           </ValidationProvider>
                         </v-flex>
@@ -230,7 +220,6 @@
         <td>{{ props.item.name }}</td>
         <td>{{ props.item.email }}</td>
         <td>{{ roleName(props.item.role) }}</td>
-        <td v-html="trueFalse(props.item.verified)"></td>
         <td>{{ props.item.phone }}</td>
       </template>
       <template v-slot:item.id="{ item }">
@@ -337,22 +326,22 @@ export default {
           value: 'email'
         },
         {
-          text: this.$i18n.t('tenants.headers.ROLE'),
-          align: 'left',
-          sortable: true,
-          value: 'role'
-        },
-        {
-          text: this.$i18n.t('tenants.headers.VERIFIED'),
-          align: 'left',
-          sortable: true,
-          value: 'verified'
-        },
-        {
           text: this.$i18n.t('tenants.headers.PHONE'),
           align: 'left',
           sortable: true,
           value: 'phone'
+        },
+        {
+          text: this.$i18n.t('tenants.headers.RENT'),
+          align: 'left',
+          sortable: true,
+          value: 'rent'
+        },
+        {
+          text: this.$i18n.t('tenants.headers.DEPOSIT'),
+          align: 'left',
+          sortable: true,
+          value: 'deposit'
         },
         {
           text: this.$i18n.t('common.CREATED'),
