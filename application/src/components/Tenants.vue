@@ -239,20 +239,6 @@
               </template>
               <span>{{ $t('dataTable.EDIT') }}</span>
             </v-tooltip>
-            <v-tooltip top>
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  id="delete"
-                  icon
-                  class="mx-0"
-                  v-on="on"
-                  @click="deleteItem(item)"
-                >
-                  <v-icon>mdi-delete</v-icon>
-                </v-btn>
-              </template>
-              <span>{{ $t('dataTable.DELETE') }}</span>
-            </v-tooltip>
           </v-layout>
         </td>
       </template>
@@ -391,7 +377,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['getTenants', 'editTenant', 'saveTenant', 'deleteTenant']),
+    ...mapActions(['getTenants', 'editTenant', 'saveTenant']),
     getFormat(date) {
       window.__localeId__ = this.$store.getters.locale
       return getFormat(date, 'iii, MMMM d yyyy, h:mm a')
@@ -424,31 +410,6 @@ export default {
     editItem(item) {
       this.editedItem = Object.assign({}, item)
       this.dialog = true
-    },
-    async deleteItem(item) {
-      try {
-        const response = await this.$confirm(
-          this.$t('common.DO_YOU_REALLY_WANT_TO_DELETE_THIS_ITEM'),
-          {
-            title: this.$t('common.WARNING'),
-            buttonTrueText: this.$t('common.DELETE'),
-            buttonFalseText: this.$t('common.CANCEL'),
-            buttonTrueColor: 'red lighten3',
-            buttonFalseColor: 'yellow'
-          }
-        )
-        if (response) {
-          this.dataTableLoading = true
-          await this.deleteTenant(item.id)
-          await this.getTenants(
-            buildPayloadPagination(this.pagination, this.buildSearch())
-          )
-          this.dataTableLoading = false
-        }
-        // eslint-disable-next-line no-unused-vars
-      } catch (error) {
-        this.dataTableLoading = false
-      }
     },
     close() {
       this.dialog = false
