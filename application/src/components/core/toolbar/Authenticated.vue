@@ -106,7 +106,7 @@ export default {
     items: [
       { icon: 'mdi-keyboard', text: 'Dashboard', link: 'home' },
       { icon: 'mdi-history', text: 'Billing', link: 'billing' },
-      { icon: 'mdi-content-copy', text: 'Manage', link: 'manage' },
+      { icon: 'mdi-home', text: 'Flat', link: 'flat' },
       { icon: 'mdi-account-supervisor', text: 'Tenants', link: 'tenants' }
       // {
       //   icon: 'mdi-chevron-up',
