@@ -264,7 +264,8 @@
       "EMAIL": "Email",
       "PHONE": "Phone",
       "RENT": "Rent",
-      "DEPOSIT": "Deposit"
+      "DEPOSIT": "Deposit",
+      "STATUS": "Status"
     }
   }
 }

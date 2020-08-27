@@ -112,46 +112,6 @@
                             ></v-text-field>
                           </ValidationProvider>
                         </v-flex>
-                        <template v-if="!editedItem.id">
-                          <v-flex xs12 md6>
-                            <ValidationProvider
-                              rules="required|min:5"
-                              v-slot="{ errors }"
-                              vid="password"
-                            >
-                              <v-text-field
-                                id="password"
-                                name="password"
-                                type="password"
-                                :label="$t('tenants.PASSWORD')"
-                                v-model="editedItem.password"
-                                :error="errors.length > 0"
-                                :error-messages="errors[0]"
-                                key="password"
-                                ref="password"
-                                autocomplete="off"
-                              ></v-text-field>
-                            </ValidationProvider>
-                          </v-flex>
-                          <v-flex xs12 md6>
-                            <ValidationProvider
-                              rules="required|min:5|confirmed:password"
-                              v-slot="{ errors }"
-                            >
-                              <v-text-field
-                                id="confirmPassword"
-                                name="confirmPassword"
-                                type="password"
-                                :label="$t('tenants.CONFIRM_PASSWORD')"
-                                v-model="editedItem.confirmPassword"
-                                :error="errors.length > 0"
-                                :error-messages="errors[0]"
-                                key="confirmPassword"
-                                autocomplete="off"
-                              ></v-text-field>
-                            </ValidationProvider>
-                          </v-flex>
-                        </template>
                         <v-flex xs12 md6>
                           <ValidationProvider
                             rules="required"
@@ -173,19 +133,56 @@
                           <ValidationProvider
                             rules="required"
                             v-slot="{ errors }"
+                            vid="rent"
                           >
                             <v-text-field
-                              clearable
                               id="rent"
                               name="rent"
-                              v-model="editedItem.rent"
-                              item-text="name"
-                              item-value="value"
+                              type="number"
                               :label="$t('tenants.headers.RENT')"
+                              v-model="editedItem.rent"
                               :error="errors.length > 0"
                               :error-messages="errors[0]"
-                              class="inputRent"
+                              key="rent"
+                              ref="rent"
+                              autocomplete="off"
                             ></v-text-field>
+                          </ValidationProvider>
+                        </v-flex>
+                        <v-flex xs12 md6>
+                          <ValidationProvider
+                            rules="required"
+                            v-slot="{ errors }"
+                          >
+                            <v-text-field
+                              id="deposit"
+                              name="deposit"
+                              type="number"
+                              :label="$t('tenants.headers.DEPOSIT')"
+                              v-model="editedItem.deposit"
+                              :error="errors.length > 0"
+                              :error-messages="errors[0]"
+                              autocomplete="off"
+                            ></v-text-field>
+                          </ValidationProvider>
+                        </v-flex>
+                        <v-flex xs12 md6>
+                          <ValidationProvider
+                            rules="required"
+                            v-slot="{ errors }"
+                          >
+                            <v-select
+                              clearable
+                              id="status"
+                              name="status"
+                              v-model="editedItem.status"
+                              item-text="name"
+                              item-value="value"
+                              :label="$t('tenants.headers.STATUS')"
+                              :error="errors.length > 0"
+                              :error-messages="errors[0]"
+                              class="inputStatus"
+                            ></v-select>
                           </ValidationProvider>
                         </v-flex>
                       </v-layout>
@@ -219,7 +216,6 @@
       <template v-slot:items="props">
         <td>{{ props.item.name }}</td>
         <td>{{ props.item.email }}</td>
-        <td>{{ roleName(props.item.role) }}</td>
         <td>{{ props.item.phone }}</td>
       </template>
       <template v-slot:item.id="{ item }">
@@ -330,6 +326,12 @@ export default {
           value: 'deposit'
         },
         {
+          text: this.$i18n.t('tenants.headers.STATUS'),
+          align: 'left',
+          sortable: true,
+          value: 'status'
+        },
+        {
           text: this.$i18n.t('common.CREATED'),
           align: 'left',
           sortable: true,
@@ -382,9 +384,6 @@ export default {
       window.__localeId__ = this.$store.getters.locale
       return getFormat(date, 'iii, MMMM d yyyy, h:mm a')
     },
-    roleName(value) {
-      return value === 'admin' ? this.$t('roles.ADMIN') : this.$t('roles.USER')
-    },
     trueFalse(value) {
       return value
         ? '<i aria-hidden="true" class="v-icon mdi mdi-check green--text" style="font-size: 16px;"></i>'
@@ -431,6 +430,8 @@ export default {
           // Creating new item
           await this.saveTenant({
             name: this.editedItem.name,
+            phone: this.editedItem.phone,
+            email: this.editedItem.email,
             deposit: this.editedItem.deposit,
             rent: this.editedItem.rent,
             water: this.editedItem.water

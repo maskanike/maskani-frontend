@@ -337,7 +337,13 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['saveUnit', 'getUnits', 'addUnitData', 'saveFlat']),
+    ...mapActions([
+      'saveUnit',
+      'getUnits',
+      'addUnitData',
+      'saveFlat',
+      'getUserFlat'
+    ]),
     async submit() {
       await this.saveProfile({
         name: this.name,
@@ -451,6 +457,9 @@ export default {
         this.doSearch()
       }, 400)
     }
+  },
+  async mounted() {
+    await this.getUserFlat()
   }
 }
 </script>
