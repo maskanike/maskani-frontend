@@ -1,260 +1,272 @@
 <template>
-  <div>
-    <v-data-table
-      :loading="dataTableLoading"
-      :no-data-text="$t('dataTable.NO_DATA')"
-      :no-results-text="$t('dataTable.NO_RESULTS')"
-      :headers="headers"
-      :items="items"
-      :options.sync="pagination"
-      :items-per-page="5"
-      :server-items-length="totalItems"
-      class="elevation-1"
-      :footer-props="{
-        'items-per-page-text': $t('dataTable.ROWS_PER_PAGE'),
-        'items-per-page-options': [5, 10, 25]
-      }"
-    >
-      <template v-slot:top>
-        <v-layout wrap>
-          <v-flex xs12 sm12 md4 mt-3 pl-4>
-            <div class="text-left">
-              <v-toolbar-title>{{ $t('tenants.TITLE') }}</v-toolbar-title>
-            </div>
-          </v-flex>
-          <v-flex xs12 sm6 md4 px-3>
-            <v-text-field
-              v-model="search"
-              append-icon="mdi-magnify"
-              :label="$t('dataTable.SEARCH')"
-              id="search"
-              single-line
-              hide-details
-              clearable
-              clear-icon="mdi-close"
-            ></v-text-field>
-          </v-flex>
-          <v-flex xs12 sm6 md4 text-xs-right mb-2 mt-2 pr-2>
-            <ValidationObserver
-              ref="observer"
-              v-slot="{ invalid }"
-              tag="form"
-              @submit.prevent="submit()"
-            >
-              <v-dialog
-                v-model="dialog"
-                max-width="800px"
-                content-class="dlgNewEditItem"
-              >
-                <template v-slot:activator="{ on }">
-                  <div class="text-right">
-                    <v-btn color="secondary" v-on="on" class="btnNewItem pr-4">
-                      <v-icon class="mr-2">mdi-plus</v-icon>
-                      {{ $t('dataTable.NEW_ITEM') }}
-                    </v-btn>
-                  </div>
-                </template>
-                <v-card>
-                  <v-card-title>
-                    <span class="headline">{{ formTitle }}</span>
-                  </v-card-title>
-                  <v-card-text>
-                    <v-container grid-list-md>
-                      <v-layout wrap>
-                        <template v-if="editedItem.id">
-                          <v-flex xs12 md4>
-                            <label for="createdAt">{{
-                              $t('common.CREATED')
-                            }}</label>
-                            <div name="createdAt">
-                              {{ getFormat(editedItem.createdAt) }}
-                            </div>
-                          </v-flex>
-                          <v-flex xs12 md4>
-                            <label for="updatedAt">{{
-                              $t('common.UPDATED')
-                            }}</label>
-                            <div name="updatedAt">
-                              {{ getFormat(editedItem.updatedAt) }}
-                            </div>
-                          </v-flex>
-                        </template>
-                        <v-flex xs12 md6>
-                          <ValidationProvider
-                            rules="required"
-                            v-slot="{ errors }"
-                          >
-                            <v-text-field
-                              id="name"
-                              name="name"
-                              v-model="editedItem.name"
-                              :label="$t('tenants.headers.NAME')"
-                              :error="errors.length > 0"
-                              :error-messages="errors[0]"
-                              autocomplete="off"
-                            ></v-text-field>
-                          </ValidationProvider>
-                        </v-flex>
-                        <v-flex xs12 md6>
-                          <ValidationProvider
-                            rules="required|email"
-                            v-slot="{ errors }"
-                          >
-                            <v-text-field
-                              id="email"
-                              name="email"
-                              type="email"
-                              v-model="editedItem.email"
-                              :label="$t('tenants.headers.EMAIL')"
-                              :error="errors.length > 0"
-                              :error-messages="errors[0]"
-                              autocomplete="off"
-                            ></v-text-field>
-                          </ValidationProvider>
-                        </v-flex>
-                        <v-flex xs12 md6>
-                          <ValidationProvider
-                            rules="required"
-                            v-slot="{ errors }"
-                          >
-                            <v-text-field
-                              id="phone"
-                              name="phone"
-                              type="tel"
-                              v-model="editedItem.phone"
-                              :label="$t('tenants.headers.PHONE')"
-                              :error="errors.length > 0"
-                              :error-messages="errors[0]"
-                              autocomplete="off"
-                            ></v-text-field>
-                          </ValidationProvider>
-                        </v-flex>
-                        <v-flex xs12 md6>
-                          <ValidationProvider
-                            rules="required"
-                            v-slot="{ errors }"
-                            vid="rent"
-                          >
-                            <v-text-field
-                              id="rent"
-                              name="rent"
-                              type="number"
-                              :label="$t('tenants.headers.RENT')"
-                              v-model="editedItem.rent"
-                              :error="errors.length > 0"
-                              :error-messages="errors[0]"
-                              key="rent"
-                              ref="rent"
-                              autocomplete="off"
-                            ></v-text-field>
-                          </ValidationProvider>
-                        </v-flex>
-                        <v-flex xs12 md6>
-                          <ValidationProvider
-                            rules="required"
-                            v-slot="{ errors }"
-                          >
-                            <v-text-field
-                              id="deposit"
-                              name="deposit"
-                              type="number"
-                              :label="$t('tenants.headers.DEPOSIT')"
-                              v-model="editedItem.deposit"
-                              :error="errors.length > 0"
-                              :error-messages="errors[0]"
-                              autocomplete="off"
-                            ></v-text-field>
-                          </ValidationProvider>
-                        </v-flex>
-                        <v-flex xs12 md6>
-                          <ValidationProvider
-                            rules="required"
-                            v-slot="{ errors }"
-                          >
-                            <v-select
-                              clearable
-                              id="status"
-                              name="status"
-                              v-model="editedItem.status"
-                              item-text="name"
-                              item-value="value"
-                              :label="$t('tenants.headers.STATUS')"
-                              :error="errors.length > 0"
-                              :error-messages="errors[0]"
-                              class="inputStatus"
-                            ></v-select>
-                          </ValidationProvider>
-                        </v-flex>
-                      </v-layout>
-                    </v-container>
-                  </v-card-text>
-
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn
-                      color="red lighten3"
-                      text
-                      @click="close"
-                      class="btnCancel"
-                      >{{ $t('dataTable.CANCEL') }}</v-btn
-                    >
-                    <v-btn
-                      color="green"
-                      text
-                      @click="save"
-                      :disabled="invalid"
-                      class="btnSave"
-                      >{{ $t('dataTable.SAVE') }}</v-btn
-                    >
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-            </ValidationObserver>
-          </v-flex>
-        </v-layout>
-      </template>
-      <template v-slot:items="props">
-        <td>{{ props.item.name }}</td>
-        <td>{{ props.item.email }}</td>
-        <td>{{ props.item.phone }}</td>
-      </template>
-      <template v-slot:item.id="{ item }">
-        <td class="fill-height px-0">
-          <v-layout class="justify-center">
-            <v-tooltip top>
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  id="edit"
-                  icon
-                  class="mx-0"
-                  v-on="on"
-                  @click="editItem(item)"
+  <v-container fluid>
+    <v-layout row wrap>
+      <v-flex xs12 sm12>
+        <v-data-table
+          :loading="dataTableLoading"
+          :no-data-text="$t('dataTable.NO_DATA')"
+          :no-results-text="$t('dataTable.NO_RESULTS')"
+          :headers="headers"
+          :items="items"
+          :options.sync="pagination"
+          :items-per-page="5"
+          :server-items-length="totalItems"
+          class="elevation-1"
+          :footer-props="{
+            'items-per-page-text': $t('dataTable.ROWS_PER_PAGE'),
+            'items-per-page-options': [5, 10, 25]
+          }"
+        >
+          <template v-slot:top>
+            <v-layout wrap>
+              <v-flex xs12 sm12 md4 mt-3 pl-4>
+                <div class="text-left">
+                  <v-toolbar-title>{{ $t('tenants.TITLE') }}</v-toolbar-title>
+                </div>
+              </v-flex>
+              <v-flex xs12 sm6 md4 px-3>
+                <v-text-field
+                  v-model="search"
+                  append-icon="mdi-magnify"
+                  :label="$t('dataTable.SEARCH')"
+                  id="search"
+                  single-line
+                  hide-details
+                  clearable
+                  clear-icon="mdi-close"
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6 md4 text-xs-right mb-2 mt-2 pr-2>
+                <ValidationObserver
+                  ref="observer"
+                  v-slot="{ invalid }"
+                  tag="form"
+                  @submit.prevent="submit()"
                 >
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-              </template>
-              <span>{{ $t('dataTable.EDIT') }}</span>
-            </v-tooltip>
-          </v-layout>
-        </td>
-      </template>
-      <template v-slot:item.createdAt="{ item }">
-        {{ getFormat(item.createdAt) }}
-      </template>
-      <template v-slot:item.updatedAt="{ item }">
-        {{ getFormat(item.updatedAt) }}
-      </template>
-      <template v-slot:footxer.page-text="{ pageStart, pageStop, itemsLength }">
-        {{ pageStart }} - {{ pageStop }}
-        {{ $t('dataTable.OF') }}
-        {{ itemsLength }}
-      </template>
-      <template v-slot:no-data>{{ $t('dataTable.NO_DATA') }}</template>
-      <template v-slot:no-results>{{ $t('dataTable.NO_RESULTS') }}</template>
-    </v-data-table>
-    <ErrorMessage />
-    <SuccessMessage />
-  </div>
+                  <v-dialog
+                    v-model="dialog"
+                    max-width="800px"
+                    content-class="dlgNewEditItem"
+                  >
+                    <template v-slot:activator="{ on }">
+                      <div class="text-right">
+                        <v-btn
+                          color="secondary"
+                          v-on="on"
+                          class="btnNewItem pr-4"
+                        >
+                          <v-icon class="mr-2">mdi-plus</v-icon>
+                          {{ $t('dataTable.NEW_ITEM') }}
+                        </v-btn>
+                      </div>
+                    </template>
+                    <v-card>
+                      <v-card-title>
+                        <span class="headline">{{ formTitle }}</span>
+                      </v-card-title>
+                      <v-card-text>
+                        <v-container grid-list-md>
+                          <v-layout wrap>
+                            <template v-if="editedItem.id">
+                              <v-flex xs12 md4>
+                                <label for="createdAt">{{
+                                  $t('common.CREATED')
+                                }}</label>
+                                <div name="createdAt">
+                                  {{ getFormat(editedItem.createdAt) }}
+                                </div>
+                              </v-flex>
+                              <v-flex xs12 md4>
+                                <label for="updatedAt">{{
+                                  $t('common.UPDATED')
+                                }}</label>
+                                <div name="updatedAt">
+                                  {{ getFormat(editedItem.updatedAt) }}
+                                </div>
+                              </v-flex>
+                            </template>
+                            <v-flex xs12 md6>
+                              <ValidationProvider
+                                rules="required"
+                                v-slot="{ errors }"
+                              >
+                                <v-text-field
+                                  id="name"
+                                  name="name"
+                                  v-model="editedItem.name"
+                                  :label="$t('tenants.headers.NAME')"
+                                  :error="errors.length > 0"
+                                  :error-messages="errors[0]"
+                                  autocomplete="off"
+                                ></v-text-field>
+                              </ValidationProvider>
+                            </v-flex>
+                            <v-flex xs12 md6>
+                              <ValidationProvider
+                                rules="required|email"
+                                v-slot="{ errors }"
+                              >
+                                <v-text-field
+                                  id="email"
+                                  name="email"
+                                  type="email"
+                                  v-model="editedItem.email"
+                                  :label="$t('tenants.headers.EMAIL')"
+                                  :error="errors.length > 0"
+                                  :error-messages="errors[0]"
+                                  autocomplete="off"
+                                ></v-text-field>
+                              </ValidationProvider>
+                            </v-flex>
+                            <v-flex xs12 md6>
+                              <ValidationProvider
+                                rules="required"
+                                v-slot="{ errors }"
+                              >
+                                <v-text-field
+                                  id="phone"
+                                  name="phone"
+                                  type="tel"
+                                  v-model="editedItem.phone"
+                                  :label="$t('tenants.headers.PHONE')"
+                                  :error="errors.length > 0"
+                                  :error-messages="errors[0]"
+                                  autocomplete="off"
+                                ></v-text-field>
+                              </ValidationProvider>
+                            </v-flex>
+                            <v-flex xs12 md6>
+                              <ValidationProvider
+                                rules="required"
+                                v-slot="{ errors }"
+                                vid="rent"
+                              >
+                                <v-text-field
+                                  id="rent"
+                                  name="rent"
+                                  type="number"
+                                  :label="$t('tenants.headers.RENT')"
+                                  v-model="editedItem.rent"
+                                  :error="errors.length > 0"
+                                  :error-messages="errors[0]"
+                                  key="rent"
+                                  ref="rent"
+                                  autocomplete="off"
+                                ></v-text-field>
+                              </ValidationProvider>
+                            </v-flex>
+                            <v-flex xs12 md6>
+                              <ValidationProvider
+                                rules="required"
+                                v-slot="{ errors }"
+                              >
+                                <v-text-field
+                                  id="deposit"
+                                  name="deposit"
+                                  type="number"
+                                  :label="$t('tenants.headers.DEPOSIT')"
+                                  v-model="editedItem.deposit"
+                                  :error="errors.length > 0"
+                                  :error-messages="errors[0]"
+                                  autocomplete="off"
+                                ></v-text-field>
+                              </ValidationProvider>
+                            </v-flex>
+                            <v-flex xs12 md6>
+                              <ValidationProvider
+                                rules="required"
+                                v-slot="{ errors }"
+                              >
+                                <v-select
+                                  clearable
+                                  id="status"
+                                  name="status"
+                                  v-model="editedItem.status"
+                                  item-text="name"
+                                  item-value="value"
+                                  :label="$t('tenants.headers.STATUS')"
+                                  :error="errors.length > 0"
+                                  :error-messages="errors[0]"
+                                  class="inputStatus"
+                                ></v-select>
+                              </ValidationProvider>
+                            </v-flex>
+                          </v-layout>
+                        </v-container>
+                      </v-card-text>
+
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          color="red lighten3"
+                          text
+                          @click="close"
+                          class="btnCancel"
+                          >{{ $t('dataTable.CANCEL') }}</v-btn
+                        >
+                        <v-btn
+                          color="green"
+                          text
+                          @click="save"
+                          :disabled="invalid"
+                          class="btnSave"
+                          >{{ $t('dataTable.SAVE') }}</v-btn
+                        >
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
+                </ValidationObserver>
+              </v-flex>
+            </v-layout>
+          </template>
+          <template v-slot:items="props">
+            <td>{{ props.item.name }}</td>
+            <td>{{ props.item.email }}</td>
+            <td>{{ props.item.phone }}</td>
+          </template>
+          <template v-slot:item.id="{ item }">
+            <td class="fill-height px-0">
+              <v-layout class="justify-center">
+                <v-tooltip top>
+                  <template v-slot:activator="{ on }">
+                    <v-btn
+                      id="edit"
+                      icon
+                      class="mx-0"
+                      v-on="on"
+                      @click="editItem(item)"
+                    >
+                      <v-icon>mdi-pencil</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>{{ $t('dataTable.EDIT') }}</span>
+                </v-tooltip>
+              </v-layout>
+            </td>
+          </template>
+          <template v-slot:item.createdAt="{ item }">
+            {{ getFormat(item.createdAt) }}
+          </template>
+          <template v-slot:item.updatedAt="{ item }">
+            {{ getFormat(item.updatedAt) }}
+          </template>
+          <template
+            v-slot:footer.page-text="{ pageStart, pageStop, itemsLength }"
+          >
+            {{ pageStart }} - {{ pageStop }}
+            {{ $t('dataTable.OF') }}
+            {{ itemsLength }}
+          </template>
+          <template v-slot:no-data>{{ $t('dataTable.NO_DATA') }}</template>
+          <template v-slot:no-results>{{
+            $t('dataTable.NO_RESULTS')
+          }}</template>
+        </v-data-table>
+        <ErrorMessage />
+        <SuccessMessage />
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
