@@ -24,13 +24,13 @@
                 <v-flex xs12 md4>
                   <ValidationProvider rules="required" v-slot="{ errors }">
                     <v-text-field
-                      id="bankDetails"
-                      name="bankDetails"
+                      id="paymentDetails"
+                      name="paymentDetails"
                       type="text"
                       :label="$t('manageFlat.BANK_DETAILS')"
                       clear-icon="mdi-close"
                       clearable
-                      v-model="bankDetails"
+                      v-model="paymentDetails"
                       :error="errors.length > 0"
                       :error-messages="errors[0]"
                       autocomplete="off"
@@ -293,19 +293,19 @@ export default {
           key: 'name',
           value
         }
-        this.addUnitData(data)
+        this.addFlatData(data)
       }
     },
-    bankDetails: {
+    paymentDetails: {
       get() {
-        return this.$store.state.flats.currentFlat.bankDetails
+        return this.$store.state.flats.currentFlat.paymentDetails
       },
       set(value) {
         const data = {
-          key: 'bankDetails',
+          key: 'paymentDetails',
           value
         }
-        this.addUnitData(data)
+        this.addFlatData(data)
       }
     },
     formTitle() {
@@ -337,17 +337,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions([
-      'saveUnit',
-      'getUnits',
-      'addUnitData',
-      'saveFlat',
-      'getUserFlat'
-    ]),
+    ...mapActions(['getUnits', 'addFlatData', 'editFlat', 'getUserFlat']),
     async submit() {
-      await this.saveProfile({
+      await this.editFlat({
         name: this.name,
-        phone: this.phone
+        paymentDetails: this.paymentDetails,
+        id: this.currentFlat.id
       })
     },
     close() {

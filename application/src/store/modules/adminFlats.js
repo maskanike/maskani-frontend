@@ -27,7 +27,8 @@ const actions = {
   editFlat({ commit }, payload) {
     return new Promise((resolve, reject) => {
       const data = {
-        name: payload.name
+        name: payload.name,
+        paymentDetails: payload.paymentDetails
       }
       api
         .editFlat(payload.id, data)
