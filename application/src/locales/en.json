@@ -252,6 +252,20 @@
     "PROFILE_SAVED_SUCCESSFULLY": "Profile saved successfuly"
   },
   "units": {
-    "TITLE": "Units"
+    "TITLE": "Units",
+    "headers": {
+      "NAME": "Unit Name"
+    }
+  },
+  "tenants": {
+    "TITLE": "Tenants",
+    "headers": {
+      "NAME": "Name",
+      "EMAIL": "Email",
+      "PHONE": "Phone",
+      "RENT": "Rent",
+      "DEPOSIT": "Deposit",
+      "STATUS": "Status"
+    }
   }
 }

@@ -1,58 +1,7 @@
 <template>
   <v-container fluid>
     <v-layout row wrap>
-      <Heading :title="$t('manageFlat.TITLE')" />
-      <v-flex xs12 sm8 offset-sm2>
-        <ValidationObserver v-slot="{ handleSubmit }">
-          <form @submit.prevent="handleSubmit(submit)">
-            <v-container grid-list-md>
-              <v-layout wrap>
-                <v-flex xs12 md6>
-                  <ValidationProvider rules="required" v-slot="{ errors }">
-                    <v-text-field
-                      id="name"
-                      name="name"
-                      type="text"
-                      :label="$t('manageFlat.NAME')"
-                      v-model="name"
-                      :error="errors.length > 0"
-                      :error-messages="errors[0]"
-                      autocomplete="off"
-                    ></v-text-field>
-                  </ValidationProvider>
-                </v-flex>
-                <v-flex xs12 md4>
-                  <ValidationProvider rules="required" v-slot="{ errors }">
-                    <v-text-field
-                      id="paymentDetails"
-                      name="paymentDetails"
-                      type="text"
-                      :label="$t('manageFlat.BANK_DETAILS')"
-                      clear-icon="mdi-close"
-                      clearable
-                      v-model="paymentDetails"
-                      :error="errors.length > 0"
-                      :error-messages="errors[0]"
-                      autocomplete="off"
-                    ></v-text-field>
-                  </ValidationProvider>
-                </v-flex>
-                <v-flex text-xs-center mt-5>
-                  <SubmitButton
-                    :buttonText="$t('manageFlat.SAVE')"
-                    customClass="btnSave"
-                  />
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </form>
-        </ValidationObserver>
-      </v-flex>
-      <ErrorMessage />
-      <SuccessMessage />
-    </v-layout>
-    <v-row align="center" justify="center">
-      <v-col cols="12">
+      <v-flex xs12 sm12>
         <v-data-table
           :loading="dataTableLoading"
           :no-data-text="$t('dataTable.NO_DATA')"
@@ -72,7 +21,7 @@
             <v-layout wrap>
               <v-flex xs12 sm12 md4 mt-3 pl-4>
                 <div class="text-left">
-                  <v-toolbar-title>{{ $t('units.TITLE') }}</v-toolbar-title>
+                  <v-toolbar-title>{{ $t('tenants.TITLE') }}</v-toolbar-title>
                 </div>
               </v-flex>
               <v-flex xs12 sm6 md4 px-3>
@@ -135,15 +84,6 @@
                                   {{ getFormat(editedItem.updatedAt) }}
                                 </div>
                               </v-flex>
-                              <v-flex xs12 md4>
-                                <label for="verified">{{
-                                  $t('units.headers.VERIFIED')
-                                }}</label>
-                                <div
-                                  name="verified"
-                                  v-html="trueFalse(editedItem.verified)"
-                                ></div>
-                              </v-flex>
                             </template>
                             <v-flex xs12 md6>
                               <ValidationProvider
@@ -154,11 +94,101 @@
                                   id="name"
                                   name="name"
                                   v-model="editedItem.name"
-                                  :label="$t('units.headers.NAME')"
+                                  :label="$t('tenants.headers.NAME')"
                                   :error="errors.length > 0"
                                   :error-messages="errors[0]"
                                   autocomplete="off"
                                 ></v-text-field>
+                              </ValidationProvider>
+                            </v-flex>
+                            <v-flex xs12 md6>
+                              <ValidationProvider
+                                rules="required|email"
+                                v-slot="{ errors }"
+                              >
+                                <v-text-field
+                                  id="email"
+                                  name="email"
+                                  type="email"
+                                  v-model="editedItem.email"
+                                  :label="$t('tenants.headers.EMAIL')"
+                                  :error="errors.length > 0"
+                                  :error-messages="errors[0]"
+                                  autocomplete="off"
+                                ></v-text-field>
+                              </ValidationProvider>
+                            </v-flex>
+                            <v-flex xs12 md6>
+                              <ValidationProvider
+                                rules="required"
+                                v-slot="{ errors }"
+                              >
+                                <v-text-field
+                                  id="phone"
+                                  name="phone"
+                                  type="tel"
+                                  v-model="editedItem.phone"
+                                  :label="$t('tenants.headers.PHONE')"
+                                  :error="errors.length > 0"
+                                  :error-messages="errors[0]"
+                                  autocomplete="off"
+                                ></v-text-field>
+                              </ValidationProvider>
+                            </v-flex>
+                            <v-flex xs12 md6>
+                              <ValidationProvider
+                                rules="required"
+                                v-slot="{ errors }"
+                                vid="rent"
+                              >
+                                <v-text-field
+                                  id="rent"
+                                  name="rent"
+                                  type="number"
+                                  :label="$t('tenants.headers.RENT')"
+                                  v-model="editedItem.rent"
+                                  :error="errors.length > 0"
+                                  :error-messages="errors[0]"
+                                  key="rent"
+                                  ref="rent"
+                                  autocomplete="off"
+                                ></v-text-field>
+                              </ValidationProvider>
+                            </v-flex>
+                            <v-flex xs12 md6>
+                              <ValidationProvider
+                                rules="required"
+                                v-slot="{ errors }"
+                              >
+                                <v-text-field
+                                  id="deposit"
+                                  name="deposit"
+                                  type="number"
+                                  :label="$t('tenants.headers.DEPOSIT')"
+                                  v-model="editedItem.deposit"
+                                  :error="errors.length > 0"
+                                  :error-messages="errors[0]"
+                                  autocomplete="off"
+                                ></v-text-field>
+                              </ValidationProvider>
+                            </v-flex>
+                            <v-flex xs12 md6>
+                              <ValidationProvider
+                                rules="required"
+                                v-slot="{ errors }"
+                              >
+                                <v-select
+                                  clearable
+                                  id="status"
+                                  name="status"
+                                  v-model="editedItem.status"
+                                  item-text="name"
+                                  item-value="value"
+                                  :label="$t('tenants.headers.STATUS')"
+                                  :error="errors.length > 0"
+                                  :error-messages="errors[0]"
+                                  class="inputStatus"
+                                ></v-select>
                               </ValidationProvider>
                             </v-flex>
                           </v-layout>
@@ -192,8 +222,6 @@
           <template v-slot:items="props">
             <td>{{ props.item.name }}</td>
             <td>{{ props.item.email }}</td>
-            <td>{{ roleName(props.item.role) }}</td>
-            <td v-html="trueFalse(props.item.verified)"></td>
             <td>{{ props.item.phone }}</td>
           </template>
           <template v-slot:item.id="{ item }">
@@ -212,20 +240,6 @@
                     </v-btn>
                   </template>
                   <span>{{ $t('dataTable.EDIT') }}</span>
-                </v-tooltip>
-                <v-tooltip top>
-                  <template v-slot:activator="{ on }">
-                    <v-btn
-                      id="delete"
-                      icon
-                      class="mx-0"
-                      v-on="on"
-                      @click="deleteItem(item)"
-                    >
-                      <v-icon>mdi-delete</v-icon>
-                    </v-btn>
-                  </template>
-                  <span>{{ $t('dataTable.DELETE') }}</span>
                 </v-tooltip>
               </v-layout>
             </td>
@@ -250,8 +264,8 @@
         </v-data-table>
         <ErrorMessage />
         <SuccessMessage />
-      </v-col>
-    </v-row>
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
 
@@ -263,51 +277,23 @@ export default {
   metaInfo() {
     return {
       title: this.$store.getters.appTitle,
-      titleTemplate: `${this.$t('manageFlat.TITLE')} - %s`
+      titleTemplate: `${this.$t('tenants.TITLE')} - %s`
     }
   },
   data() {
     return {
-      dialog: false,
-      unit: '',
       searchInput: '',
       dataTableLoading: true,
       delayTimer: null,
+      dialog: false,
       search: '',
       pagination: {},
       editedItem: {},
       defaultItem: {},
-      fieldsToSearch: ['name']
+      fieldsToSearch: ['name', 'rent']
     }
   },
   computed: {
-    currentFlat() {
-      return this.$store.state.flats.currentFlat
-    },
-    name: {
-      get() {
-        return this.$store.state.flats.currentFlat.name
-      },
-      set(value) {
-        const data = {
-          key: 'name',
-          value
-        }
-        this.addFlatData(data)
-      }
-    },
-    paymentDetails: {
-      get() {
-        return this.$store.state.flats.currentFlat.paymentDetails
-      },
-      set(value) {
-        const data = {
-          key: 'paymentDetails',
-          value
-        }
-        this.addFlatData(data)
-      }
-    },
     formTitle() {
       return this.editedItem.id
         ? this.$t('dataTable.EDIT_ITEM')
@@ -322,109 +308,60 @@ export default {
           width: 100
         },
         {
-          text: this.$i18n.t('invoices.headers.UNIT'),
+          text: this.$i18n.t('tenants.headers.NAME'),
           align: 'left',
           sortable: true,
           value: 'name'
+        },
+        {
+          text: this.$i18n.t('tenants.headers.EMAIL'),
+          align: 'left',
+          sortable: true,
+          value: 'email'
+        },
+        {
+          text: this.$i18n.t('tenants.headers.PHONE'),
+          align: 'left',
+          sortable: true,
+          value: 'phone'
+        },
+        {
+          text: this.$i18n.t('tenants.headers.RENT'),
+          align: 'left',
+          sortable: true,
+          value: 'rent'
+        },
+        {
+          text: this.$i18n.t('tenants.headers.DEPOSIT'),
+          align: 'left',
+          sortable: true,
+          value: 'deposit'
+        },
+        {
+          text: this.$i18n.t('tenants.headers.STATUS'),
+          align: 'left',
+          sortable: true,
+          value: 'status'
+        },
+        {
+          text: this.$i18n.t('common.CREATED'),
+          align: 'left',
+          sortable: true,
+          value: 'createdAt'
+        },
+        {
+          text: this.$i18n.t('common.UPDATED'),
+          align: 'left',
+          sortable: true,
+          value: 'updatedAt'
         }
       ]
     },
     items() {
-      return this.$store.state.units.units
+      return this.$store.state.tenants.tenants
     },
     totalItems() {
-      return this.$store.state.units.totalUnits
-    }
-  },
-  methods: {
-    ...mapActions(['getUnits', 'addFlatData', 'editFlat', 'getUserFlat']),
-    async submit() {
-      await this.editFlat({
-        name: this.name,
-        paymentDetails: this.paymentDetails,
-        id: this.currentFlat.id
-      })
-    },
-    close() {
-      this.triggerChangePassword = false
-      this.dialog = false
-    },
-    async save() {
-      try {
-        await this.changeMyPassword({
-          oldPassword: this.oldPassword,
-          newPassword: this.newPassword
-        })
-        this.oldPassword = ''
-        this.newPassword = ''
-        this.confirmPassword = ''
-        this.triggerChangePassword = false
-        this.close()
-        return
-        // eslint-disable-next-line no-unused-vars
-      } catch (error) {
-        this.oldPassword = ''
-        this.newPassword = ''
-        this.confirmPassword = ''
-        this.triggerChangePassword = false
-        this.close()
-      }
-    },
-    getFormat(date) {
-      window.__localeId__ = this.$store.getters.locale
-      return getFormat(date, 'iii, MMMM d yyyy, h:mm a')
-    },
-    trueFalse(value) {
-      return value
-        ? '<i aria-hidden="true" class="v-icon mdi mdi-check green--text" style="font-size: 16px;"></i>'
-        : '<i aria-hidden="true" class="v-icon mdi mdi-close red--text" style="font-size: 16px;"></i>'
-    },
-    async doSearch() {
-      try {
-        this.dataTableLoading = true
-        await this.getUnits(
-          buildPayloadPagination(this.pagination, this.buildSearch())
-        )
-        this.dataTableLoading = false
-        // eslint-disable-next-line no-unused-vars
-      } catch (error) {
-        this.dataTableLoading = false
-      }
-    },
-    buildSearch() {
-      return this.search
-        ? { query: this.search, fields: this.fieldsToSearch.join(',') }
-        : {}
-    },
-    editItem(item) {
-      this.editedItem = Object.assign({}, item)
-      this.editedTenant = Object.assign({}, item.Tenant, { UnitId: item.id })
-      this.dialog = true
-    },
-    async deleteItem(item) {
-      try {
-        const response = await this.$confirm(
-          this.$t('common.DO_YOU_REALLY_WANT_TO_DELETE_THIS_ITEM'),
-          {
-            title: this.$t('common.WARNING'),
-            buttonTrueText: this.$t('common.DELETE'),
-            buttonFalseText: this.$t('common.CANCEL'),
-            buttonTrueColor: 'red lighten3',
-            buttonFalseColor: 'yellow'
-          }
-        )
-        if (response) {
-          this.dataTableLoading = true
-          await this.deleteUser(item.id)
-          await this.getUnits(
-            buildPayloadPagination(this.pagination, this.buildSearch())
-          )
-          this.dataTableLoading = false
-        }
-        // eslint-disable-next-line no-unused-vars
-      } catch (error) {
-        this.dataTableLoading = false
-      }
+      return this.$store.state.tenants.totalTenants
     }
   },
   watch: {
@@ -435,7 +372,7 @@ export default {
       async handler() {
         try {
           this.dataTableLoading = true
-          await this.getUnits(
+          await this.getTenants(
             buildPayloadPagination(this.pagination, this.buildSearch())
           )
           this.dataTableLoading = false
@@ -453,8 +390,83 @@ export default {
       }, 400)
     }
   },
-  async mounted() {
-    await this.getUserFlat()
+  methods: {
+    ...mapActions(['getTenants', 'editTenant', 'saveTenant']),
+    getFormat(date) {
+      window.__localeId__ = this.$store.getters.locale
+      return getFormat(date, 'iii, MMMM d yyyy, h:mm a')
+    },
+    trueFalse(value) {
+      return value
+        ? '<i aria-hidden="true" class="v-icon mdi mdi-check green--text" style="font-size: 16px;"></i>'
+        : '<i aria-hidden="true" class="v-icon mdi mdi-close red--text" style="font-size: 16px;"></i>'
+    },
+    async doSearch() {
+      try {
+        this.dataTableLoading = true
+        await this.getTenants(
+          buildPayloadPagination(this.pagination, this.buildSearch())
+        )
+        this.dataTableLoading = false
+        // eslint-disable-next-line no-unused-vars
+      } catch (error) {
+        this.dataTableLoading = false
+      }
+    },
+    buildSearch() {
+      return this.search
+        ? { query: this.search, fields: this.fieldsToSearch.join(',') }
+        : {}
+    },
+    editItem(item) {
+      this.editedItem = Object.assign({}, item)
+      this.dialog = true
+    },
+    close() {
+      this.dialog = false
+      setTimeout(() => {
+        this.editedItem = Object.assign({}, this.defaultItem)
+      }, 300)
+    },
+    async save() {
+      try {
+        this.dataTableLoading = true
+        // Updating item
+        if (this.editedItem.id) {
+          await this.editTenant(this.editedItem)
+          await this.getTenants(
+            buildPayloadPagination(this.pagination, this.buildSearch())
+          )
+          this.dataTableLoading = false
+        } else {
+          // Creating new item
+          await this.saveTenant({
+            name: this.editedItem.name,
+            phone: this.editedItem.phone,
+            email: this.editedItem.email,
+            deposit: this.editedItem.deposit,
+            rent: this.editedItem.rent,
+            water: this.editedItem.water
+          })
+          await this.getTenants(
+            buildPayloadPagination(this.pagination, this.buildSearch())
+          )
+          this.dataTableLoading = false
+        }
+        this.close()
+        return
+        // eslint-disable-next-line no-unused-vars
+      } catch (error) {
+        this.dataTableLoading = false
+        this.close()
+      }
+    }
   }
 }
 </script>
+
+<style>
+table.v-table {
+  max-width: none;
+}
+</style>

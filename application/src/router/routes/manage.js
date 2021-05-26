@@ -1,7 +1,7 @@
 export default [
   {
-    path: '/manage',
-    name: 'manage',
+    path: '/flat',
+    name: 'flat',
     meta: {
       requiresAuth: true
     },

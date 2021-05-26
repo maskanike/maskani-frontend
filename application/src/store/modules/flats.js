@@ -43,8 +43,8 @@ const actions = {
         })
     })
   },
-  addUnitData({ commit }, data) {
-    commit(types.ADD_UNIT_DATA, data)
+  addFlatData({ commit }, data) {
+    commit(types.ADD_FLAT_DATA, data)
   },
   saveUserFlat({ commit }, payload) {
     const data = {
@@ -84,13 +84,13 @@ const mutations = {
   [types.CURRENT_FLAT](state, flat) {
     state.currentFlat = flat
   },
-  [types.ADD_UNIT_DATA](state, data) {
+  [types.ADD_FLAT_DATA](state, data) {
     switch (data.key) {
       case 'name':
-        state.flats.name = data.value
+        state.currentFlat.name = data.value
         break
-      case 'bankDetails':
-        state.flats.bankDetails = data.value
+      case 'paymentDetails':
+        state.currentFlat.paymentDetails = data.value
         break
       default:
         break
