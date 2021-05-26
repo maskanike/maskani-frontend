@@ -15,7 +15,7 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker:
-          version: 17.11.0-ce
+          version: 19.03.13
       - run:
           name: Setup Namespace
           command: |
@@ -23,7 +23,7 @@ jobs:
             if [ "${CIRCLE_BRANCH}" == "dev" ]; then
               echo 'export NAMESPACE=staging' >> $BASH_ENV
               echo 'export VUE_APP_API_URL=https://api.staging.maskani.co.ke' >> $BASH_ENV
-            elif [ "${CIRCLE_BRANCH}" == "master" ]; then
+            elif [ "${CIRCLE_BRANCH}" == "prod" ]; then
               echo 'export NAMESPACE=production' >> $BASH_ENV
               echo 'export VUE_APP_API_URL=https://api.maskani.co.ke' >> $BASH_ENV
               sed -i.bak "s#replicas: 1#replicas: ${REPLICAS}#" kubernetes/deployments/deployment.yaml
