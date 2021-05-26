@@ -1679,10 +1679,10 @@
     js-yaml "^3.13.1"
     json5 "^2.1.1"
 
-"@mdi/font@^5.3.45":
-  version "5.3.45"
-  resolved "https://registry.yarnpkg.com/@mdi/font/-/font-5.3.45.tgz#086d3ef77dee260c04dd5a593af602c250e5b315"
-  integrity sha512-SD5d2vHEKRvDCInZQFXOwiFpBlzpuZOiqwxKf6E+zCt7UDc52TUSrL0+TXqY57VQh/SnTpZVXM+Uvs21OdPFWg==
+"@mdi/font@^5.4.55":
+  version "5.5.55"
+  resolved "https://registry.yarnpkg.com/@mdi/font/-/font-5.5.55.tgz#7f83d640f0692651f5e59558da99975f42114123"
+  integrity sha512-xrVCXiRMz7ubB8mu6ehDhMADmGpLBsk3GWZccs39jWmhoTxatFnOvW8STJjqMGtePPNgGYYu/6m/AJVyMjBxnw==
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -9435,10 +9435,10 @@ release-zalgo@^1.0.0:
   dependencies:
     es6-error "^4.0.1"
 
-remark-cli@^8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/remark-cli/-/remark-cli-8.0.0.tgz#0cb405080d320de539656b181908b796c369f37d"
-  integrity sha512-5iRrk8ad+dU4espDl60H7ANhXqoaEXYsIyL8Mau0lDN6pP7QMAZsZTCX2XdoCfKfKEpiOggA7CHv43HkyVEppA==
+remark-cli@^8.0.1:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/remark-cli/-/remark-cli-8.0.1.tgz#093e9f27c1d56a591f4c44c017de5749d4e79a08"
+  integrity sha512-UaYeFI5qUAzkthUd8/MLBQD5OKM6jLN8GRvF6v+KF7xO/i1jQ+X2VqUSQAxWFYxZ8R25gM56GVjeoKOZ0EIr8A==
   dependencies:
     markdown-extensions "^1.1.0"
     remark "^12.0.0"
@@ -11455,10 +11455,10 @@ vue-cli-plugin-vuetify@^2.0.5:
     semver "^7.1.2"
     shelljs "^0.8.3"
 
-vue-drift@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/vue-drift/-/vue-drift-2.0.2.tgz#938d155df6c10a11c2bc8177d7cd5a299e0dbfd3"
-  integrity sha512-9mOXl1y9hscOXkiTMxtn4nwAiWnnRiPyaKkmG20Mj1xbzeE5qBmdtf70FHdvCoHZdX7mbSwtblKMhQ4oBxZ1aA==
+vue-drift@^2.0.3:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/vue-drift/-/vue-drift-2.0.4.tgz#0c70a1c052900f121ee03c2ef8d1f8860dae1f08"
+  integrity sha512-6gekqmDAIrgVcv19UCZuo2JPPHrg8ep2RikwuX2YbrFUwBvEdhm99xWWAN4FiVH8RGVYNyMnjUhCW7uE6IoWJA==
 
 vue-eslint-parser@^7.0.0:
   version "7.0.0"
@@ -11494,10 +11494,10 @@ vue-i18n@^8.17.0:
   resolved "https://registry.yarnpkg.com/vue-i18n/-/vue-i18n-8.17.4.tgz#d314df7a3fa0780f86cff46a02752668f89b3935"
   integrity sha512-wpk/drIkPf6gHCtvHc8zAZ1nsWBZ+/OOJYtJxqhYD6CKT0FJAG5oypwgF9kABt30FBWhl8NEb/QY+vaaBARlFg==
 
-vue-i18n@^8.18.2:
-  version "8.18.2"
-  resolved "https://registry.yarnpkg.com/vue-i18n/-/vue-i18n-8.18.2.tgz#cd7c12f2e178e6faa23b0e3cfd2f7bac9305f8fc"
-  integrity sha512-0X5nBTCZAVjlwcrPaYJwNs3iipBBTv0AUHwQUOa8yP3XbQGWKbRHqBb3OhCYtum/IHDD21d/df5Xd2VgyxbxfA==
+vue-i18n@^8.19.0:
+  version "8.21.0"
+  resolved "https://registry.yarnpkg.com/vue-i18n/-/vue-i18n-8.21.0.tgz#526450525fdbb9c877685b5ba6cb9573b73d3940"
+  integrity sha512-pKBq6Kg5hNacFHMFgPbpYsFlDIMRu4Ew/tpvTWns14CZoCxt7B3tmSNdrLruGMMivnJu1rhhRqsQqT6YwHkuQQ==
 
 vue-loader@^15.9.2:
   version "15.9.2"
@@ -11558,10 +11558,10 @@ vue@^2.6.11:
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.11.tgz#76594d877d4b12234406e84e35275c6d514125c5"
   integrity sha512-VfPwgcGABbGAue9+sfrD4PuwFar7gPb1yl1UK1MwXoQPAw0BKSqWfoYCT/ThFrdEVWoI51dBuyCoiNU9bZDZxQ==
 
-vuetify-confirm@^2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/vuetify-confirm/-/vuetify-confirm-2.0.5.tgz#3c3bcac6eea74b24fbaa84d3a045ce27085512a4"
-  integrity sha512-ApDl4z5QIkB6N8ChiYonu1mA59I6qyszyyFOHmDEfK58qpmK8nqayZ7BKLQLMJt2pCrKe/NbCHJXm2v+R1WJqA==
+vuetify-confirm@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/vuetify-confirm/-/vuetify-confirm-2.0.6.tgz#2fc790984096f2ae560f5926f32f3cba9f7a5006"
+  integrity sha512-WXgcj95kFbTAU0/On28iedSb71VjK0SfB6Q+MZIV/py3tAB3Yuq5PfPtT4lYYNvYHP4v3hmx4YyvdWE00Ea6DQ==
 
 vuetify-loader@^1.5.0:
   version "1.5.0"
