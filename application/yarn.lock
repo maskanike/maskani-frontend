@@ -11460,10 +11460,10 @@ vue-cli-plugin-vuetify@^2.0.5:
     semver "^7.1.2"
     shelljs "^0.8.3"
 
-vue-drift@^2.0.3:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/vue-drift/-/vue-drift-2.0.4.tgz#0c70a1c052900f121ee03c2ef8d1f8860dae1f08"
-  integrity sha512-6gekqmDAIrgVcv19UCZuo2JPPHrg8ep2RikwuX2YbrFUwBvEdhm99xWWAN4FiVH8RGVYNyMnjUhCW7uE6IoWJA==
+vue-drift@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/vue-drift/-/vue-drift-2.1.1.tgz#71e4dff271192d8111a8a61ef084629ea278c944"
+  integrity sha512-7eOWvUSZNOzeUl/zPtJuavVokDCkYjJE5ErmxRcU9N4x1pjrnLgi8kRtSc8+8KO87j12Dx6jaXAmFRuTHwTqqQ==
 
 vue-eslint-parser@^7.0.0:
   version "7.0.0"
