@@ -7689,6 +7689,11 @@ mixin-deep@^1.2.0:
     for-in "^1.0.2"
     is-extendable "^1.0.1"
 
+mixpanel-browser@^2.39.0:
+  version "2.41.0"
+  resolved "https://registry.yarnpkg.com/mixpanel-browser/-/mixpanel-browser-2.41.0.tgz#d49753b4e4a7e6ddd18c126be4a917fff4ce3039"
+  integrity sha512-IEuc9cH44hba9a3KEyulXINLn+gpFqluBDo7xiTk1h3j111dmmsctaE6tUzZYxgGLVqeNhTpsccdliOeX24Wlw==
+
 mkdirp-classic@^0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/mkdirp-classic/-/mkdirp-classic-0.5.2.tgz#54c441ce4c96cd7790e10b41a87aa51068ecab2b"
@@ -11522,10 +11527,12 @@ vue-meta@^2.4.0:
   dependencies:
     deepmerge "^4.2.2"
 
-vue-mixpanel@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/vue-mixpanel/-/vue-mixpanel-1.0.4.tgz#15d960801ca6ee59efbc892230d3be78db4e9c88"
-  integrity sha512-nxOUYou1WV1SMpyCqFZxoReW/CFrq1W6jIXvie9L70xtzW2+dUG912PhafZHIdMH0FJBcPnxd7F408BxTPD67g==
+vue-mixpanel@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/vue-mixpanel/-/vue-mixpanel-1.0.7.tgz#a9fd84d55ebf4330ce9fc6433abee76fe435709a"
+  integrity sha512-dpXgUXWD+NQ4zJu1E5v4pbQ7x90x6C9Wp+fDofShpMATOljbwM/QPxQLHU54IghgWZ7XHwLEcEG0Q3VEWa0E4Q==
+  dependencies:
+    mixpanel-browser "^2.39.0"
 
 vue-resize-text@^0.1.1:
   version "0.1.1"
