@@ -36,7 +36,7 @@
     "vue-drift": "^2.1.1",
     "vue-i18n": "^8.24.4",
     "vue-meta": "^2.4.0",
-    "vue-mixpanel": "^1.0.4",
+    "vue-mixpanel": "^1.0.7",
     "vue-resize-text": "^0.1.1",
     "vue-router": "^3.5.1",
     "vuetify": "^2.4.11",
