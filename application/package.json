@@ -28,7 +28,7 @@
     "@mdi/font": "^5.9.55",
     "axios": "^0.21.1",
     "core-js": "^3.11.3",
-    "date-fns": "^2.21.2",
+    "date-fns": "^2.22.1",
 
     "remark-cli": "^8.0.1",
     "vee-validate": "^3.4.5",
