@@ -30,7 +30,7 @@
     "core-js": "^3.11.3",
     "date-fns": "^2.21.2",
 
-    "remark-cli": "^8.0.1",
+    "remark-cli": "^11.0.0",
     "vee-validate": "^3.4.5",
     "vue": "^2.6.11",
     "vue-drift": "^2.1.1",
